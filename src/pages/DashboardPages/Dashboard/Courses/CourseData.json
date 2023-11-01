@@ -1,0 +1,34 @@
+{
+    "courseDat": [
+        {
+            "id": 0,  
+            "subject": "Chemistry",
+            "courses": "Courses",
+            "coursesImg": "/images/courseImg1.svg",
+            "courseName": "Quantitative Chemistry",
+            "percentage": "75%",
+            "subjectImg": "/images/subjectImg1.png",
+           "circularBar":"/images/circularbar.svg"
+        },
+        {
+            "id": 1,
+            "subject": "Chemistry",
+            "courses": "Courses",
+            "coursesImg": "/images/courseImg2.svg",
+            "courseName": "Atmosphere Chemistry",
+            "percentage": "75%",
+            "subjectImg": "/images/subjectImg2.png",
+           "circularBar":"/images/circularbar.svg"
+        },
+        {
+            "id": 2,
+            "subject": "Chemistry",
+            "courses": "Courses",
+            "coursesImg": "/images/courseImg3.svg",
+            "courseName": "Using Resources",
+            "percentage": "75%",
+            "subjectImg": "/images/subjectImg3.png",
+           "circularBar":"/images/circularbar.svg"
+        }    
+    ]
+}

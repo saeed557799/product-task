@@ -1,0 +1,28 @@
+{
+    "quizData": [
+        {
+            "id": 0,  
+            "subject": "Next Quiz",
+            "courses": "Chemistry",
+            "courseName": "TOPIC 4",
+            "video":"/images/video.svg",
+            "topic": "/images/topic1.png"
+        },
+        {
+            "id": 1,
+            "subject": "Review",
+            "courses": "Chemistry",
+            "courseName": "TOPIC 5",
+            "video":"/images/video.svg",
+            "topic": "/images/topic2.png"
+        },
+        {
+            "id": 2,
+            "subject": "Next Lesson",
+            "courses": "Chemistry",
+            "courseName": "TOPIC 6",
+            "video":"/images/video.svg",
+            "topic": "/images/topic3.png"
+        }    
+    ]
+}

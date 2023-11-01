@@ -1,0 +1,60 @@
+@import './_reset.scss';
+
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+h6 {
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    a {
+        color: var(--black-color);
+    }
+}
+
+p {
+    line-height: 25px;
+    margin: 0 0 10px;
+
+    a {
+        color: var(--black-color);
+    }
+}
+
+a {
+    color: var(--black-color);
+    text-decoration: none;
+}
+
+a {
+
+    &:hover,
+    &:focus,
+    &:active {
+        outline: none;
+        text-decoration: none;
+    }
+}

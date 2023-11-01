@@ -1,0 +1,45 @@
+.modal{
+    font-family: 'DM Sans', sans-serif;
+    .modal-header{
+        justify-content: center;
+        border: 0;
+        position: relative;
+        .modal-title{
+            text-align: center;
+            color: #5E196C;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .closeButton{
+            position: absolute;
+            right: -5px;
+            top: -7px;
+            border-radius: 100px;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            font-weight: 700;
+            background: #050608;
+            color: white;
+            box-shadow: 2px 1px 8px 7px #80808036;
+        }
+    }
+    label{
+        color: #000;
+        font-weight: 700;
+        line-height: 18px;
+    }
+    .form-select{
+        border-radius: 7px;
+        border: 1px solid #CBCBCB;
+        background-color: #F0F0F0;
+        background-image: url(../../../public/images/arrow-down.svg);
+        background-size: 17px 15px;
+        color: #707070;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+}

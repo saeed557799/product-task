@@ -1,0 +1,28 @@
+{
+    "contentData": [
+        {
+            "id": 0,  
+            "subject": "Physics",
+            "subjectImg":"/images/phy.svg",
+            "course1": "A level",
+            "course2": "GSCE",
+            "courseName": "Paper"
+        },
+        {
+            "id": 1,  
+            "subject": "Biology",
+            "subjectImg":"/images/bio.svg",
+            "course1": "A level",
+            "course2": "GSCE",
+            "courseName": "Paper"
+        },
+        {
+            "id": 2,  
+            "subject": "Chemistry",
+            "subjectImg":"/images/chem.svg",
+            "course1": "A level",
+            "course2": "GSCE",
+            "courseName": "Paper"
+        }
+    ]
+}

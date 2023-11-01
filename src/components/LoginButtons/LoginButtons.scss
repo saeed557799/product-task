@@ -1,0 +1,56 @@
+@import '../../assets/scss/variables';
+
+.LoginButtons {
+    min-width: 290px;
+    padding: 10px;
+    background: #EEEEEE;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    position: relative;
+    font-weight: 600;
+    letter-spacing: 1.3px;
+    border: 2px solid rgba(238, 238, 238, 0.5);
+    transition: all 0.5s ease-in-out;
+
+    @media screen and (max-width:$breakpoint_mobile_landscape) {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    &:hover {
+        box-shadow: none;
+        background: #ffe6f0;
+    }
+
+    img {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+
+    &.login {
+        color: #E23595;
+    }
+
+    &.google {
+        color: #C25457;
+    }
+
+    &.facebook {
+        color: #3D64C3;
+    }
+
+    &.signUp {
+        background: transparent;
+        color: #EAEAEA;
+        box-shadow: none;
+
+        &:hover {
+            box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
