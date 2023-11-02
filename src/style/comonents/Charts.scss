@@ -1,0 +1,99 @@
+@import '../mixin.scss';
+
+#chart {
+  .heading {
+    h3 {
+      margin-bottom: 15px;
+      letter-spacing: 0.9px;
+      color: #fff;
+    }
+  }
+  .card {
+    background: #171c26;
+    padding: 30px 20px 0px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border: none;
+
+    @media screen and (max-width: $breakpoint_mobile_portrait) {
+      padding: 30px 10px 0px;
+    }
+
+    .apexcharts-toolbar,
+    .apexcharts-xaxis,
+    .apexcharts-gridlines-horizontal,
+    .apexcharts-grid-borders,
+    .apexcharts-xaxis-tick {
+      display: none;
+    }
+
+    .apexcharts-active,
+    .apexcharts-xaxistooltip-text,
+    .apexcharts-tooltip-title {
+      background-color: #000000;
+      color: #7b8289;
+    }
+    .apexcharts-text tspan {
+      font-family: 'DM Sans', sans-serif;
+      color: #98a2b8;
+      font-size: 14px;
+    }
+    .dropdowns {
+      display: flex;
+      align-items: center;
+      .dropdown {
+        text-align: end;
+        margin-right: 5px;
+        .dropdown-toggle {
+          background: transparent;
+          color: #f7f8fa;
+          display: flex;
+          align-items: center;
+          border-radius: 7px;
+          border: 1.476px solid rgba(152, 162, 184, 0.2);
+          padding: 3px 10px;
+          .date {
+            display: flex;
+            align-items: center;
+            p {
+              color: #7b8289;
+              font-size: 14px;
+              margin-bottom: 0;
+            }
+
+            img {
+              margin-right: 10px;
+              width: 40px;
+              height: 40px;
+              border-radius: 100px;
+              object-fit: cover;
+              border: 1.5px solid #5e196c;
+              padding: 3px;
+            }
+          }
+
+          &::after {
+            border: 0;
+            background: url(../../assets/images/down-angle-arrow.svg) no-repeat
+              center;
+            background-size: contain;
+            width: 10px;
+            height: 9px;
+            margin-left: 12px;
+          }
+        }
+        .dropdown-menu {
+          background-color: #171c26;
+          border: 1px solid #232b3a;
+          a {
+            font-size: 14px;
+            color: #7b8289;
+            &:hover {
+              background-color: #121318;
+            }
+          }
+        }
+      }
+    }
+  }
+}
