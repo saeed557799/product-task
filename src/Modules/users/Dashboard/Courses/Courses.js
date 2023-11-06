@@ -1,27 +1,15 @@
 // Your component file
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import data from './CourseData.json';
 import QuizModal from '../../../../components/Modal/QuizModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { usersRequest } from '../../../../redux/reducers/duck/userDuck';
 
 export default function Courses() {
-  const dispatch = useDispatch();
   const courseDat = data.courseDat;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { user } = useSelector(({ users }) => ({
-    user: users?.usersResponse,
-  }));
-  console.log('users  => ', user);
-
-  // dispatch api
-  useEffect(() => {
-    dispatch(usersRequest());
-  }, [dispatch]);
   return (
     <React.Fragment>
       <div className='courseCards'>
