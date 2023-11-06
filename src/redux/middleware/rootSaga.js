@@ -1,8 +1,8 @@
 import { all, fork } from 'redux-saga/effects';
-import { watchUsersSagas } from './sagas/userSaga';
+import { watchAuthSagas } from './sagas/authSaga';
 
 const rootSaga = function* () {
-  yield all([fork(watchUsersSagas)]);
+  yield all([fork(watchAuthSagas)]);
 };
 
 export default rootSaga;

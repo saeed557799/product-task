@@ -1,6 +1,7 @@
 const urls = {
-  user: {
-    usersData: 'subjects',
+  auth: {
+    login: 'auth/login',
+    signup: 'auth/signup',
   },
 };
 

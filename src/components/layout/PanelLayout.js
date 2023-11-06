@@ -56,7 +56,12 @@ export const PanelLayout = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href=''>LogOut</Dropdown.Item>
+                  <Dropdown.Item
+                    href='/login'
+                    onClick={() => localStorage.clear()}
+                  >
+                    LogOut
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>

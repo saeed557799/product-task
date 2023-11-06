@@ -1,0 +1,139 @@
+.logo-container {
+  margin-left: 2rem;
+  margin-top: 2rem;
+  .quiz {
+    background-color: #0b0c11;
+    border: none;
+    font-size: xx-large;
+    color: #ae05dd;
+  }
+  .quiz-button:hover {
+    background-color: #0b0c11;
+  }
+}
+
+.login-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+  }
+
+  p {
+    color: #8591a3;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .form {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    // margin-top: 2.5rem;
+
+    .form-group {
+      margin-bottom: 20px;
+      padding: 0px 25px;
+      label {
+        color: #000;
+      }
+
+      input {
+        width: 100%;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 10px;
+        color: #8591a3;
+        height: 50px;
+        max-width: 500px;
+        border: 1px solid rgb(43, 42, 42);
+        padding-left: 1rem;
+      }
+    }
+    .checkbox-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 25px;
+      margin: 1rem 0;
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        color: rgb(109, 109, 241);
+        font-size: 16px;
+        font-weight: 500;
+        margin-right: 5px;
+
+        .checkbox-input {
+          cursor: pointer;
+          margin-right: 5px;
+        }
+      }
+      p {
+        color: rgb(109, 109, 241);
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+    .button {
+      padding: 0 25px;
+      button {
+        width: 100%;
+        border-radius: 10px;
+        padding: 0 25px;
+        height: 50px;
+        color: #000;
+        font-size: 18px;
+        font-weight: 500;
+        background: linear-gradient(90deg, #826edb 0, #7bcdff 100%);
+        border: none;
+        font-weight: 600;
+      }
+    }
+    .signup {
+      width: 100%;
+      padding: 0 25px;
+      margin-top: 1rem;
+
+      p {
+        color: #000;
+        text-align: left;
+
+        a {
+          color: rgb(109, 109, 241);
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .login {
+      width: 100%;
+      padding: 0 25px;
+      margin-top: 1rem;
+
+      p {
+        color: #000;
+        text-align: right;
+
+        a {
+          color: rgb(109, 109, 241);
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
