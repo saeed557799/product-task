@@ -17,6 +17,7 @@ const SignupPage = () => {
       signup: auth?.signupRes,
     };
   });
+  console.log('signup => ', signup);
 
   const handleSignup = () => {
     const requestData = {
@@ -30,7 +31,7 @@ const SignupPage = () => {
   };
 
   useEffect(() => {
-    if (signup?.status === 201) {
+    if (signup) {
       navigate('/dashboard');
     }
   }, [navigate, signup]);

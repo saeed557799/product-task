@@ -1,5 +1,5 @@
 .main-container {
-  background-color: #0c112a;
+  background-color: hsl(230, 56%, 11%);
   height: 100vh;
 }
 
@@ -14,12 +14,15 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+
   h1 {
-    font-size: 30px;
-    font-weight: 600;
-    background: linear-gradient(92.23deg, #001aff 100%, #e33700 23%);
+    font-size: 45px;
+    font-weight: 700;
+    // background: linear-gradient(to right, #001aff, #e33700);
+    background: linear-gradient(92.23deg, #001aff -3.74%, #e33700 128.39%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
     text-align: center;
   }
 

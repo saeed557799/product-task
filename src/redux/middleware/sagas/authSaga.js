@@ -7,7 +7,7 @@ export function* signupSaga({ payload }) {
   try {
     const response = yield call(signupApi, payload);
     if (response?.data) {
-      yield put(actions.signupResponse({ response: response }));
+      yield put(actions.signupResponse({ response: response?.data }));
     }
   } catch (error) {
     // error('Could not get users');
@@ -20,7 +20,7 @@ export function* loginSaga({ payload }) {
   try {
     const response = yield call(loginApi, payload);
     if (response?.data) {
-      yield put(actions.loginResponse({ response: response }));
+      yield put(actions.loginResponse({ response: response?.data }));
     }
   } catch (error) {
     // error('Could not get users');

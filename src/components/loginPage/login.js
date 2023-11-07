@@ -6,6 +6,7 @@ import { loginRequest } from '../../redux/reducers/duck/authDuck';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -13,8 +14,6 @@ const LoginPage = () => {
   const { login } = useSelector(({ auth }) => ({
     login: auth?.loginRes,
   }));
-
-  const dispatch = useDispatch();
 
   const handleLogin = () => {
     const requestData = {
@@ -25,7 +24,7 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (login?.status === 200 || login?.status === 201) {
+    if (login) {
       navigate('/dashboard');
     }
   }, [login, navigate]);
@@ -33,58 +32,56 @@ const LoginPage = () => {
   return (
     <>
       <div className='main-container'>
-        <div className='neccessary'>
-          <Container className='login-container'>
-            <div className='form'>
-              <img
-                src='/images/logo.png'
-                width={100}
-                alt='logo'
-                className='logo-img'
+        <Container className='login-container'>
+          <div className='form'>
+            <img
+              src='/images/logo.png'
+              width={100}
+              alt='logo'
+              className='logo-img'
+            />
+            <h1>MyScienceLand</h1>
+            <p>Sign Into MyScienceLand</p>
+            <div className='form-group'>
+              <label>Email</label>
+              <input
+                type='email'
+                value={email}
+                placeholder='Enter email'
+                required
+                onChange={(e) => setEmail(e?.target?.value)}
               />
-              <h1>MyScienceLand</h1>
-              <p>Sign Into MyScienceLand</p>
-              <div className='form-group'>
-                <label>Email</label>
-                <input
-                  type='email'
-                  value={email}
-                  placeholder='Enter email'
-                  required
-                  onChange={(e) => setEmail(e?.target?.value)}
-                />
-              </div>
-              <div className='form-group'>
-                <label>Password</label>
-                <input
-                  type='password'
-                  value={password}
-                  placeholder='Password'
-                  required
-                  onChange={(e) => setPassword(e?.target?.value)}
-                />
-              </div>
-              <div className='checkbox-container'>
-                <label className='checkbox'>
-                  <input type='checkbox' className='checkbox-input' />
-                  <span className='checkmark'></span>
-                  <span className=''>Remember Me</span>
-                </label>
-                <p className=''>Forgot password?</p>
-              </div>
-              <div className='button'>
-                <button type='submit' onClick={() => handleLogin()}>
-                  Login
-                </button>
-              </div>
-              <div className='signup'>
-                <p>
-                  To join MyScienceLand, please <a href='/signup'>Sign Up</a>
-                </p>
-              </div>
             </div>
-          </Container>
-        </div>
+            <div className='form-group'>
+              <label>Password</label>
+              <input
+                type='password'
+                value={password}
+                placeholder='Password'
+                required
+                onChange={(e) => setPassword(e?.target?.value)}
+              />
+            </div>
+            <div className='checkbox-container'>
+              <label className='checkbox'>
+                <input type='checkbox' className='checkbox-input' />
+                <span className='checkmark'></span>
+                <span className=''>Remember Me</span>
+              </label>
+              <p className=''>Forgot password?</p>
+            </div>
+            <div className='button'>
+              <button type='submit' onClick={() => handleLogin()}>
+                Login
+              </button>
+            </div>
+            <div className='signup'>
+              <p>
+                To join MyScienceLand, please <a href='/signup'>Sign Up</a>
+              </p>
+            </div>
+          </div>
+        </Container>
       </div>
     </>
   );
