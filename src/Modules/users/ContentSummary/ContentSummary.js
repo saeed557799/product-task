@@ -1,6 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import StringToJsxParser from '../../../utils';
+import Spinner from '../../../components/Helper/loader';
 function ContentSummary() {
+  const { summary, isLoading } = useSelector(({ content }) => ({
+    summary: content?.contentSumaryData?.topic,
+    isLoading: content?.isLoading,
+  }));
+
   return (
     <React.Fragment>
       <div className='summaryContent'>
@@ -27,8 +35,11 @@ function ContentSummary() {
         <div className='heading'>
           <h3>Summary</h3>
         </div>
-        <div className='summaryCard'>
-          <div className='d-flex align-items-center mb-2'>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <div className='summaryCard'>
+            {/* <div className='d-flex align-items-center mb-2'>
             <h4>Equivalent weight (E) = </h4>
             <div class='fraction'>
               <span class='fup'>Atomic or moleculear weight</span>
@@ -73,8 +84,14 @@ function ContentSummary() {
             </div>
           </div>
           <p className='mb-2'>Normality = Molarity « v.f.</p>
-          <h4>Calculation of valency Factor :</h4>
-        </div>
+          <h4>Calculation of valency Factor :</h4> */}
+            {summary ? (
+              <StringToJsxParser data={summary && summary?.content} />
+            ) : (
+              'No Summary Exist against this topic'
+            )}
+          </div>
+        )}
       </div>
     </React.Fragment>
   );

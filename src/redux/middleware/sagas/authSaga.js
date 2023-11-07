@@ -19,7 +19,6 @@ export function* signupSaga({ payload }) {
 export function* loginSaga({ payload }) {
   try {
     const response = yield call(loginApi, payload);
-    console.log('response saga => ', response);
     if (response?.data) {
       yield put(actions.loginResponse({ response: response }));
     }

@@ -1,13 +1,15 @@
-import axios from 'axios';
+import Axios from './axios';
+import urls from './url';
 
 // subjects api
 export const subjectsApi = async () => {
+  const token = localStorage.getItem('token');
   try {
-    return await axios.get('url', {
+    return await Axios.get(urls?.content?.subjects, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   } catch (err) {
@@ -16,13 +18,14 @@ export const subjectsApi = async () => {
 };
 
 // topics api
-export const topicsApi = async () => {
+export const topicsApi = async (id) => {
+  let token = localStorage.getItem('token');
   try {
-    return await axios.get('url', {
+    return await Axios.get(`${urls?.content?.topics}/${id}`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   } catch (err) {
@@ -31,13 +34,14 @@ export const topicsApi = async () => {
 };
 
 // content-sumary api
-export const contentSumaryApi = async () => {
+export const contentSumaryApi = async (id) => {
+  const token = localStorage.getItem('token');
   try {
-    return await axios.get('url', {
+    return await Axios.get(`${urls?.content?.contentSummary}/${id}`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   } catch (err) {

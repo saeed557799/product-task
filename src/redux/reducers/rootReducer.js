@@ -1,8 +1,8 @@
-import users from './duck/userDuck';
+import auth from './duck/authDuck';
 import content from './duck/contentDuck';
 
 const rootReducers = {
-  users,
+  auth,
   content,
 };
 

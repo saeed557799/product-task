@@ -4,6 +4,7 @@ export const INITIAL_STATE = {
   subjectsData: null,
   topicsData: null,
   contentSumaryData: null,
+  isLoading: false,
 };
 
 export const contentSlice = createSlice({
@@ -36,6 +37,14 @@ export const contentSlice = createSlice({
     subjectRequest: (state) => state,
     topicsRequest: (state) => state,
     contentSumaryRequest: (state) => state,
+
+    // other reducers
+    contentLoading(state, { payload }) {
+      return {
+        ...state,
+        isLoading: payload,
+      };
+    },
   },
 });
 
@@ -46,6 +55,7 @@ export const {
   topicsRequest,
   contentSumaryResponse,
   contentSumaryRequest,
+  contentLoading,
 } = contentSlice.actions;
 
 export default contentSlice.reducer;
