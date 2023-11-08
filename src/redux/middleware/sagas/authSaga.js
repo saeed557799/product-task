@@ -5,26 +5,32 @@ import { loginApi, signupApi } from '../../../api/auth';
 // Signup Saga
 export function* signupSaga({ payload }) {
   try {
+    yield put(actions.authLoading(true));
     const response = yield call(signupApi, payload);
     if (response?.data) {
       yield put(actions.signupResponse({ response: response?.data }));
     }
+    yield put(actions.authLoading(false));
   } catch (error) {
-    // error('Could not get users');
+    yield put(actions.authLoading(false));
   } finally {
+    yield put(actions.authLoading(false));
   }
 }
 
 // Login Saga
 export function* loginSaga({ payload }) {
   try {
+    yield put(actions.authLoading(true));
     const response = yield call(loginApi, payload);
     if (response?.data) {
       yield put(actions.loginResponse({ response: response?.data }));
     }
+    yield put(actions.authLoading(false));
   } catch (error) {
-    // error('Could not get users');
+    yield put(actions.authLoading(false));
   } finally {
+    yield put(actions.authLoading(false));
   }
 }
 

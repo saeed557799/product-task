@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { signupRequest } from '../../redux/reducers/duck/authDuck';
+import { ButtonLoader } from '../Helper/loader';
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -12,12 +13,12 @@ const SignupPage = () => {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
-  const { signup } = useSelector(({ auth }) => {
+  const { signup, isLoading } = useSelector(({ auth }) => {
     return {
       signup: auth?.signupRes,
+      isLoading: auth?.isLoading,
     };
   });
-  console.log('signup => ', signup);
 
   const handleSignup = () => {
     const requestData = {
@@ -89,11 +90,20 @@ const SignupPage = () => {
                 onChange={(e) => setConfirmPassword(e?.target?.value)}
               />
             </div>
-            <div className='button'>
-              <button type='submit' onClick={() => handleSignup()}>
-                Sign Up
-              </button>
-            </div>
+            {isLoading ? (
+              <div className='loader-button'>
+                <div className='button-container'>
+                  <ButtonLoader />
+                  <button type='submit'>Sign Up</button>
+                </div>
+              </div>
+            ) : (
+              <div className='button'>
+                <button type='submit' onClick={() => handleSignup()}>
+                  Sign Up
+                </button>
+              </div>
+            )}
             <div className='login'>
               <p>
                 Already have an account? <a href='/login'>login</a>
