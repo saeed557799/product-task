@@ -1,4 +1,4 @@
-@import "./mixin";
+@import './mixin';
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap');
 * {
   box-sizing: border-box;
@@ -18,7 +18,7 @@
 
 body {
   margin: 0;
-  background: #0B0C11;
+  background: #0b0c11;
   color: var(--theme-color);
   -webkit-text-size-adjust: $w_100;
   -ms-text-size-adjust: none;
@@ -118,19 +118,19 @@ h6 {
 }
 
 .mr-auto {
-  margin-right: auto
+  margin-right: auto;
 }
 
 .mt-auto {
-  margin-top: auto
+  margin-top: auto;
 }
 
 .mb-auto {
-  margin-bottom: auto
+  margin-bottom: auto;
 }
 
 .m-0 {
-  margin: 0
+  margin: 0;
 }
 
 .no-padding {
@@ -141,7 +141,7 @@ h6 {
   margin: 0 !important;
 }
 
-input[type="submit"],
+input[type='submit'],
 button {
   cursor: pointer;
 }
@@ -159,18 +159,18 @@ select {
 }
 
 textarea,
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-input[type="number"],
-input[type="date"],
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='number'],
+input[type='date'],
 select {
   color: #fff;
   font-family: var(--font-family);
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator {
   background: $transparent;
   color: $transparent;
   cursor: pointer;
@@ -238,14 +238,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 14px;
     line-height: 19px;
     margin: 0 0 8px;
-    color: #07070C;
+    color: #07070c;
     display: flex;
     gap: 8px;
     font-family: 'DM Sans', sans-serif;
 
     small {
       font-size: 14px;
-      color: #B83C3C;
+      color: #b83c3c;
     }
   }
 }
@@ -265,7 +265,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 10px;
   outline: 0;
   letter-spacing: 2px;
-
 
   &::placeholder {
     color: #fff !important;
@@ -287,10 +286,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin: 0 0 8px;
 
   &:last-child {
-    margin-bottom: 0
+    margin-bottom: 0;
   }
 }
-
 
 table {
   background-color: transparent;
@@ -306,12 +304,12 @@ table {
   width: 100%;
 }
 
-table>thead>tr>th,
-table>tbody>tr>th,
-table>tfoot>tr>th,
-table>thead>tr>td,
-table>tbody>tr>td,
-table>tfoot>tr>td {
+table > thead > tr > th,
+table > tbody > tr > th,
+table > tfoot > tr > th,
+table > thead > tr > td,
+table > tbody > tr > td,
+table > tfoot > tr > td {
   //border: 1px solid #666666;
   line-height: 1.5;
   text-align: center;
@@ -324,39 +322,39 @@ table thead tr th {
   text-transform: capitalize;
 }
 
-.table>caption+thead>tr:first-child>th,
-.table>colgroup+thead>tr:first-child>th,
-.table>thead:first-child>tr:first-child>th,
-.table>caption+thead>tr:first-child>td,
-.table>colgroup+thead>tr:first-child>td,
-.table>thead:first-child>tr:first-child>td {
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
   border-top: 1px solid #666666;
 }
 
-table>thead>tr>th {
+table > thead > tr > th {
   border-bottom: 2px solid #666666;
   vertical-align: middle;
 }
 
-table>caption+thead>tr:first-child>th,
-table>colgroup+thead>tr:first-child>th,
-table>thead:first-child>tr:first-child>th,
-table>caption+thead>tr:first-child>td,
-table>colgroup+thead>tr:first-child>td,
-table>thead:first-child>tr:first-child>td {
+table > caption + thead > tr:first-child > th,
+table > colgroup + thead > tr:first-child > th,
+table > thead:first-child > tr:first-child > th,
+table > caption + thead > tr:first-child > td,
+table > colgroup + thead > tr:first-child > td,
+table > thead:first-child > tr:first-child > td {
   border-bottom: 0 none;
 }
 
-table>tbody+tbody {
+table > tbody + tbody {
   border-top: 2px solid #666666;
 }
 
-.table>thead>tr>th,
-.table>tbody>tr>th,
-.table>tfoot>tr>th,
-.table>thead>tr>td,
-.table>tbody>tr>td,
-.table>tfoot>tr>td {
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
   padding: 19px 10px;
 
   @media (max-width: $breakpoint_laptop) {
@@ -370,21 +368,21 @@ table>tbody+tbody {
 
 .simple-btn {
   display: flex;
-  background-color: #1A1A2E;
+  background-color: #1a1a2e;
   border-radius: 10px;
   min-width: 212px;
   height: 40px;
   align-items: center;
   justify-content: center;
   padding: 0 20px;
-  color: #F8F8F8;
+  color: #f8f8f8;
   font-size: 16px;
-  border: 1px solid #1A1A2E;
+  border: 1px solid #1a1a2e;
   @include transition;
 
   &:hover {
     background-color: transparent;
-    color: #1A1A2E;
+    color: #1a1a2e;
   }
 }
 
@@ -393,6 +391,6 @@ table>tbody+tbody {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border-radius: 10px;
 }

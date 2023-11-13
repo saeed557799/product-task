@@ -1,0 +1,137 @@
+.main-container {
+  background-color: hsl(230, 56%, 11%);
+  height: 100vh;
+}
+
+.logo-img {
+  display: flex;
+  margin: auto;
+}
+.neccessary {
+  padding: 2rem 0;
+}
+.login-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    font-size: 45px;
+    font-weight: 700;
+    // background: linear-gradient(to right, #001aff, #e33700);
+    background: linear-gradient(92.23deg, #001aff -3.74%, #e33700 128.39%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-align: center;
+  }
+
+  p {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+  }
+  .form {
+    background-color: #0c112a;
+    border-radius: 5px;
+    padding: 20px;
+    .form-group {
+      margin-bottom: 20px;
+      padding: 0px 25px;
+      label {
+        color: #fff;
+      }
+      input {
+        width: 100%;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 10px;
+        color: #8591a3;
+        height: 50px;
+        max-width: 500px;
+        border: 1px solid rgb(43, 42, 42);
+        padding-left: 1rem;
+      }
+    }
+
+    .checkbox-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 25px;
+      margin: 1rem 0;
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        color: rgb(109, 109, 241);
+        font-size: 16px;
+        font-weight: 500;
+        margin-right: 5px;
+
+        .checkbox-input {
+          cursor: pointer;
+          margin-right: 5px;
+        }
+      }
+      p {
+        color: rgb(109, 109, 241);
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+    .button {
+      padding: 0 25px;
+      button {
+        margin-top: 1rem;
+        width: 100%;
+        border-radius: 10px;
+        padding: 0 25px;
+        height: 50px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        background: #2a1a91;
+        border: none;
+      }
+    }
+    .signup {
+      width: 100%;
+      padding: 0 25px;
+      margin-top: 1rem;
+
+      p {
+        color: #fff;
+        text-align: left;
+
+        a {
+          color: rgb(109, 109, 241);
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .login {
+      width: 100%;
+      padding: 0 25px;
+      margin-top: 1rem;
+
+      p {
+        color: #fff;
+        text-align: right;
+
+        a {
+          color: rgb(109, 109, 241);
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

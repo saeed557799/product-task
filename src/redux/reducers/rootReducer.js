@@ -1,7 +1,11 @@
-import users from './duck/userDuck';
+import auth from './duck/authDuck';
+import content from './duck/contentDuck';
+import dashboard from './duck/dashboardDuck';
 
 const rootReducers = {
-  users,
+  auth,
+  content,
+  dashboard,
 };
 
 export default rootReducers;
