@@ -17,7 +17,6 @@ export default function CourseCards() {
       isLoading: content?.isLoading,
     })
   );
-
   const [clickedItem, setClickedItem] = useState({
     index: null,
     paperIndex: null,
@@ -46,6 +45,7 @@ export default function CourseCards() {
           <div className='row'>
             {subjectsData?.length > 0 ? (
               subjectsData?.map((item, index) => {
+                console.log('subject DAta => ', item);
                 const isCurrentlyClicked = clickedItem.index === index;
                 return (
                   <div className='col-md-4' key={index}>
@@ -67,7 +67,7 @@ export default function CourseCards() {
                               </tr>
                             </thead>
                             <tbody>
-                              {topicsData?.paper?.Topic?.map((item) => (
+                              {topicsData?.paper?.topics?.map((item) => (
                                 <tr key={item}>
                                   <td
                                     onClick={() =>
@@ -97,7 +97,7 @@ export default function CourseCards() {
                             </tr>
                           </thead>
                           <tbody>
-                            {item?.Papers?.map((player) => (
+                            {item?.papers?.map((player) => (
                               <tr key={player}>
                                 {item?.qualification === 'Alevel' && (
                                   <td
