@@ -9,11 +9,11 @@ import {
 export function* getSubjectPrefrenceSaga() {
   try {
     const response = yield call(getSubjectsPrefrenceApi);
-    console.log('resonse =>', response);
     if (response?.data) {
-      yield put(actions.getSubjectPrefResponse({ response: response?.data }));
+      yield put(
+        actions.getSubjectPrefResponse({ response: response?.data?.data })
+      );
     }
-    console.log('saga response =>', response);
   } catch (error) {
   } finally {
   }
@@ -24,9 +24,7 @@ export function* postSubjectPrefrenceSaga(payload) {
   try {
     const response = yield call(postSubjectsPrefrenceApi, payload);
     if (response?.data) {
-      yield put(
-        actions.postSubjectPrefResponse({ response: response?.data?.data })
-      );
+      yield put(actions.postSubjectPrefResponse({ response: response?.data }));
     }
   } catch (error) {
   } finally {

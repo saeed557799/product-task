@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import StringToJsxParser from '../../../utils';
+import StringToJsxParser from '../../../utils/stringParser';
 import Spinner from '../../../components/Helper/loader';
 function ContentSummary() {
   const { summary, isLoading } = useSelector(({ content }) => ({

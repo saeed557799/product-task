@@ -6,6 +6,7 @@ import {
   postSubjectPrefRequest,
   getSubjectPrefRequest,
 } from '../../redux/reducers/duck/dashboardDuck';
+import { allSubjectNames } from '../../utils/helper';
 
 function QuizModal(props) {
   const { show, handleClose } = props;
@@ -45,11 +46,20 @@ function QuizModal(props) {
     }
   };
 
-  console.log('pref data =>', getSubjectsPrefData);
+  const excludedSubjects =
+    getSubjectsPrefData &&
+    getSubjectsPrefData?.preference?.map((item) => {
+      return item?.subject?.name;
+    });
+  const filteredSubjects = allSubjectNames?.filter(
+    (subject) => !excludedSubjects?.includes(subject)
+  );
+
+  console.log('filtered subjects =>', filteredSubjects);
+  console.log('stored subjects =>', getSubjectsPrefData);
 
   return (
     <>
-      {/* {getSubjectsPrefData?.isShowModal === true && ( */}
       <Modal
         show={show}
         onHide={handleClose}
@@ -80,9 +90,14 @@ function QuizModal(props) {
             onChange={handleChange}
           >
             <option>please select subject</option>
-            <option value='chemistry'>Chemistry</option>
-            <option value='physics'>Physics</option>
-            <option value='biology'>Biology</option>
+            {filteredSubjects &&
+              filteredSubjects?.map((item) => {
+                return (
+                  <>
+                    <option value={item}>{item}</option>
+                  </>
+                );
+              })}
           </Form.Select>
           <Form.Label>Exam Board</Form.Label>
           <Form.Select name='board' value={data.board} onChange={handleChange}>
@@ -96,7 +111,6 @@ function QuizModal(props) {
           </button>
         </Modal.Body>
       </Modal>
-      {/* )} */}
     </>
   );
 }

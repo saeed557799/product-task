@@ -1,14 +1,30 @@
-// Your component file
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import data from './CourseData.json';
 import QuizModal from '../../../../components/Modal/QuizModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSubjectPrefRequest } from '../../../../redux/reducers/duck/dashboardDuck';
 
 export default function Courses() {
   const courseDat = data.courseDat;
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+
+  const { getSubjectsPrefData } = useSelector(({ dashboard }) => ({
+    getSubjectsPrefData: dashboard?.getSubjectsPrefData,
+  }));
+
+  useEffect(() => {
+    dispatch(getSubjectPrefRequest());
+  }, [dispatch]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    if (getSubjectsPrefData?.isPreferenceSet === true) {
+      setShow(true);
+    }
+  }, [getSubjectsPrefData]);
 
   return (
     <React.Fragment>
