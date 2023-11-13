@@ -35,31 +35,30 @@ export default function CourseCards() {
 
   return (
     <>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <div className='content'>
-          <div className='heading'>
-            <h3>Course Content</h3>
-          </div>
-          <div className='row'>
-            {subjectsData?.length > 0 ? (
-              subjectsData?.map((item, index) => {
-                console.log('subject DAta => ', item);
-                const isCurrentlyClicked = clickedItem.index === index;
-                return (
-                  <div className='col-md-4' key={index}>
-                    <div className='card'>
-                      <div className='title'>
-                        <img src={images[index]} alt='subjectImg' />
-                        <h4>{item.name}</h4>
-                      </div>
-                      {isCurrentlyClicked && (
-                        <div
-                          className={`card${
-                            isCurrentlyClicked ? ' hoveredCard' : ''
-                          }`}
-                        >
+      <div className='content'>
+        <div className='heading'>
+          <h3>Course Content</h3>
+        </div>
+        <div className='row'>
+          {subjectsData?.length > 0 ? (
+            subjectsData?.map((item, index) => {
+              const isCurrentlyClicked = clickedItem.index === index;
+              return (
+                <div className='col-md-4' key={index}>
+                  <div className='card'>
+                    <div className='title'>
+                      <img src={images[index]} alt='subjectImg' />
+                      <h4>{item.name}</h4>
+                    </div>
+                    {isCurrentlyClicked && (
+                      <div
+                        className={`card${
+                          isCurrentlyClicked ? ' hoveredCard' : ''
+                        }`}
+                      >
+                        {isLoading ? (
+                          <Spinner />
+                        ) : (
                           <table className='table table-bordered m-0'>
                             <thead>
                               <tr>
@@ -82,52 +81,48 @@ export default function CourseCards() {
                               ))}
                             </tbody>
                           </table>
-                        </div>
-                      )}
-                      {!isCurrentlyClicked && (
-                        <table className='table table-bordered m-0'>
-                          <thead>
-                            <tr>
+                        )}
+                      </div>
+                    )}
+                    {!isCurrentlyClicked && (
+                      <table className='table table-bordered m-0'>
+                        <thead>
+                          <tr>
+                            {item?.qualification === 'Alevel' && (
+                              <th>{item?.qualification}</th>
+                            )}
+                            {item?.qualification === 'GCSE' && (
+                              <th>{item?.qualification}</th>
+                            )}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {item?.papers?.map((player) => (
+                            <tr key={player}>
                               {item?.qualification === 'Alevel' && (
-                                <th>{item?.qualification}</th>
+                                <td onClick={() => handleClick(index, player)}>
+                                  {player?.name}
+                                </td>
                               )}
                               {item?.qualification === 'GCSE' && (
-                                <th>{item?.qualification}</th>
+                                <td onClick={() => handleClick(index, player)}>
+                                  {player?.name}
+                                </td>
                               )}
                             </tr>
-                          </thead>
-                          <tbody>
-                            {item?.papers?.map((player) => (
-                              <tr key={player}>
-                                {item?.qualification === 'Alevel' && (
-                                  <td
-                                    onClick={() => handleClick(index, player)}
-                                  >
-                                    {player?.name}
-                                  </td>
-                                )}
-                                {item?.qualification === 'GCSE' && (
-                                  <td
-                                    onClick={() => handleClick(index, player)}
-                                  >
-                                    {player?.name}
-                                  </td>
-                                )}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      )}
-                    </div>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
                   </div>
-                );
-              })
-            ) : (
-              <div className='no-data'>No Data Exist</div>
-            )}
-          </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className='no-data'>No Data Exist</div>
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 }
