@@ -17,7 +17,6 @@ const SignupPage = () => {
       signup: auth?.signupRes,
     };
   });
-  console.log('signup => ', signup);
 
   const handleSignup = () => {
     const requestData = {

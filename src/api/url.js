@@ -8,6 +8,10 @@ const urls = {
     topics: 'paper/with-topics',
     contentSummary: 'topic/get-content',
   },
+  dashboard: {
+    getSubjectPrefrence: 'subject-pref/dashboard',
+    postSubjectPrefrence: 'subject-pref',
+  },
 };
 
 export default urls;
