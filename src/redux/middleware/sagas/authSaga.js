@@ -10,11 +10,8 @@ export function* signupSaga({ payload }) {
     if (response?.data) {
       yield put(actions.signupResponse({ response: response?.data }));
     }
-<<<<<<< Updated upstream
-=======
 
     yield put(actions.authLoading(false));
->>>>>>> Stashed changes
   } catch (error) {
     // error('Could not get users');
   } finally {
