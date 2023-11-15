@@ -10,9 +10,9 @@ function QuizQuestion() {
   const [hintClicked, setHintClicked] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answer, setAnswer] = useState(null);
-
-  const isCorrect = SubmitResponse?.data?.isCorrect;
-  console.log('isCorrect => ', isCorrect);
+  const [check, setCheck] = useState(false);
+  const [submitResponse, setSubmitResponse] = useState(null);
+  console.log('selectedAnswer => ', selectedAnswer);
 
   // useEffect(() => {
   //   dispatch(startQuizRequest());
@@ -25,16 +25,26 @@ function QuizQuestion() {
   };
 
   const handleCheckClick = () => {
+    setSubmitResponse(SubmitResponse);
+    // console.log('isCorrect => ', submitResponse);
     setHintClicked(false);
     setSelectedAnswer(answer);
+    setCheck(true);
+    setAnswer('');
     // setSelectedAnswer(2);
   };
 
   const handleAnswerChange = (item) => {
-    // setSelectedAnswer(parseInt(e.target.value, 10));
     // setAnswer(e.target.value);
-    setAnswer(item);
+    if (selectedAnswer === false) {
+      setAnswer(item);
+    } else {
+      setAnswer('');
+    }
+    // setAnswer(item);
   };
+
+  console.log('check => ', check);
 
   return (
     <React.Fragment>
@@ -59,7 +69,19 @@ function QuizQuestion() {
             </button>
           </div>
 
-          <div className={`answers ${hintClicked ? 'hint-active' : ''}`}>
+          {/* <div className={`answers ${hintClicked ? 'hint-active' : ''}`}> */}
+          <div
+            // className={`answers  ${
+            //   isCorrect ? 'success-active' : 'danger-active'
+            // }`}
+            className={`${
+              submitResponse?.statusCode === 200
+                ? submitResponse?.data?.isCorrect === true
+                  ? 'success-active answers'
+                  : 'danger-active answers'
+                : 'answers'
+            }`}
+          >
             <Form>
               <div>
                 {Questions?.question?.answers?.map((item, index) => {
