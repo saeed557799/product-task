@@ -1,6 +1,7 @@
 import * as actions from '../../reducers/duck/authDuck';
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { loginApi, signupApi } from '../../../api/auth';
+import { success } from '../../../utils/notifications';
 
 // Signup Saga
 export function* signupSaga({ payload }) {
@@ -9,6 +10,11 @@ export function* signupSaga({ payload }) {
     if (response?.data) {
       yield put(actions.signupResponse({ response: response?.data }));
     }
+<<<<<<< Updated upstream
+=======
+
+    yield put(actions.authLoading(false));
+>>>>>>> Stashed changes
   } catch (error) {
     // error('Could not get users');
   } finally {
