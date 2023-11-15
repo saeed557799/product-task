@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { loginRequest } from '../../redux/reducers/duck/authDuck';
+import { ButtonLoader } from '../Helper/loader';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,16 +12,17 @@ const LoginPage = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const { login } = useSelector(({ auth }) => ({
+  const { login, isLoading } = useSelector(({ auth }) => ({
     login: auth?.loginRes,
+    isLoading: auth?.isLoading,
   }));
-
   const handleLogin = () => {
     const requestData = {
       email: email,
       password: password,
     };
     dispatch(loginRequest(requestData));
+    clearState();
   };
 
   useEffect(() => {
@@ -28,6 +30,11 @@ const LoginPage = () => {
       navigate('/dashboard');
     }
   }, [login, navigate]);
+
+  const clearState = () => {
+    setEmail('');
+    setPassword('');
+  };
 
   return (
     <>
@@ -70,11 +77,21 @@ const LoginPage = () => {
               </label>
               <p className=''>Forgot password?</p>
             </div>
-            <div className='button'>
-              <button type='submit' onClick={() => handleLogin()}>
-                Login
-              </button>
-            </div>
+            {isLoading ? (
+              <div className='loader-button'>
+                <div className='button-container'>
+                  <ButtonLoader />
+                  <button type='submit'>Login</button>
+                </div>
+              </div>
+            ) : (
+              <div className='button'>
+                <button type='submit' onClick={() => handleLogin()}>
+                  Login
+                </button>
+              </div>
+            )}
+
             <div className='signup'>
               <p>
                 To join MyScienceLand, please <a href='/signup'>Sign Up</a>
