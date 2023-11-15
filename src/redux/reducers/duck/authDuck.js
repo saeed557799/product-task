@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 // Initial State
 export const INITIAL_STATE = {
   signupRes: null,
   loginRes: null,
   isLoading: false,
 };
-
 export const authSlice = createSlice({
   name: 'auth',
   initialState: INITIAL_STATE,
@@ -14,7 +12,6 @@ export const authSlice = createSlice({
     // request reducers
     loginRequest: (state) => state,
     signupRequest: (state) => state,
-
     // response reducers
     signupResponse(state, { payload }) {
       return {
@@ -28,7 +25,6 @@ export const authSlice = createSlice({
         loginRes: payload.response,
       };
     },
-
     // other reducers
     authLoading(state, { payload }) {
       return {
@@ -38,7 +34,6 @@ export const authSlice = createSlice({
     },
   },
 });
-
 export const {
   signupRequest,
   signupResponse,
@@ -46,5 +41,4 @@ export const {
   loginResponse,
   authLoading,
 } = authSlice.actions;
-
 export default authSlice.reducer;
