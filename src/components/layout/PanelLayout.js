@@ -9,6 +9,8 @@ import Bar from '../../assets/images/bar.png';
 export const PanelLayout = () => {
   const [openSidebar, setOpenSidebar] = useState(true);
   const [loading, setLoading] = useState(true);
+  const userName = localStorage.getItem('userName');
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -20,6 +22,7 @@ export const PanelLayout = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <>
       <div className='panel-wrapper flex flex-wrap column-direction'>
@@ -51,7 +54,7 @@ export const PanelLayout = () => {
                 <Dropdown.Toggle id='dropdown-basic'>
                   <div className='date'>
                     <img src={Avatar} alt='Avatar' />
-                    <p>Hello, John Doe</p>
+                    <p>Hello, {userName}</p>
                   </div>
                 </Dropdown.Toggle>
 

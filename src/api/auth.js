@@ -9,6 +9,7 @@ export const signupApi = async (data) => {
     });
     if (res) {
       localStorage.setItem('token', res?.data?.access_token);
+      localStorage.setItem('userName', res?.data?.name);
     }
     return res;
   } catch (err) {
