@@ -9,7 +9,7 @@ import {
 import { allSubjectNames } from '../../utils/helper';
 
 function QuizModal(props) {
-  const { show, handleClose } = props;
+  const { show, handleClose, modalShowStatus } = props;
   const dispatch = useDispatch();
   const initialValues = {
     qualification: '',
@@ -55,9 +55,6 @@ function QuizModal(props) {
     (subject) => !excludedSubjects?.includes(subject)
   );
 
-  console.log('filtered subjects =>', filteredSubjects);
-  console.log('stored subjects =>', getSubjectsPrefData);
-
   return (
     <>
       <Modal
@@ -68,9 +65,11 @@ function QuizModal(props) {
       >
         <Modal.Header>
           <Modal.Title>QUIZZES</Modal.Title>
-          <button className='closeButton' onClick={handleClose}>
-            x
-          </button>
+          {modalShowStatus && (
+            <button className='closeButton' onClick={handleClose}>
+              x
+            </button>
+          )}
         </Modal.Header>
         <Modal.Body>
           <Form.Label>Qualification</Form.Label>
@@ -80,8 +79,8 @@ function QuizModal(props) {
             onChange={handleChange}
           >
             <option>please select qualification</option>
-            <option value='gcse'>GCSE</option>
-            <option value='alevel'>A Level</option>
+            <option value='GCSE'>GCSE</option>
+            <option value='Alevel'>Alevel</option>
           </Form.Select>
           <Form.Label>Subjects</Form.Label>
           <Form.Select
@@ -102,11 +101,11 @@ function QuizModal(props) {
           <Form.Label>Exam Board</Form.Label>
           <Form.Select name='board' value={data.board} onChange={handleChange}>
             <option>please select board</option>
-            <option value='aqa'>AQA</option>
-            <option value='edexcel'>EDEXCEL</option>
-            <option value='ocr'>OCR</option>
+            <option value='AQA'>AQA</option>
+            <option value='Edexcel'>Edexcel</option>
+            <option value='OCR'>OCR</option>
           </Form.Select>
-          <button className='submit-prefrence' onClick={handleSubmit}>
+          <button className='submitPrefrence' onClick={handleSubmit}>
             Submit
           </button>
         </Modal.Body>

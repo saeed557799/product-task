@@ -1,7 +1,1 @@
-export const allSubjectNames = [
-  'chemistry',
-  'physics',
-  'biology',
-  'math',
-  'urdu',
-];
+export const allSubjectNames = ['Chemistry', 'Physics', 'Biology'];
