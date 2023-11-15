@@ -39,52 +39,6 @@ function ContentSummary() {
           <Spinner />
         ) : (
           <div className='summaryCard'>
-            {/* <div className='d-flex align-items-center mb-2'>
-            <h4>Equivalent weight (E) = </h4>
-            <div class='fraction'>
-              <span class='fup'>Atomic or moleculear weight</span>
-              <span class='bar'>/</span>
-              <span class='fdn'>v.f.</span>
-            </div>
-          </div>
-          <h4 className='ms-5 mb-2'>(v.f. = valency factor)</h4>
-          <h4 className='mb-2'>Concept of number of equivalents :</h4>
-          <div className='d-flex align-items-center mb-2'>
-            <p>No. of equivalents of solute =</p>
-            <div class='fraction d-flex align-items-center'>
-              <span className='d-grid'>
-                <span class='fup'>Wt</span>
-                <span class='bar'>/</span>
-                <span class='fdn'>Eq.wt.</span>
-              </span>
-              <span className='mx-2'>=</span>
-              <span className='d-grid'>
-                <span class='fup'>W</span>
-                <span class='bar'>/</span>
-                <span class='fdn'>E</span>
-              </span>
-              <span className='mx-2'>=</span>
-              <span className='d-grid'>
-                <span class='fup'>W</span>
-                <span class='bar'>/</span>
-                <span class='fdn'>M/n</span>
-              </span>
-            </div>
-          </div>
-          <p className='mb-2 '>
-            No. of equivalents of solute = No. of moles of solute * v.f.
-          </p>
-          <h4 className='mb-2'>Normality (N) :</h4>
-          <div className='d-flex align-items-center mb-2'>
-            <h4>Normality (N) = </h4>
-            <div class='fraction'>
-              <span class='fup'>Number of equivalents of solute</span>
-              <span class='bar'>/</span>
-              <span class='fdn'>Volume of solution (in litres)</span>
-            </div>
-          </div>
-          <p className='mb-2'>Normality = Molarity « v.f.</p>
-          <h4>Calculation of valency Factor :</h4> */}
             {summary ? (
               <StringToJsxParser data={summary && summary?.content} />
             ) : (
