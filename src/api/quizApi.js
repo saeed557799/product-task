@@ -3,7 +3,7 @@ import Axios from './axios';
 import urls from './url';
 
 // start-quiz api
-export const startQuizApi = async () => {
+export const startQuizApi = () => {
   // const token = localStorage.getItem('token');
   console.log('Question => ', Questions);
   return Questions;

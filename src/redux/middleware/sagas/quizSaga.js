@@ -57,7 +57,7 @@ export function* finishQuizSaga({ payload }) {
 }
 
 export function* watchQuizSagas() {
-  yield takeLatest(actions.startQuizRequest, quizStartSaga);
+  yield takeLatest(actions.startQuizRequest.type, quizStartSaga);
   yield takeLatest(actions.quizSubmitRequest.type, quizSubmitSaga);
   yield takeLatest(actions.nextQuestionRequest.type, nextQuestionSaga);
   yield takeLatest(actions.finishQuizRequest.type, finishQuizSaga);
