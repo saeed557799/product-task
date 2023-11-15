@@ -14,6 +14,10 @@ const urls = {
     nextQuestion: 'url',
     finishQuiz: 'url',
   },
+  dashboard: {
+    getSubjectPrefrence: 'subject-pref/dashboard',
+    postSubjectPrefrence: 'subject-pref',
+  },
 };
 
 export default urls;
