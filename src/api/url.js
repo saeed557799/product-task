@@ -10,7 +10,7 @@ const urls = {
   },
   quiz: {
     startQuiz: 'url',
-    submitQuiz: 'url',
+    submitQuiz: 'question/submit',
     nextQuestion: 'url',
     finishQuiz: 'url',
   },

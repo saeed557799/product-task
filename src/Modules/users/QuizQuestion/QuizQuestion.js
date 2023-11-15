@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { Questions, SubmitResponse } from '../../../utils/helper/question';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import startQuizRequest from '../../../redux/reducers/duck/quizDuck';
 
 function QuizQuestion() {
@@ -10,41 +10,28 @@ function QuizQuestion() {
   const [hintClicked, setHintClicked] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answer, setAnswer] = useState(null);
-  const [check, setCheck] = useState(false);
   const [submitResponse, setSubmitResponse] = useState(null);
-  console.log('selectedAnswer => ', selectedAnswer);
 
-  // useEffect(() => {
-  //   dispatch(startQuizRequest());
-  // }, [dispatch]);
-
+  const { startQuizData } = useSelector(({ quiz }) => ({
+    startQuizData: quiz?.startQuizData,
+  }));
+  console.log('QuestionData => ', startQuizData);
   const handleHintClick = () => {
     // setSelectedAnswer(answer);
-    // setSelectedAnswer(2);
     setHintClicked(true);
   };
 
   const handleCheckClick = () => {
     setSubmitResponse(SubmitResponse);
-    // console.log('isCorrect => ', submitResponse);
     setHintClicked(false);
     setSelectedAnswer(answer);
-    setCheck(true);
     setAnswer('');
-    // setSelectedAnswer(2);
   };
 
   const handleAnswerChange = (item) => {
     // setAnswer(e.target.value);
-    if (selectedAnswer === false) {
-      setAnswer(item);
-    } else {
-      setAnswer('');
-    }
-    // setAnswer(item);
+    setAnswer(item);
   };
-
-  console.log('check => ', check);
 
   return (
     <React.Fragment>
@@ -57,7 +44,7 @@ function QuizQuestion() {
             <p>
               {/* 1. Which of the following is an example of an alkaline earth
               metal? */}
-              {Questions?.question?.question}
+              {startQuizData?.question?.question}
             </p>
             <button>
               <img src='/images/clock.svg' alt='clock' /> 00:12:30
@@ -71,9 +58,6 @@ function QuizQuestion() {
 
           {/* <div className={`answers ${hintClicked ? 'hint-active' : ''}`}> */}
           <div
-            // className={`answers  ${
-            //   isCorrect ? 'success-active' : 'danger-active'
-            // }`}
             className={`${
               submitResponse?.statusCode === 200
                 ? submitResponse?.data?.isCorrect === true
@@ -84,7 +68,7 @@ function QuizQuestion() {
           >
             <Form>
               <div>
-                {Questions?.question?.answers?.map((item, index) => {
+                {startQuizData?.question?.answers?.map((item, index) => {
                   return (
                     <Form.Check
                       // inline

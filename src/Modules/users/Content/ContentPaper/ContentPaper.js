@@ -7,6 +7,7 @@ import {
 } from '../../../../redux/reducers/duck/contentDuck';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../../components/Helper/loader';
+import { startQuizRequest } from '../../../../redux/reducers/duck/quizDuck';
 
 export default function ContentPaper() {
   const dispatch = useDispatch();
@@ -77,10 +78,13 @@ export default function ContentPaper() {
                                   topicsData?.paper?.topics?.map((item) => {
                                     return (
                                       <tr>
-                                        <td>
+                                        <td
+                                          onClick={() =>
+                                            dispatch(startQuizRequest(item?.id))
+                                          }
+                                        >
                                           <Link to={'/quiz/question'}>
-                                            {/* {item.topic1} */}
-                                            {item.name}
+                                            {item?.name}
                                           </Link>
                                         </td>
                                       </tr>

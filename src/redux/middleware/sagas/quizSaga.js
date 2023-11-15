@@ -8,12 +8,11 @@ import {
 } from '../../../api/quizApi';
 
 // quiz-start saga
-export function* quizStartSaga() {
+export function* quizStartSaga({ payload }) {
   try {
-    const response = yield call(startQuizApi);
-    console.log('response => ', response);
+    const response = yield call(startQuizApi, payload);
     if (response?.data) {
-      yield put(actions.startQuizResponse({ response: response?.data }));
+      yield put(actions.startQuizResponse({ response: response?.data?.data }));
     }
   } catch (error) {
   } finally {
@@ -24,6 +23,7 @@ export function* quizStartSaga() {
 export function* quizSubmitSaga({ payload }) {
   try {
     const response = yield call(quizSubmitApi, payload);
+    console.log('response => ', response);
     if (response?.data) {
       yield put(actions.quizSubmitResponse({ response: response?.data }));
     }

@@ -3,23 +3,19 @@ import Axios from './axios';
 import urls from './url';
 
 // start-quiz api
-export const startQuizApi = () => {
-  // const token = localStorage.getItem('token');
-  console.log('Question => ', Questions);
-  return Questions;
-  // try {
-  // return await Axios.get(urls?.quiz?.startQuiz, {
-  // let res =  await Axios.get(Questions, {
-  //   withCredentials: true,
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // });
-  // } catch (err) {
-  // console.log('err => ', err);
-  // return err;
-  // }
+export const startQuizApi = async (id) => {
+  const token = localStorage.getItem('token');
+  try {
+    return await Axios.get(`quiz/${id}/start`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    return err;
+  }
 };
 
 // submit-quiz api
