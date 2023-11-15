@@ -7,7 +7,7 @@ export default function Feedback() {
           <h3>Feedback</h3>
         </div>
         <div className='card'>
-          <div class='d-flex align-items-center'>
+          <div className='d-flex align-items-center'>
             <div className='flex-shrink-0'>
               <img src='/images/analysis.svg' alt='analysis' />
             </div>
@@ -18,9 +18,9 @@ export default function Feedback() {
           </div>
           <div className='workOn'>
             <p>Work on :</p>
-            <span class='badge'>Carbon-13 Spectroscopy</span>
-            <span class='badge'>Test for organic functional group</span>
-            <span class='badge'>Types of Chromatography</span>
+            <span className='badge'>Carbon-13 Spectroscopy</span>
+            <span className='badge'>Test for organic functional group</span>
+            <span className='badge'>Types of Chromatography</span>
           </div>
         </div>
       </div>

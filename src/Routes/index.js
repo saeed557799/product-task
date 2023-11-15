@@ -27,6 +27,8 @@ const PrivateRoute = ({ isAuthenticated, children }) => {
   return children;
 };
 
+// console.log('token', accessToken);
+
 export default function index() {
   return (
     <Router>
