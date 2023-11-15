@@ -1,6 +1,7 @@
 import * as actions from '../../reducers/duck/authDuck';
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { loginApi, signupApi } from '../../../api/auth';
+import { success } from '../../../utils/notifications';
 
 // Signup Saga
 export function* signupSaga({ payload }) {

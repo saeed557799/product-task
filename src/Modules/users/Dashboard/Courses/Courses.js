@@ -21,7 +21,7 @@ export default function Courses() {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    if (getSubjectsPrefData?.isPreferenceSet === true) {
+    if (!getSubjectsPrefData?.isPreferenceSet) {
       setShow(true);
     }
   }, [getSubjectsPrefData]);

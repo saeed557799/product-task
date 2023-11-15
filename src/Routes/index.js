@@ -16,6 +16,8 @@ import ContentSummary from '../Modules/users/ContentSummary/ContentSummary';
 import Login from '../Modules/users/auth/login';
 import SignUp from '../Modules/users/auth/signup';
 
+const accessToken = localStorage.getItem('token');
+
 const isAuthenticated = true;
 
 const PrivateRoute = ({ isAuthenticated, children }) => {
@@ -24,6 +26,8 @@ const PrivateRoute = ({ isAuthenticated, children }) => {
   }
   return children;
 };
+
+console.log('token', accessToken);
 
 export default function index() {
   return (
