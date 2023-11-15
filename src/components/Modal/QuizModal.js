@@ -55,9 +55,6 @@ function QuizModal(props) {
     (subject) => !excludedSubjects?.includes(subject)
   );
 
-  console.log('filtered subjects =>', filteredSubjects);
-  console.log('stored subjects =>', getSubjectsPrefData);
-
   return (
     <>
       <Modal
@@ -81,7 +78,7 @@ function QuizModal(props) {
           >
             <option>please select qualification</option>
             <option value='gcse'>GCSE</option>
-            <option value='alevel'>A Level</option>
+            <option value='alevel'>Alevel</option>
           </Form.Select>
           <Form.Label>Subjects</Form.Label>
           <Form.Select
@@ -103,7 +100,7 @@ function QuizModal(props) {
           <Form.Select name='board' value={data.board} onChange={handleChange}>
             <option>please select board</option>
             <option value='aqa'>AQA</option>
-            <option value='edexcel'>EDEXCEL</option>
+            <option value='edexcel'>Edexcel</option>
             <option value='ocr'>OCR</option>
           </Form.Select>
           <button className='submit-prefrence' onClick={handleSubmit}>
