@@ -20,8 +20,10 @@ export default function Courses() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const modalShowStatus = getSubjectsPrefData?.isPreferenceSet;
+
   useEffect(() => {
-    if (!getSubjectsPrefData?.isPreferenceSet) {
+    if (!modalShowStatus) {
       setShow(true);
     }
   }, [getSubjectsPrefData]);
@@ -66,6 +68,7 @@ export default function Courses() {
         show={show}
         handleShow={handleShow}
         handleClose={handleClose}
+        modalShowStatus={modalShowStatus}
       />
     </React.Fragment>
   );
