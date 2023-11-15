@@ -44,6 +44,7 @@ function QuizModal(props) {
       };
       dispatch(postSubjectPrefRequest(prefrenceData));
     }
+    handleClose();
   };
 
   const excludedSubjects =
