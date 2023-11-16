@@ -19,7 +19,7 @@ const urls = {
     postSubjectPrefrence: 'subject-pref',
   },
   user: {
-    user: 'user',
+    user: 'auth/user',
   },
 };
 
