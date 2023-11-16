@@ -5,8 +5,9 @@ import Search from '../../assets/images/search.svg';
 import Avatar from '../../assets/images/avatar.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Bar from '../../assets/images/bar.png';
+import Spinner from '../Helper/loader';
 
-export const PanelLayout = () => {
+export const PanelLayout = ({ children }) => {
   const [openSidebar, setOpenSidebar] = useState(true);
   const [loading, setLoading] = useState(true);
   const userName = localStorage.getItem('userName');
@@ -69,9 +70,7 @@ export const PanelLayout = () => {
               </Dropdown>
             </div>
           </header>
-          <div className='panel-main-wrapper'>
-            {loading ? <div className='loader'></div> : <Outlet />}
-          </div>
+          <div className='adjust-content-space'>{children}</div>
         </div>
       </div>
     </>
