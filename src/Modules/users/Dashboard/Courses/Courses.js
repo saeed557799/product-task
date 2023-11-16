@@ -3,6 +3,7 @@ import data from './CourseData.json';
 import QuizModal from '../../../../components/Modal/QuizModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSubjectPrefRequest } from '../../../../redux/reducers/duck/dashboardDuck';
+import { success, error } from '../../../../utils/notifications';
 
 export default function Courses() {
   const courseDat = data.courseDat;
