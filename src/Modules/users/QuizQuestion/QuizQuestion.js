@@ -8,12 +8,10 @@ import {
   quizSubmitResponse,
 } from '../../../redux/reducers/duck/quizDuck';
 import { error } from '../../../utils/notifications';
-import { ButtonLoader } from '../../../components/Helper/loader';
 import { quizResultRequest } from '../../../redux/reducers/duck/resultDuck';
 
 function QuizQuestion() {
   const dispatch = useDispatch();
-  const [hintClicked, setHintClicked] = useState(false);
   const [check, setCheck] = useState(false);
   const [answer, setAnswer] = useState(null);
   const [disableOptions, setDisableOptions] = useState(false);
@@ -40,10 +38,6 @@ function QuizQuestion() {
     setAttemptCount(nextQuestionData?.data);
   }, [nextQuestionData, dispatch]);
 
-  const handleHintClick = () => {
-    setHintClicked(true);
-  };
-
   const handleCheckClick = () => {
     if (!answer) {
       //toaster
@@ -57,7 +51,6 @@ function QuizQuestion() {
       quizId: quizData?.quizId,
     };
     dispatch(quizSubmitRequest(requestData));
-    setHintClicked(false);
     setCheck(true);
     setDisableOptions(true);
   };
@@ -102,17 +95,17 @@ function QuizQuestion() {
                   {/* Question  */}
                   {quizData?.question}
                 </p>
-                {/* <button>
-      <img src='/images/clock.svg' alt='clock' /> 00:12:30
-    </button> */}
               </div>
               <div className='hint'>
-                <button onClick={handleHintClick}>
+                <button
+                  type='button'
+                  data-toggle='tooltip'
+                  data-placement='left'
+                  title={quizData?.hint}
+                >
                   <img src='/images/hint.svg' alt='hint' /> Hint
                 </button>
               </div>
-
-              {/* <div className={`answers ${hintClicked ? 'hint-active' : ''}`}> */}
               <div
                 // className={`answers ${hintClicked ? 'hint-active' : ''}`}
                 className={`${
@@ -140,24 +133,6 @@ function QuizQuestion() {
                       );
                     })}
                   </div>
-                  {hintClicked && (
-                    <div className='hint-message'>
-                      <p className='title'>Method:</p>
-                      {/* <p>Ca is in group 2, therefore its an alkaline metal. </p> */}
-                      <p>{quizData?.explaination}</p>
-                      <div className='text-end mt-4'>
-                        <button className='check' onClick={handleCheckClick}>
-                          Check
-                        </button>
-                        <button
-                          className='next'
-                          onClick={() => setHintClicked(false)}
-                        >
-                          Next
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </Form>
 
                 {/* finish button  */}
@@ -167,20 +142,29 @@ function QuizQuestion() {
                   </div>
                 )}
                 {check ? (
+                  // Next button
                   <div className='done' onClick={handleNextClick}>
                     {isLaoding ? <Link>loading...</Link> : <Link>Next</Link>}
                     {/* {<Link>Next</Link>} */}
                   </div>
                 ) : (
+                  // Check button
                   <div className='done' onClick={handleCheckClick}>
                     {isLaoding ? <Link>loading...</Link> : <Link>Check</Link>}
                     {/* {<Link>Check</Link>} */}
                   </div>
                 )}
-
-                {/* <div className='done'>
-      {selectedAnswer !== null && <Link to='/quiz/results'>Done</Link>}
-    </div> */}
+              </div>
+              <div className='answers'>
+                <Form>
+                  {/* Answer explaination */}
+                  {quizSubmitData?.statusCode === 200 && (
+                    <div className='hint-message'>
+                      <p className='title'>Method:</p>
+                      <p>{quizData?.explaination}</p>
+                    </div>
+                  )}
+                </Form>
               </div>
             </div>
           </>
