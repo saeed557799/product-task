@@ -21,10 +21,14 @@ export default function Courses() {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    if (getSubjectsPrefData?.isPreferenceSet === true) {
+    if (getSubjectsPrefData?.isPreferenceSet === false) {
       setShow(true);
+    } else {
+      setShow(false);
     }
   }, [getSubjectsPrefData]);
+
+  // console.log('pref data =>', getSubjectsPrefData);
 
   return (
     <React.Fragment>
