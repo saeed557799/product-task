@@ -10,8 +10,6 @@ export default function Quiz() {
     quizResultData: result?.quizResultData,
   }));
 
-  console.log('results summary =>', quizResultData);
-
   return (
     <React.Fragment>
       <div className='quizCards'>
@@ -25,10 +23,19 @@ export default function Quiz() {
                 <div className='score'>
                   <div className='subject'>
                     <p>Your Score</p>
-                    <h4>{quizResultData?.correctAnswer}/30</h4>
+                    <h4>
+                      {quizResultData?.correctAnswer}/{' '}
+                      {quizResultData?.correctAnswer +
+                        quizResultData?.inCorrectAnswer}
+                    </h4>
                     <ul>
                       <li>
-                        Total Attempted: <small>30</small>
+                        Total Attempted:{' '}
+                        <small>
+                          {' '}
+                          {quizResultData?.correctAnswer +
+                            quizResultData?.inCorrectAnswer}
+                        </small>{' '}
                       </li>
                       <li>
                         Correct:{' '}
