@@ -1,34 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import data from './CourseData.json';
-import QuizModal from '../../../../components/Modal/QuizModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSubjectPrefRequest } from '../../../../redux/reducers/duck/dashboardDuck';
 
 export default function Courses() {
   const courseDat = data.courseDat;
-  const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
-
-  const { getSubjectsPrefData } = useSelector(({ dashboard }) => ({
-    getSubjectsPrefData: dashboard?.getSubjectsPrefData,
-  }));
-
-  useEffect(() => {
-    dispatch(getSubjectPrefRequest());
-  }, [dispatch]);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const modalShowStatus = getSubjectsPrefData?.isPreferenceSet;
-
-  useEffect(() => {
-    if (getSubjectsPrefData?.isPreferenceSet === false) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
-  }, [modalShowStatus]);
 
   return (
     <React.Fragment>
@@ -43,7 +17,7 @@ export default function Courses() {
                 <div className='card'>
                   <div className='subject'>
                     <p>{item.subject}</p>
-                    <span onClick={handleShow}>{item.courses}</span>
+                    <span>{item.courses}</span>
                   </div>
                   <h4>{item.courseName}</h4>
                   <img
@@ -66,12 +40,6 @@ export default function Courses() {
           })}
         </div>
       </div>
-      <QuizModal
-        show={show}
-        handleShow={handleShow}
-        handleClose={handleClose}
-        modalShowStatus={modalShowStatus}
-      />
     </React.Fragment>
   );
 }

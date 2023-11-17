@@ -24,16 +24,6 @@ function QuizModal(props) {
     getSubjectsPrefData: dashboard?.getSubjectsPrefData,
   }));
 
-  useEffect(() => {
-    dispatch(getSubjectPrefRequest());
-  }, [dispatch]);
-
-  // const buttonStyle = {
-  //   backgroundColor: data ? 'green' : 'gray',
-  //   opacity: data ? 1 : 0.5,
-  //   // Add other styles as needed
-  // };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -54,26 +44,6 @@ function QuizModal(props) {
     setData('');
     handleClose();
   };
-
-  // useEffect(() => {
-  //   data.forEach((value) => {
-  //     if (!value.qualification || !value.subject || !value.board) {
-  //       setIsSubmitData(true);
-  //     } else {
-  //       setIsSubmitData(false);
-  //     }
-  //   });
-  // }, [data]);
-
-  // const addEducations = () => {
-  //   let object = {
-  //     qualification: '',
-  //     subject: '',
-  //     board: '',
-  //   };
-
-  //   dispatch(postSubjectPrefRequest([...data, object]));
-  // };
 
   const excludedSubjects =
     getSubjectsPrefData &&

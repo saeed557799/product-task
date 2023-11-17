@@ -1,4 +1,4 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, all, takeLatest } from 'redux-saga/effects';
 import * as actions from '../../reducers/duck/dashboardDuck';
 import {
   getSubjectsPrefrenceApi,
@@ -25,6 +25,7 @@ export function* postSubjectPrefrenceSaga(payload) {
   try {
     const response = yield call(postSubjectsPrefrenceApi, payload);
     yield put(actions.postSubjectPrefResponse({ response: response?.data }));
+    yield all([call(getSubjectPrefrenceSaga)]);
     if (response.data?.statusCode === 201) {
       success(response?.data?.message);
     } else {

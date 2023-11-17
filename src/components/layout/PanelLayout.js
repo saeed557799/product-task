@@ -8,16 +8,25 @@ import Bar from '../../assets/images/bar.png';
 import Spinner from '../Helper/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRequest } from '../../redux/reducers/duck/userDuck';
+import { getSubjectPrefRequest } from '../../redux/reducers/duck/dashboardDuck';
+import QuizModal from '../Modal/QuizModal';
 
 export const PanelLayout = ({ children }) => {
   const dispatch = useDispatch();
 
   const [openSidebar, setOpenSidebar] = useState(true);
+  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const { userData } = useSelector(({ user }) => ({
-    userData: user?.userData,
-  }));
+  const { userData, getSubjectsPrefData } = useSelector(
+    ({ user, dashboard }) => ({
+      userData: user?.userData,
+      getSubjectsPrefData: dashboard?.getSubjectsPrefData,
+    })
+  );
+  // const { getSubjectsPrefData } = useSelector(({ dashboard }) => ({
+  //   getSubjectsPrefData: dashboard?.getSubjectsPrefData,
+  // }));
 
   useEffect(() => {
     dispatch(userRequest());
@@ -35,6 +44,23 @@ export const PanelLayout = ({ children }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    dispatch(getSubjectPrefRequest());
+  }, [dispatch]);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const modalShowStatus = getSubjectsPrefData?.isPreferenceSet;
+
+  useEffect(() => {
+    if (getSubjectsPrefData?.isPreferenceSet === false) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, [modalShowStatus]);
 
   return (
     <>
@@ -72,6 +98,9 @@ export const PanelLayout = ({ children }) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
+                  <Dropdown.Item onClick={handleShow}>
+                    Add Preference
+                  </Dropdown.Item>
                   <Dropdown.Item
                     href='/login'
                     onClick={() => localStorage.clear()}
@@ -85,6 +114,12 @@ export const PanelLayout = ({ children }) => {
           <div className='adjust-content-space'>{children}</div>
         </div>
       </div>
+      <QuizModal
+        show={show}
+        handleShow={handleShow}
+        handleClose={handleClose}
+        modalShowStatus={modalShowStatus}
+      />
     </>
   );
 };
