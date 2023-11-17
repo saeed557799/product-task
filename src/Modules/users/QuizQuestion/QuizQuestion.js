@@ -9,6 +9,7 @@ import {
 } from '../../../redux/reducers/duck/quizDuck';
 import { error } from '../../../utils/notifications';
 import { ButtonLoader } from '../../../components/Helper/loader';
+import { quizResultRequest } from '../../../redux/reducers/duck/resultDuck';
 
 function QuizQuestion() {
   const dispatch = useDispatch();
@@ -73,7 +74,15 @@ function QuizQuestion() {
       setAnswer(item);
     }
   };
-  // console.log('quizData => ', quizData);
+
+  const handleResult = () => {
+    if (startQuizData) {
+      const quiz_id = startQuizData?.question?.quizId;
+      dispatch(quizResultRequest(quiz_id));
+    }
+  };
+
+  // console.log('startQuizData => ', quizData);
 
   return (
     <React.Fragment>
@@ -155,6 +164,11 @@ function QuizQuestion() {
                 {/* {<Link>Check</Link>} */}
               </div>
             )}
+
+            {/* finish button  */}
+            <div className='done' onClick={handleResult}>
+              Finish
+            </div>
 
             {/* <div className='done'>
               {selectedAnswer !== null && <Link to='/quiz/results'>Done</Link>}

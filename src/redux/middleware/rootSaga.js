@@ -4,6 +4,7 @@ import { watchContentSagas } from './sagas/contentSaga';
 import { watchQuizSagas } from './sagas/quizSaga';
 import { watchDashboardSagas } from './sagas/dashboardSaga';
 import { watchUserSagas } from './sagas/userSaga';
+import { watchQuizResultSagas } from './sagas/resultSaga';
 
 const rootSaga = function* () {
   yield all([fork(watchContentSagas)]);
@@ -11,6 +12,7 @@ const rootSaga = function* () {
   yield all([fork(watchQuizSagas)]);
   yield all([fork(watchDashboardSagas)]);
   yield all([fork(watchUserSagas)]);
+  yield all([fork(watchQuizResultSagas)]);
 };
 
 export default rootSaga;

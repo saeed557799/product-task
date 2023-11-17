@@ -21,6 +21,9 @@ const urls = {
   user: {
     user: 'auth/user',
   },
+  result: {
+    finishQuiezz: '',
+  },
 };
 
 export default urls;
