@@ -1,7 +1,7 @@
 import Axios from './axios';
 import urls from './url';
 
-// subjects api
+// user api
 export const userApi = async () => {
   const token = localStorage.getItem('token');
   try {

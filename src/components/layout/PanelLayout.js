@@ -15,8 +15,6 @@ export const PanelLayout = ({ children }) => {
   const [openSidebar, setOpenSidebar] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const userName = localStorage.getItem('userName');
-
   const { userData } = useSelector(({ user }) => ({
     userData: user?.userData,
   }));
@@ -30,6 +28,7 @@ export const PanelLayout = ({ children }) => {
       setLoading(false);
     }, 500);
   }, []);
+
   const sideBarMenu = () => {
     setOpenSidebar(!openSidebar);
   };
@@ -70,7 +69,7 @@ export const PanelLayout = ({ children }) => {
                 <Dropdown.Toggle id='dropdown-basic'>
                   <div className='date'>
                     <img src={Avatar} alt='Avatar' />
-                    <p>Hello, {userName}</p>
+                    <p>Hello, {userData?.name}</p>
                   </div>
                 </Dropdown.Toggle>
 
