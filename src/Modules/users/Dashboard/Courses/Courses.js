@@ -23,10 +23,14 @@ export default function Courses() {
   const modalShowStatus = getSubjectsPrefData?.isPreferenceSet;
 
   useEffect(() => {
-    if (!modalShowStatus) {
+    if (getSubjectsPrefData?.isPreferenceSet === false) {
       setShow(true);
+    } else {
+      setShow(false);
     }
   }, [modalShowStatus]);
+
+  // console.log('pref data =>', getSubjectsPrefData);
 
   return (
     <React.Fragment>
