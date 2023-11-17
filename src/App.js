@@ -1,7 +1,8 @@
-import React from "react";
-import Routes from "./Routes/index";
+import React from 'react';
+import AppRoutes from './Routes/index';
+
 function App() {
-  return <Routes />;
+  return <AppRoutes />;
 }
 
 export default App;

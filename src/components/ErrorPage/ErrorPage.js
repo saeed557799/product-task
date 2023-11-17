@@ -6,7 +6,7 @@ const NotFound = () => {
     <>
       <div className='text-center mt-5'>
         <div className='error-page flex column-direction w-100'>404 page</div>
-        <Link to='/login'>
+        <Link to='/'>
           <button className='go-back-btn mt-3'>Go Back</button>
         </Link>
       </div>

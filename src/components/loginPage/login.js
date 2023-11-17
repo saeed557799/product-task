@@ -3,6 +3,8 @@ import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { loginRequest } from '../../redux/reducers/duck/authDuck';
+import { ButtonLoader } from '../Helper/loader';
+import { getEmailErrors, getEmailValidator } from '../../utils/authValidator';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -10,24 +12,44 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [errors, setErrors] = useState({});
 
-  const { login } = useSelector(({ auth }) => ({
+  const { login, isLoading } = useSelector(({ auth }) => ({
     login: auth?.loginRes,
+    isLoading: auth?.isLoading,
   }));
 
+  const findErrors = () => {
+    const newErrors = {};
+    if (!getEmailValidator(email)) newErrors.email = getEmailErrors();
+    if (!password) newErrors.password = ['Password is required.'];
+    return newErrors;
+  };
+
   const handleLogin = () => {
-    const requestData = {
-      email: email,
-      password: password,
-    };
-    dispatch(loginRequest(requestData));
+    const newErrors = findErrors();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      const requestData = {
+        email: email,
+        password: password,
+      };
+      dispatch(loginRequest(requestData));
+      clearState();
+    }
   };
 
   useEffect(() => {
     if (login) {
-      navigate('/dashboard');
+      window.location.href = '/dashboard';
     }
   }, [login, navigate]);
+
+  const clearState = () => {
+    setEmail('');
+    setPassword('');
+  };
 
   return (
     <>
@@ -51,6 +73,12 @@ const LoginPage = () => {
                 required
                 onChange={(e) => setEmail(e?.target?.value)}
               />
+              <p className='errmsg'>
+                {errors.email?.map((err, index) => {
+                  if (index === errors.email.length) return err;
+                  else return err + '\n';
+                })}
+              </p>
             </div>
             <div className='form-group'>
               <label>Password</label>
@@ -61,6 +89,12 @@ const LoginPage = () => {
                 required
                 onChange={(e) => setPassword(e?.target?.value)}
               />
+              <p className='errmsg'>
+                {errors.password?.map((err, index) => {
+                  if (index === errors.password.length) return err;
+                  else return err + '\n';
+                })}
+              </p>
             </div>
             <div className='checkbox-container'>
               <label className='checkbox'>
@@ -70,11 +104,21 @@ const LoginPage = () => {
               </label>
               <p className=''>Forgot password?</p>
             </div>
-            <div className='button'>
-              <button type='submit' onClick={() => handleLogin()}>
-                Login
-              </button>
-            </div>
+            {isLoading ? (
+              <div className='loader-button'>
+                <div className='button-container'>
+                  <ButtonLoader />
+                  <button type='submit'>Login</button>
+                </div>
+              </div>
+            ) : (
+              <div className='button'>
+                <button type='submit' onClick={() => handleLogin()}>
+                  Login
+                </button>
+              </div>
+            )}
+
             <div className='signup'>
               <p>
                 To join MyScienceLand, please <a href='/signup'>Sign Up</a>

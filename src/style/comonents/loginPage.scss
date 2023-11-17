@@ -1,14 +1,11 @@
 .main-container {
   background-color: hsl(230, 56%, 11%);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .logo-img {
   display: flex;
   margin: auto;
-}
-.neccessary {
-  padding: 2rem 0;
 }
 .login-container {
   max-width: 600px;
@@ -19,7 +16,7 @@
     font-size: 45px;
     font-weight: 700;
     // background: linear-gradient(to right, #001aff, #e33700);
-    background: linear-gradient(92.23deg, #001aff -3.74%, #e33700 128.39%);
+    background: linear-gradient(102.99deg, #001aff -3.74%, #e33700 128.39%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -31,6 +28,13 @@
     font-weight: 700;
     font-size: 14px;
     text-align: center;
+  }
+
+  .errmsg {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: left;
   }
   .form {
     background-color: #0c112a;
@@ -133,5 +137,22 @@
         }
       }
     }
+  }
+}
+
+.loader-button {
+  padding: 0 25px;
+  button {
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 25px;
+    height: 50px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    opacity: 0.3;
+    background: #2a1a91;
+    border: none;
   }
 }

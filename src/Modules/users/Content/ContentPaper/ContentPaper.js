@@ -1,103 +1,130 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import data from './ContentPaper.json';
 import { Link } from 'react-router-dom';
+import {
+  subjectRequest,
+  topicsRequest,
+} from '../../../../redux/reducers/duck/contentDuck';
+import { useDispatch, useSelector } from 'react-redux';
+import Spinner from '../../../../components/Helper/loader';
+import { startQuizRequest } from '../../../../redux/reducers/duck/quizDuck';
 
 export default function ContentPaper() {
+  const dispatch = useDispatch();
   const contentPaper = data.contentPaper;
   const [clickedItem, setClickedItem] = useState({
     index: null,
-    row: null,
     paperIndex: null,
   });
 
-  const handleClick = (index, row, paperIndex) => {
-    setClickedItem({ index, row, paperIndex });
+  const { subjectsData, topicsData, isLoading } = useSelector(
+    ({ content }) => ({
+      subjectsData: content?.subjectsData,
+      topicsData: content?.topicsData,
+      isLoading: content?.isLoading,
+    })
+  );
+  const handleClick = (index, item) => {
+    dispatch(topicsRequest(item?.id));
+    setClickedItem({ index, item });
   };
 
   const handleClose = () => {
-    setClickedItem({ index: null, row: null, paperIndex: null });
+    setClickedItem({ index: null, paperIndex: null });
   };
+
+  useEffect(() => {
+    dispatch(subjectRequest());
+  }, [dispatch]);
 
   return (
     <React.Fragment>
       <div className='contentPaper'>
         <div className='row'>
-          {contentPaper.map((item, index) => {
-            const isCurrentlyClicked = clickedItem.index === index;
+          {subjectsData &&
+            subjectsData.map((item, index) => {
+              // {contentPaper.map((item, index) => {
+              const isCurrentlyClicked = clickedItem.index === index;
 
-            return (
-              <div className='col-md-12' key={index}>
-                <div className='heading'>
-                  <h3>{item.subject}</h3>
+              return (
+                <div className='col-md-12' key={index}>
+                  <div className='heading'>
+                    {/* <h3>{item.subject}</h3> */}
+                    <h3>{item.name}</h3>
+                  </div>
+                  {isCurrentlyClicked && (
+                    <>
+                      {isLoading ? (
+                        <Spinner />
+                      ) : (
+                        <div
+                          className={`card${
+                            isCurrentlyClicked ? ' hoveredCard' : ''
+                          }`}
+                        >
+                          <button className='closeButton' onClick={handleClose}>
+                            x
+                          </button>
+                          <div className='table-responsive'>
+                            <table className='table m-0'>
+                              <tbody>
+                                <tr>
+                                  <th className='text-center'>
+                                    {topicsData?.paper?.name}
+                                  </th>
+                                  {/* <th>{item[`paper${clickedItem.paperIndex}`]}</th> */}
+                                </tr>
+                                {topicsData?.paper?.topics &&
+                                  topicsData?.paper?.topics?.map((item) => {
+                                    return (
+                                      <tr>
+                                        <td
+                                          onClick={() =>
+                                            dispatch(startQuizRequest(item?.id))
+                                          }
+                                        >
+                                          <Link to={'/quiz/question'}>
+                                            {item?.name}
+                                          </Link>
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {!isCurrentlyClicked && (
+                    <div className='card'>
+                      <div className='table-responsive'>
+                        <table className='table table-bordered m-0'>
+                          <tbody>
+                            <tr>
+                              {/* <th>{item.course1}</th> */}
+                              <th>{item?.qualification}</th>
+                              {item?.papers &&
+                                item?.papers?.map((item) => {
+                                  return (
+                                    <td
+                                      onClick={() => handleClick(index, item)}
+                                    >
+                                      {/* {item.paper1} */}
+                                      {item.name}
+                                    </td>
+                                  );
+                                })}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                {isCurrentlyClicked && (
-                  <div
-                    className={`card${
-                      isCurrentlyClicked ? ' hoveredCard' : ''
-                    }`}
-                  >
-                    <button className='closeButton' onClick={handleClose}>
-                      x
-                    </button>
-                    <div className='table-responsive'>
-                      <table className='table m-0'>
-                        <tbody>
-                          <tr>
-                            <th>{item[`course${clickedItem.row}`]}</th>
-                            <th>{item[`paper${clickedItem.paperIndex}`]}</th>
-                          </tr>
-                          <tr>
-                            <td>
-                              <Link to={'/quiz/question'}>{item.topic1}</Link>
-                            </td>
-                            <td>
-                              <Link to={'/quiz/question'}>{item.topic2}</Link>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <Link to={'/quiz/question'}>{item.topic3}</Link>
-                            </td>
-                            <td>
-                              <Link to={'/quiz/question'}>{item.topic4}</Link>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
-                {!isCurrentlyClicked && (
-                  <div className='card'>
-                    <div className='table-responsive'>
-                      <table className='table table-bordered m-0'>
-                        <tbody>
-                          <tr>
-                            <th>{item.course1}</th>
-                            <td onClick={() => handleClick(index, 1, 1)}>
-                              {item.paper1}
-                            </td>
-                            <td onClick={() => handleClick(index, 1, 2)}>
-                              {item.paper2}
-                            </td>
-                          </tr>
-                          <tr>
-                            <th>{item.course2}</th>
-                            <td onClick={() => handleClick(index, 2, 1)}>
-                              {item.paper1}
-                            </td>
-                            <td onClick={() => handleClick(index, 2, 2)}>
-                              {item.paper2}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </React.Fragment>

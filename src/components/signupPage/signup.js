@@ -3,6 +3,15 @@ import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { signupRequest } from '../../redux/reducers/duck/authDuck';
+import { ButtonLoader } from '../Helper/loader';
+import {
+  getNameErrors,
+  getEmailErrors,
+  getEmailValidator,
+  getPwdErrors,
+  getPwdValidator,
+  getConfirmPasswordErrors,
+} from '../../utils/authValidator';
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -11,27 +20,45 @@ const SignupPage = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const [errors, setErrors] = useState({});
 
-  const { signup } = useSelector(({ auth }) => {
+  const { signup, isLoading } = useSelector(({ auth }) => {
     return {
       signup: auth?.signupRes,
+      isLoading: auth?.isLoading,
     };
   });
 
+  const findErrors = () => {
+    const newErrors = {};
+    if (!name) newErrors.name = getNameErrors();
+    if (!getEmailValidator(email)) newErrors.email = getEmailErrors();
+    if (!getPwdValidator(password)) newErrors.password = getPwdErrors();
+    if (!confirmPassword)
+      newErrors.confirmPassword = getConfirmPasswordErrors();
+    return newErrors;
+  };
+
   const handleSignup = () => {
-    const requestData = {
-      name: name,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-      roles: 'user',
-    };
-    dispatch(signupRequest(requestData));
+    const newErrors = findErrors();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      const requestData = {
+        name: name,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        roles: 'user',
+      };
+      dispatch(signupRequest(requestData));
+    }
   };
 
   useEffect(() => {
     if (signup) {
-      navigate('/dashboard');
+      window.location.href = '/dashboard';
+      // navigate('/dashboard');
     }
   }, [navigate, signup]);
 
@@ -57,6 +84,12 @@ const SignupPage = () => {
                 required
                 onChange={(e) => setName(e?.target?.value)}
               />
+              <p className='errmsg'>
+                {errors.name?.map((err, index) => {
+                  if (index === errors.name.length) return err;
+                  else return err + '\n';
+                })}
+              </p>
             </div>
             <div className='form-group'>
               <label>Email</label>
@@ -67,6 +100,12 @@ const SignupPage = () => {
                 required
                 onChange={(e) => setEmail(e?.target?.value)}
               />
+              <p className='errmsg'>
+                {errors.email?.map((err, index) => {
+                  if (index === errors.email.length) return err;
+                  else return err + '\n';
+                })}
+              </p>
             </div>
             <div className='form-group'>
               <label>Password</label>
@@ -77,6 +116,12 @@ const SignupPage = () => {
                 required
                 onChange={(e) => setPassword(e?.target?.value)}
               />
+              <p className='errmsg'>
+                {errors.password?.map((err, index) => {
+                  if (index === errors.password.length) return err;
+                  else return err + '\n';
+                })}
+              </p>
             </div>
             <div className='form-group'>
               <label>Confirm Password</label>
@@ -88,11 +133,20 @@ const SignupPage = () => {
                 onChange={(e) => setConfirmPassword(e?.target?.value)}
               />
             </div>
-            <div className='button'>
-              <button type='submit' onClick={() => handleSignup()}>
-                Sign Up
-              </button>
-            </div>
+            {isLoading ? (
+              <div className='loader-button'>
+                <div className='button-container'>
+                  <ButtonLoader />
+                  <button type='submit'>Sign Up</button>
+                </div>
+              </div>
+            ) : (
+              <div className='button'>
+                <button type='submit' onClick={() => handleSignup()}>
+                  Sign Up
+                </button>
+              </div>
+            )}
             <div className='login'>
               <p>
                 Already have an account? <a href='/login'>login</a>

@@ -8,9 +8,18 @@ const urls = {
     topics: 'paper/with-topics',
     contentSummary: 'topic/get-content',
   },
+  quiz: {
+    startQuiz: 'url',
+    submitQuiz: 'question/submit',
+    nextQuestion: 'url',
+    finishQuiz: 'url',
+  },
   dashboard: {
     getSubjectPrefrence: 'subject-pref/dashboard',
     postSubjectPrefrence: 'subject-pref',
+  },
+  user: {
+    user: 'auth/user',
   },
 };
 
