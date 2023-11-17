@@ -28,9 +28,6 @@ function QuizQuestion() {
       isLaoding: quiz?.isLoading,
     }));
 
-  // const attemptCount = nextQuestionData?.data;
-  // console.log('startQuizData => ', startQuizData);
-
   useEffect(() => {
     dispatch(quizSubmitResponse({ response: null }));
     setQuizData(startQuizData?.question);
@@ -95,10 +92,11 @@ function QuizQuestion() {
               <h3>Organic Chemistry: The study of carbon compounds</h3>
             </div>
             <div className='card'>
-              <p>
+              {/* show question counting  */}
+              {/* <p>
                 {attemptCount?.attemptsCount + 1} of{' '}
                 {attemptCount?.questionCount}
-              </p>
+              </p> */}
               <div className='question'>
                 <p>
                   {/* Question  */}
