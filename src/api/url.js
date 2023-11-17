@@ -18,6 +18,9 @@ const urls = {
     getSubjectPrefrence: 'subject-pref/dashboard',
     postSubjectPrefrence: 'subject-pref',
   },
+  user: {
+    user: 'auth/user',
+  },
 };
 
 export default urls;

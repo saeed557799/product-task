@@ -26,7 +26,7 @@ export default function Courses() {
     if (!modalShowStatus) {
       setShow(true);
     }
-  }, [getSubjectsPrefData]);
+  }, [modalShowStatus]);
 
   return (
     <React.Fragment>
