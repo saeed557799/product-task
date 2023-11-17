@@ -9,15 +9,15 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: INITIAL_STATE,
   reducers: {
-    // request reducers
-    userRequest: (state) => state,
     // response reducers
     userResponse(state, { payload }) {
       return {
         ...state,
-        signupRes: payload.response,
+        userData: payload.response,
       };
     },
+    // request reducers
+    userRequest: (state) => state,
   },
 });
 export const { userRequest, userResponse } = userSlice.actions;

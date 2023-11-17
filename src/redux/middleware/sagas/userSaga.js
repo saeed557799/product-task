@@ -6,14 +6,16 @@ import { userApi } from '../../../api/userApi';
 export function* userSaga() {
   try {
     const response = yield call(userApi);
+    console.log('saga res =>', response);
     if (response?.data) {
       yield put(actions.userResponse({ response: response?.data?.data }));
     }
+    console.log('saga data =>', response);
   } catch (error) {
   } finally {
   }
 }
 
-export function* watchQuizSagas() {
+export function* watchUserSagas() {
   yield takeLatest(actions.userRequest.type, userSaga);
 }

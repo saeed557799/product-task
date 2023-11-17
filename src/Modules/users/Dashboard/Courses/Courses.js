@@ -4,6 +4,7 @@ import QuizModal from '../../../../components/Modal/QuizModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSubjectPrefRequest } from '../../../../redux/reducers/duck/dashboardDuck';
 import { success, error } from '../../../../utils/notifications';
+// import { userRequest } from '../../../../redux/reducers/duck/userDuck';
 
 export default function Courses() {
   const courseDat = data.courseDat;
@@ -16,6 +17,7 @@ export default function Courses() {
 
   useEffect(() => {
     dispatch(getSubjectPrefRequest());
+    // dispatch(userRequest());
   }, [dispatch]);
 
   const handleClose = () => setShow(false);
@@ -27,7 +29,7 @@ export default function Courses() {
     if (!modalShowStatus) {
       setShow(true);
     }
-  }, [getSubjectsPrefData]);
+  }, [modalShowStatus]);
 
   return (
     <React.Fragment>

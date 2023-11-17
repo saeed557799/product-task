@@ -6,11 +6,24 @@ import Avatar from '../../assets/images/avatar.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Bar from '../../assets/images/bar.png';
 import Spinner from '../Helper/loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { userRequest } from '../../redux/reducers/duck/userDuck';
 
 export const PanelLayout = ({ children }) => {
+  const dispatch = useDispatch();
+
   const [openSidebar, setOpenSidebar] = useState(true);
   const [loading, setLoading] = useState(true);
+
   const userName = localStorage.getItem('userName');
+
+  const { userData } = useSelector(({ user }) => ({
+    userData: user?.userData,
+  }));
+
+  useEffect(() => {
+    dispatch(userRequest());
+  }, [dispatch]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -23,6 +36,8 @@ export const PanelLayout = ({ children }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  console.log('user data =>', userData);
 
   return (
     <>
