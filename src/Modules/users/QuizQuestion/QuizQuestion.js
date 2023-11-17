@@ -1,37 +1,77 @@
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
-import { Questions, SubmitResponse } from '../../../utils/helper/question';
 import { useDispatch, useSelector } from 'react-redux';
-import startQuizRequest from '../../../redux/reducers/duck/quizDuck';
+import {
+  nextQuestionRequest,
+  quizSubmitRequest,
+  quizSubmitResponse,
+} from '../../../redux/reducers/duck/quizDuck';
+import { error } from '../../../utils/notifications';
 
 function QuizQuestion() {
   const dispatch = useDispatch();
   const [hintClicked, setHintClicked] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [check, setCheck] = useState(false);
   const [answer, setAnswer] = useState(null);
-  const [submitResponse, setSubmitResponse] = useState(null);
+  const [disableOptions, setDisableOptions] = useState(false);
+  const [quizData, setQuizData] = useState('');
 
-  const { startQuizData } = useSelector(({ quiz }) => ({
-    startQuizData: quiz?.startQuizData,
-  }));
-  console.log('QuestionData => ', startQuizData);
+  const { startQuizData, quizSubmitData, nextQuestionData } = useSelector(
+    ({ quiz }) => ({
+      startQuizData: quiz?.startQuizData,
+      quizSubmitData: quiz?.quizSubmitData,
+      nextQuestionData: quiz?.nextQuestionData,
+    })
+  );
+
+  useEffect(() => {
+    dispatch(quizSubmitResponse({ response: null }));
+    setQuizData(startQuizData?.question);
+  }, [startQuizData, dispatch]);
+
+  useEffect(() => {
+    dispatch(quizSubmitResponse({ response: null }));
+    setQuizData(nextQuestionData);
+  }, [nextQuestionData, dispatch]);
+
   const handleHintClick = () => {
-    // setSelectedAnswer(answer);
     setHintClicked(true);
   };
 
   const handleCheckClick = () => {
-    setSubmitResponse(SubmitResponse);
+    if (!answer) {
+      // Show toaster
+      error('Please select an answer');
+      console.log('Please selcr ans');
+      return;
+    }
+
+    const requestData = {
+      questionId: quizData?.id,
+      answerId: answer?.id,
+      quizId: quizData?.quizId,
+    };
+    dispatch(quizSubmitRequest(requestData));
     setHintClicked(false);
-    setSelectedAnswer(answer);
-    setAnswer('');
+    setCheck(true);
+    setDisableOptions(true);
   };
 
-  const handleAnswerChange = (item) => {
-    // setAnswer(e.target.value);
-    setAnswer(item);
+  const handleNextClick = () => {
+    const quiz_id = startQuizData?.question?.quizId;
+    dispatch(nextQuestionRequest(quiz_id));
+    setAnswer('');
+    setDisableOptions(false);
+    setCheck(false);
   };
+  const handleAnswerChange = (item) => {
+    if (!disableOptions) {
+      setCheck(false);
+      setAnswer(item);
+    }
+  };
+  // console.log('quizData => ', quizData);
 
   return (
     <React.Fragment>
@@ -42,13 +82,12 @@ function QuizQuestion() {
         <div className='card'>
           <div className='question'>
             <p>
-              {/* 1. Which of the following is an example of an alkaline earth
-              metal? */}
-              {startQuizData?.question?.question}
+              {/* Question  */}
+              {quizData?.question}
             </p>
-            <button>
+            {/* <button>
               <img src='/images/clock.svg' alt='clock' /> 00:12:30
-            </button>
+            </button> */}
           </div>
           <div className='hint'>
             <button onClick={handleHintClick}>
@@ -58,9 +97,10 @@ function QuizQuestion() {
 
           {/* <div className={`answers ${hintClicked ? 'hint-active' : ''}`}> */}
           <div
+            // className={`answers ${hintClicked ? 'hint-active' : ''}`}
             className={`${
-              submitResponse?.statusCode === 200
-                ? submitResponse?.data?.isCorrect === true
+              quizSubmitData?.statusCode === 200
+                ? quizSubmitData?.data?.isCorrect === true
                   ? 'success-active answers'
                   : 'danger-active answers'
                 : 'answers'
@@ -68,18 +108,17 @@ function QuizQuestion() {
           >
             <Form>
               <div>
-                {startQuizData?.question?.answers?.map((item, index) => {
+                {quizData?.answers?.map((item, index) => {
                   return (
                     <Form.Check
-                      // inline
-                      label={item?.answer}
-                      name='group1'
+                      label={item?.answer} // answer
+                      name='group'
                       type='radio'
                       id={index + 1}
                       value={item?.answer}
-                      // checked={selectedAnswer === 1}
                       onChange={() => handleAnswerChange(item)}
-                      // disabled={hintClicked}
+                      checked={answer === item}
+                      disabled={disableOptions}
                     />
                   );
                 })}
@@ -87,7 +126,8 @@ function QuizQuestion() {
               {hintClicked && (
                 <div className='hint-message'>
                   <p className='title'>Method:</p>
-                  <p>Ca is in group 2, therefore its an alkaline metal. </p>
+                  {/* <p>Ca is in group 2, therefore its an alkaline metal. </p> */}
+                  <p>{quizData?.explaination}</p>
                   <div className='text-end mt-4'>
                     <button className='check' onClick={handleCheckClick}>
                       Check
@@ -102,10 +142,16 @@ function QuizQuestion() {
                 </div>
               )}
             </Form>
+            {check ? (
+              <div className='done' onClick={handleNextClick}>
+                {<Link>Next</Link>}
+              </div>
+            ) : (
+              <div className='done' onClick={handleCheckClick}>
+                {<Link>Check</Link>}
+              </div>
+            )}
 
-            <div className='done' onClick={handleCheckClick}>
-              {<Link>Check</Link>}
-            </div>
             {/* <div className='done'>
               {selectedAnswer !== null && <Link to='/quiz/results'>Done</Link>}
             </div> */}

@@ -11,7 +11,7 @@ const urls = {
   quiz: {
     startQuiz: 'url',
     submitQuiz: 'question/submit',
-    nextQuestion: 'url',
+    nextQuestion: 'question/nextQuestion',
     finishQuiz: 'url',
   },
   dashboard: {
