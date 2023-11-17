@@ -5,23 +5,38 @@ import Search from '../../assets/images/search.svg';
 import Avatar from '../../assets/images/avatar.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Bar from '../../assets/images/bar.png';
+import Spinner from '../Helper/loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { userRequest } from '../../redux/reducers/duck/userDuck';
 
-export const PanelLayout = () => {
+export const PanelLayout = ({ children }) => {
+  const dispatch = useDispatch();
+
   const [openSidebar, setOpenSidebar] = useState(true);
   const [loading, setLoading] = useState(true);
-  const userName = localStorage.getItem('userName');
+
+  const { userData } = useSelector(({ user }) => ({
+    userData: user?.userData,
+  }));
+
+  useEffect(() => {
+    dispatch(userRequest());
+  }, [dispatch]);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
   }, []);
+
   const sideBarMenu = () => {
     setOpenSidebar(!openSidebar);
   };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  console.log('user data =>', userData);
 
   return (
     <>
@@ -54,7 +69,7 @@ export const PanelLayout = () => {
                 <Dropdown.Toggle id='dropdown-basic'>
                   <div className='date'>
                     <img src={Avatar} alt='Avatar' />
-                    <p>Hello, {userName}</p>
+                    <p>Hello, {userData?.name}</p>
                   </div>
                 </Dropdown.Toggle>
 
@@ -69,9 +84,7 @@ export const PanelLayout = () => {
               </Dropdown>
             </div>
           </header>
-          <div className='panel-main-wrapper'>
-            {loading ? <div className='loader'></div> : <Outlet />}
-          </div>
+          <div className='adjust-content-space'>{children}</div>
         </div>
       </div>
     </>

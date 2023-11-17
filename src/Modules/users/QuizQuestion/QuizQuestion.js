@@ -15,7 +15,6 @@ function QuizQuestion() {
   const { startQuizData } = useSelector(({ quiz }) => ({
     startQuizData: quiz?.startQuizData,
   }));
-  console.log('QuestionData => ', startQuizData);
   const handleHintClick = () => {
     // setSelectedAnswer(answer);
     setHintClicked(true);
