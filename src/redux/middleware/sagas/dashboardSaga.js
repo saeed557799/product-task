@@ -4,6 +4,7 @@ import {
   getSubjectsPrefrenceApi,
   postSubjectsPrefrenceApi,
 } from '../../../api/dashboardApi';
+import { error, success } from '../../../utils/notifications';
 
 // get-subjects-pref saga
 export function* getSubjectPrefrenceSaga() {
@@ -23,8 +24,11 @@ export function* getSubjectPrefrenceSaga() {
 export function* postSubjectPrefrenceSaga(payload) {
   try {
     const response = yield call(postSubjectsPrefrenceApi, payload);
-    if (response?.data) {
-      yield put(actions.postSubjectPrefResponse({ response: response?.data }));
+    yield put(actions.postSubjectPrefResponse({ response: response?.data }));
+    if (response.data?.statusCode === 201) {
+      success(response?.data?.message);
+    } else {
+      error(response?.data?.message);
     }
   } catch (error) {
   } finally {
