@@ -32,7 +32,7 @@ function QuizQuestion() {
 
   useEffect(() => {
     dispatch(quizSubmitResponse({ response: null }));
-    setQuizData(nextQuestionData);
+    setQuizData(nextQuestionData?.data?.question);
   }, [nextQuestionData, dispatch]);
 
   const handleHintClick = () => {
@@ -41,9 +41,8 @@ function QuizQuestion() {
 
   const handleCheckClick = () => {
     if (!answer) {
-      // Show toaster
+      //toaster
       error('Please select an answer');
-      console.log('Please selcr ans');
       return;
     }
 

@@ -22,6 +22,7 @@ export function* quizStartSaga({ payload }) {
 // submit-quiz saga
 export function* quizSubmitSaga({ payload }) {
   try {
+    yield put(actions.quizLoading(true));
     const response = yield call(quizSubmitApi, payload);
     if (response?.data) {
       yield put(actions.quizSubmitResponse({ response: response?.data }));
