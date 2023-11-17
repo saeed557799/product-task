@@ -1,9 +1,16 @@
 // Your component file
 import React from 'react';
+import { useSelector } from 'react-redux';
 import data from './QuizData.json';
 
 export default function Quiz() {
   const quizData = data.quizData;
+
+  const { quizResultData } = useSelector(({ result }) => ({
+    quizResultData: result?.quizResultData,
+  }));
+
+  console.log('results summary =>', quizResultData);
 
   return (
     <React.Fragment>
@@ -18,22 +25,28 @@ export default function Quiz() {
                 <div className='score'>
                   <div className='subject'>
                     <p>Your Score</p>
-                    <h4>24/30</h4>
+                    <h4>{quizResultData?.correctAnswer}/30</h4>
                     <ul>
                       <li>
                         Total Attempted: <small>30</small>
                       </li>
                       <li>
-                        Correct: <small>24</small>
+                        Correct:{' '}
+                        <small>
+                          {quizResultData ? quizResultData?.correctAnswer : 0}
+                        </small>
                       </li>
                       <li>
-                        Wrong: <small>6</small>
+                        Wrong:{' '}
+                        <small>
+                          {quizResultData ? quizResultData?.inCorrectAnswer : 0}
+                        </small>
                       </li>
                     </ul>
                   </div>
                   <div className='circle'>
                     <img src='/images/circle.svg' alt='circle' />
-                    <p>75%</p>
+                    <p>{Math.round(quizResultData?.percentage)}%</p>
                   </div>
                 </div>
               </div>
@@ -43,11 +56,11 @@ export default function Quiz() {
                 <div className='score'>
                   <div className='subject'>
                     <p>What you need to work on</p>
-                    <h4>Topics</h4>
                     <ul>
-                      <li>Topic 1</li>
-                      <li>Topic 2</li>
-                      <li>Topic 3</li>
+                      {quizResultData &&
+                        quizResultData?.WorkOnTags?.map((item) => {
+                          return <li>{item}</li>;
+                        })}
                     </ul>
                   </div>
                   <div className='circle'>
