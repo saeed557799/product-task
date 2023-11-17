@@ -17,6 +17,11 @@ export default function CourseCards() {
       isLoading: content?.isLoading,
     })
   );
+
+  let subjects = subjectsData?.map((item) => {
+    return item?.subject;
+  });
+
   const [clickedItem, setClickedItem] = useState({
     index: null,
     paperIndex: null,
@@ -40,15 +45,15 @@ export default function CourseCards() {
           <h3>Course Content</h3>
         </div>
         <div className='row'>
-          {subjectsData?.length > 0 ? (
-            subjectsData?.map((item, index) => {
+          {subjects?.length > 0 ? (
+            Object?.keys(subjects)?.map((item, index) => {
               const isCurrentlyClicked = clickedItem.index === index;
               return (
                 <div className='col-md-4' key={index}>
                   <div className='card'>
                     <div className='title'>
                       <img src={images[index]} alt='subjectImg' />
-                      <h4>{item.name}</h4>
+                      <h4>{subjects[item]?.name}</h4>
                     </div>
                     {isCurrentlyClicked && (
                       <div
@@ -62,7 +67,7 @@ export default function CourseCards() {
                           <table className='table table-bordered m-0'>
                             <thead>
                               <tr>
-                                <th>{item?.qualification}</th>
+                                <th>{subjects[item]?.qualification}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -97,20 +102,26 @@ export default function CourseCards() {
                           </tr>
                         </thead>
                         <tbody>
-                          {item?.papers?.map((player) => (
-                            <tr key={player}>
-                              {item?.qualification === 'Alevel' && (
-                                <td onClick={() => handleClick(index, player)}>
-                                  {player?.name}
-                                </td>
-                              )}
-                              {item?.qualification === 'GCSE' && (
-                                <td onClick={() => handleClick(index, player)}>
-                                  {player?.name}
-                                </td>
-                              )}
-                            </tr>
-                          ))}
+                          {subjects[item]?.papers?.map((player) => {
+                            return (
+                              <tr key={player}>
+                                {subjects[item]?.qualification === 'Alevel' && (
+                                  <td
+                                    onClick={() => handleClick(index, player)}
+                                  >
+                                    {player?.name}
+                                  </td>
+                                )}
+                                {subjects[item]?.qualification === 'GCSE' && (
+                                  <td
+                                    onClick={() => handleClick(index, player)}
+                                  >
+                                    {player?.name}
+                                  </td>
+                                )}
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                     )}

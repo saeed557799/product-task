@@ -22,6 +22,7 @@ export function* quizStartSaga({ payload }) {
 // submit-quiz saga
 export function* quizSubmitSaga({ payload }) {
   try {
+    yield put(actions.quizLoading(true));
     const response = yield call(quizSubmitApi, payload);
     if (response?.data) {
       yield put(actions.quizSubmitResponse({ response: response?.data }));
@@ -36,7 +37,9 @@ export function* nextQuestionSaga({ payload }) {
   try {
     const response = yield call(nextQurestionApi, payload);
     if (response?.data) {
-      yield put(actions.nextQuestionResponse({ response: response?.data }));
+      yield put(
+        actions.nextQuestionResponse({ response: response?.data?.question })
+      );
     }
   } catch (error) {
   } finally {

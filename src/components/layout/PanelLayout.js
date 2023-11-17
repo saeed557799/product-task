@@ -36,8 +36,6 @@ export const PanelLayout = ({ children }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  console.log('user data =>', userData);
-
   return (
     <>
       <div className='panel-wrapper flex flex-wrap column-direction'>
