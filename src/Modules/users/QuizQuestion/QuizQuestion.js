@@ -146,12 +146,12 @@ function QuizQuestion() {
             </Form>
             {check ? (
               <div className='done' onClick={handleNextClick}>
-                {isLaoding ? <Link>loading..</Link> : <Link>Next</Link>}
+                {isLaoding ? <Link>loading...</Link> : <Link>Next</Link>}
                 {/* {<Link>Next</Link>} */}
               </div>
             ) : (
               <div className='done' onClick={handleCheckClick}>
-                {isLaoding ? <Link>loading..</Link> : <Link>Check</Link>}
+                {isLaoding ? <Link>loading...</Link> : <Link>Check</Link>}
                 {/* {<Link>Check</Link>} */}
               </div>
             )}
