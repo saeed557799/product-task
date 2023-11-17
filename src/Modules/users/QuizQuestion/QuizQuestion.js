@@ -8,6 +8,7 @@ import {
   quizSubmitResponse,
 } from '../../../redux/reducers/duck/quizDuck';
 import { error } from '../../../utils/notifications';
+import { ButtonLoader } from '../../../components/Helper/loader';
 
 function QuizQuestion() {
   const dispatch = useDispatch();
@@ -17,13 +18,15 @@ function QuizQuestion() {
   const [disableOptions, setDisableOptions] = useState(false);
   const [quizData, setQuizData] = useState('');
 
-  const { startQuizData, quizSubmitData, nextQuestionData } = useSelector(
-    ({ quiz }) => ({
+  const { startQuizData, quizSubmitData, nextQuestionData, isLaoding } =
+    useSelector(({ quiz }) => ({
       startQuizData: quiz?.startQuizData,
       quizSubmitData: quiz?.quizSubmitData,
       nextQuestionData: quiz?.nextQuestionData,
-    })
-  );
+      isLaoding: quiz?.isLoading,
+    }));
+
+  console.log('Islaoding => ', isLaoding);
 
   useEffect(() => {
     dispatch(quizSubmitResponse({ response: null }));
@@ -70,7 +73,7 @@ function QuizQuestion() {
       setAnswer(item);
     }
   };
-  console.log('quizData => ', quizData);
+  // console.log('quizData => ', quizData);
 
   return (
     <React.Fragment>
@@ -143,11 +146,13 @@ function QuizQuestion() {
             </Form>
             {check ? (
               <div className='done' onClick={handleNextClick}>
-                {<Link>Next</Link>}
+                {isLaoding ? <Link>loading..</Link> : <Link>Next</Link>}
+                {/* {<Link>Next</Link>} */}
               </div>
             ) : (
               <div className='done' onClick={handleCheckClick}>
-                {<Link>Check</Link>}
+                {isLaoding ? <Link>loading..</Link> : <Link>Check</Link>}
+                {/* {<Link>Check</Link>} */}
               </div>
             )}
 
