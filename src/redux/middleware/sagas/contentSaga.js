@@ -12,9 +12,7 @@ export function* subjectSaga() {
     yield put(actions.contentLoading(true));
     const response = yield call(subjectsApi);
     if (response?.data) {
-      yield put(
-        actions.subjectResponse({ response: response?.data?.subjects })
-      );
+      yield put(actions.subjectResponse({ response: response?.data?.data }));
     }
     yield put(actions.contentLoading(false));
   } catch (error) {

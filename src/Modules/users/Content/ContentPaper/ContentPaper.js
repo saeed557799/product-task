@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import data from './ContentPaper.json';
 import { Link } from 'react-router-dom';
 import {
   subjectRequest,
@@ -11,7 +10,6 @@ import { startQuizRequest } from '../../../../redux/reducers/duck/quizDuck';
 
 export default function ContentPaper() {
   const dispatch = useDispatch();
-  const contentPaper = data.contentPaper;
   const [clickedItem, setClickedItem] = useState({
     index: null,
     paperIndex: null,
@@ -24,6 +22,11 @@ export default function ContentPaper() {
       isLoading: content?.isLoading,
     })
   );
+
+  let subjects = subjectsData?.map((item) => {
+    return item?.subject;
+  });
+
   const handleClick = (index, item) => {
     dispatch(topicsRequest(item?.id));
     setClickedItem({ index, item });
@@ -41,16 +44,13 @@ export default function ContentPaper() {
     <React.Fragment>
       <div className='contentPaper'>
         <div className='row'>
-          {subjectsData &&
-            subjectsData.map((item, index) => {
-              // {contentPaper.map((item, index) => {
+          {subjects?.length > 0 &&
+            Object?.keys(subjects).map((item, index) => {
               const isCurrentlyClicked = clickedItem.index === index;
-
               return (
                 <div className='col-md-12' key={index}>
                   <div className='heading'>
-                    {/* <h3>{item.subject}</h3> */}
-                    <h3>{item.name}</h3>
+                    <h3>{subjects[item]?.name}</h3>
                   </div>
                   {isCurrentlyClicked && (
                     <>
@@ -104,9 +104,9 @@ export default function ContentPaper() {
                           <tbody>
                             <tr>
                               {/* <th>{item.course1}</th> */}
-                              <th>{item?.qualification}</th>
-                              {item?.papers &&
-                                item?.papers?.map((item) => {
+                              <th>{subjects[item].qualification}</th>
+                              {subjects[item].papers &&
+                                subjects[item].papers?.map((item) => {
                                   return (
                                     <td
                                       onClick={() => handleClick(index, item)}

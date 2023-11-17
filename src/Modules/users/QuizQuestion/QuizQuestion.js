@@ -71,7 +71,7 @@ function QuizQuestion() {
       setAnswer(item);
     }
   };
-  // console.log('quizData => ', quizData);
+  console.log('quizData => ', quizData);
 
   return (
     <React.Fragment>
