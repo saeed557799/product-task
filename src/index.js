@@ -5,7 +5,8 @@ import '../src/style/global.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { store, persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Spinner } from 'react-bootstrap';
@@ -26,7 +27,9 @@ root.render(
         theme='light'
         pauseOnHover
       />
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Suspense>
   </Provider>
 );
