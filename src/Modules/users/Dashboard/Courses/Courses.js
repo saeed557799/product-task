@@ -30,8 +30,6 @@ export default function Courses() {
     }
   }, [modalShowStatus]);
 
-  // console.log('pref data =>', getSubjectsPrefData);
-
   return (
     <React.Fragment>
       <div className='courseCards'>

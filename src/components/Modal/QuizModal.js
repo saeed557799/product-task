@@ -51,6 +51,7 @@ function QuizModal(props) {
       };
       dispatch(postSubjectPrefRequest(prefrenceData));
     }
+    setData('');
     handleClose();
   };
 
@@ -158,14 +159,23 @@ function QuizModal(props) {
             </div>
             <p className={`text-sm m-0`}>{'Add More'}</p>
           </button> */}
-          <button
+          {!data?.qualification || !data?.board || !data?.subject ? (
+            <button className='submitPrefrence' disabled onClick={handleSubmit}>
+              Submit
+            </button>
+          ) : (
+            <button className='submitPrefrenceDone' onClick={handleSubmit}>
+              Submit
+            </button>
+          )}
+          {/* <button
             className='submitPrefrence'
             // style={buttonStyle}
             // disabled={!data}
             onClick={handleSubmit}
           >
             Submit
-          </button>
+          </button> */}
         </Modal.Body>
       </Modal>
     </>
