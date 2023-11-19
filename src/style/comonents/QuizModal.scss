@@ -64,4 +64,19 @@
   font-weight: 500;
   border-radius: 5px;
   margin-top: 10px;
+  margin-right: 5px;
+}
+.deleteEntryButton {
+  padding: 5px 20px 5px 20px;
+  background-color: #5e196c;
+  border: none;
+  color: white;
+  font-size: initial;
+  font-weight: 500;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.line {
+  border-bottom: 1px solid rgb(56, 54, 54);
 }
