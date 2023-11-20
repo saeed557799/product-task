@@ -3,6 +3,9 @@ import * as actions from '../../reducers/duck/dashboardDuck';
 import {
   getSubjectsPrefrenceApi,
   postSubjectsPrefrenceApi,
+  dashboardPendingQuizApi,
+  dashboardGraphApi,
+  dashboardSubjectTopicsApi,
 } from '../../../api/dashboardApi';
 import { error, success } from '../../../utils/notifications';
 
@@ -36,10 +39,63 @@ export function* postSubjectPrefrenceSaga(payload) {
   }
 }
 
+// dashboard-pending-quiz saga
+export function* dashboardPendingQuizSaga() {
+  try {
+    const response = yield call(dashboardPendingQuizApi);
+    if (response?.data) {
+      yield put(
+        actions.dashboardPendingQuizResponse({ response: response?.data?.data })
+      );
+    }
+  } catch (error) {
+  } finally {
+  }
+}
+
+// dashboard-graph saga
+export function* dashboardGraphSaga() {
+  try {
+    const response = yield call(dashboardGraphApi);
+    if (response?.data) {
+      yield put(
+        actions.dashboardGraphResponse({ response: response?.data?.data })
+      );
+    }
+  } catch (error) {
+  } finally {
+  }
+}
+
+// dashboard-subject-topic saga
+export function* dashboardSubjectTopicsSaga() {
+  try {
+    const response = yield call(dashboardSubjectTopicsApi);
+    if (response?.data) {
+      yield put(
+        actions.dashboardSubjectTopicsResponse({
+          response: response?.data?.data,
+        })
+      );
+    }
+  } catch (error) {
+  } finally {
+  }
+}
+
 export function* watchDashboardSagas() {
   yield takeLatest(actions.getSubjectPrefRequest.type, getSubjectPrefrenceSaga);
   yield takeLatest(
     actions.postSubjectPrefRequest.type,
     postSubjectPrefrenceSaga
+  );
+  yield takeLatest(
+    actions.dashboardPendingQuizRequest.type,
+    dashboardPendingQuizSaga
+  );
+  yield takeLatest(actions.dashboardGraphRequest.type, dashboardGraphSaga);
+  yield takeLatest(
+    actions.dashboardSubjectTopicsRequest.type,
+    dashboardSubjectTopicsSaga
   );
 }
