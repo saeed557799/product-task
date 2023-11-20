@@ -5,11 +5,12 @@ import Search from '../../assets/images/search.svg';
 import Avatar from '../../assets/images/avatar.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Bar from '../../assets/images/bar.png';
-import Spinner from '../Helper/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRequest } from '../../redux/reducers/duck/userDuck';
 import { getSubjectPrefRequest } from '../../redux/reducers/duck/dashboardDuck';
 import QuizModal from '../Modal/QuizModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 export const PanelLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -99,12 +100,17 @@ export const PanelLayout = ({ children }) => {
 
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleShow}>
+                    <FontAwesomeIcon icon={faPlus} className='me-2' />
                     Add Preference
                   </Dropdown.Item>
                   <Dropdown.Item
                     href='/login'
                     onClick={() => localStorage.clear()}
                   >
+                    <FontAwesomeIcon
+                      icon={faRightFromBracket}
+                      className='me-2'
+                    />
                     LogOut
                   </Dropdown.Item>
                 </Dropdown.Menu>

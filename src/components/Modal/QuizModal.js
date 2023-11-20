@@ -27,6 +27,7 @@ function QuizModal(props) {
 
   const handleAddMore = () => {
     setEntries([...entries, initialValues]);
+    dispatch(getSubjectPrefRequest());
   };
 
   const handleEntryChange = (index, name, value) => {
@@ -60,10 +61,11 @@ function QuizModal(props) {
 
   // handle submit all
   const handleSubmitAll = (index) => {
-    console.log('enteries for all =>', index);
+    // console.log('enteries for all =>', index);
     // const entryData = entries[index];
     const prefrenceData = index;
     dispatch(postSubjectPrefRequest(prefrenceData));
+    handleClose();
     const newEntries = [...entries];
     newEntries[index] = initialValues;
     setEntries(newEntries);
@@ -79,10 +81,10 @@ function QuizModal(props) {
     (subject) => !excludedSubjects?.includes(subject)
   );
 
-  const showOpacity =
-    !entries?.name || !entries?.qualification || !entries?.boardLevel;
-  console.log('pref data =>', entries);
-  console.log('showOpacity =>', showOpacity);
+  const showOpacity = entries?.map((item) => {
+    return !item?.name || !item?.qualification || !item?.boardLevel;
+  });
+  // console.log('pref data =>', entries);
 
   return (
     <>
@@ -176,10 +178,11 @@ function QuizModal(props) {
             Submit
           </button> */}
 
-          {showOpacity ? (
+          {showOpacity && showOpacity[0] ? (
             <button
               className='submitPrefrence'
               onClick={() => handleSubmitAll(entries)}
+              disabled
             >
               Submit
             </button>
@@ -192,10 +195,21 @@ function QuizModal(props) {
             </button>
           )}
 
-          <button className='submitPrefrenceDone' onClick={handleAddMore}>
-            <FontAwesomeIcon icon={faPlus} className='me-2' />
-            Add More
-          </button>
+          {showOpacity && showOpacity[0] ? (
+            <button
+              className='submitPrefrence'
+              disabled
+              onClick={handleAddMore}
+            >
+              <FontAwesomeIcon icon={faPlus} className='me-2' />
+              Add More
+            </button>
+          ) : (
+            <button className='submitPrefrenceDone' onClick={handleAddMore}>
+              <FontAwesomeIcon icon={faPlus} className='me-2' />
+              Add More
+            </button>
+          )}
         </Modal.Body>
       </Modal>
     </>

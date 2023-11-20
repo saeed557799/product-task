@@ -28,6 +28,14 @@ export const dashboardSlice = createSlice({
     // request reducers
     getSubjectPrefRequest: (state) => state,
     postSubjectPrefRequest: (state) => state,
+
+    // other
+    dashboardLoader(state, { payload }) {
+      return {
+        ...state,
+        isLoading: payload,
+      };
+    },
   },
 });
 
@@ -36,6 +44,7 @@ export const {
   postSubjectPrefResponse,
   getSubjectPrefRequest,
   postSubjectPrefRequest,
+  dashboardLoader,
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
