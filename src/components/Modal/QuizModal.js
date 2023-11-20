@@ -7,6 +7,8 @@ import {
   getSubjectPrefRequest,
 } from '../../redux/reducers/duck/dashboardDuck';
 import { allSubjectNames } from '../../utils/helper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function QuizModal(props) {
   const { show, handleClose, modalShowStatus } = props;
@@ -77,7 +79,10 @@ function QuizModal(props) {
     (subject) => !excludedSubjects?.includes(subject)
   );
 
+  const showOpacity =
+    !entries?.name || !entries?.qualification || !entries?.boardLevel;
   console.log('pref data =>', entries);
+  console.log('showOpacity =>', showOpacity);
 
   return (
     <>
@@ -151,24 +156,44 @@ function QuizModal(props) {
 
               <hr className='line' />
               {index === entries.length - 1 && entries.length > 1 && (
-                <button
-                  className='deleteEntryButton'
-                  onClick={() => handleDeleteEntry(index)}
-                >
-                  Delete
-                </button>
+                <div className='deleteEntryButton-parent'>
+                  <button
+                    className='deleteEntryButton'
+                    onClick={() => handleDeleteEntry(index)}
+                  >
+                    <FontAwesomeIcon icon={faTrashCan} className='me-2' />
+                    Delete
+                  </button>
+                </div>
               )}
             </div>
           ))}
 
-          <button
+          {/* <button
             className='submitPrefrenceDone'
             onClick={() => handleSubmitAll(entries)}
           >
             Submit
-          </button>
+          </button> */}
+
+          {showOpacity ? (
+            <button
+              className='submitPrefrence'
+              onClick={() => handleSubmitAll(entries)}
+            >
+              Submit
+            </button>
+          ) : (
+            <button
+              className='submitPrefrenceDone'
+              onClick={() => handleSubmitAll(entries)}
+            >
+              Submit
+            </button>
+          )}
 
           <button className='submitPrefrenceDone' onClick={handleAddMore}>
+            <FontAwesomeIcon icon={faPlus} className='me-2' />
             Add More
           </button>
         </Modal.Body>
