@@ -15,11 +15,12 @@ export default function Courses() {
     })
   );
 
-  console.log('subjectsData => ', subjectsData);
+  const subjectID = subjectsData && subjectsData[0]?.subjectId;
+  console.log('subjectID', subjectID);
 
   useEffect(() => {
-    dispatch(dashboardPendingQuizRequest());
-  }, [dispatch]);
+    dispatch(dashboardPendingQuizRequest(subjectID));
+  }, [dispatch, subjectID]);
 
   return (
     <React.Fragment>

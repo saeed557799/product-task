@@ -40,9 +40,9 @@ export function* postSubjectPrefrenceSaga(payload) {
 }
 
 // dashboard-pending-quiz saga
-export function* dashboardPendingQuizSaga() {
+export function* dashboardPendingQuizSaga({ payload }) {
   try {
-    const response = yield call(dashboardPendingQuizApi);
+    const response = yield call(dashboardPendingQuizApi, payload);
     if (response?.data) {
       yield put(
         actions.dashboardPendingQuizResponse({ response: response?.data?.data })

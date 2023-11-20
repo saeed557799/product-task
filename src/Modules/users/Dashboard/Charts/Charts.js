@@ -11,13 +11,14 @@ export default function Chart({ percentage }) {
   const dispatch = useDispatch();
   const { topicID, dashboardGraphData } = useSelector(({ dashboard }) => ({
     topicID: dashboard?.topicID,
-    dashboardGraphData: dashboard,
+    dashboardGraphData: dashboard?.dashboardGraphData,
   }));
   console.log('dashboardGraphData', dashboardGraphData);
 
   useEffect(() => {
     dispatch(dashboardGraphRequest(topicID));
   }, [dispatch, topicID]);
+
   var ts2 = 1484418600000;
   var dates = [];
   for (var i = 0; i < graphData?.length - 1; i++) {
@@ -75,7 +76,6 @@ export default function Chart({ percentage }) {
       yaxis: {
         labels: {
           formatter: function (val) {
-            console.log('val =>', val);
             const formattedValue = (val / 1000000).toFixed(0);
             return `POINT ${formattedValue}`;
           },

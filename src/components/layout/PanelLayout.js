@@ -88,7 +88,6 @@ export const PanelLayout = ({ children }) => {
     }
   }, [modalShowStatus]);
 
-  console.log('topicData => ', topicData);
   return (
     <>
       <div className='panel-wrapper flex flex-wrap column-direction'>
