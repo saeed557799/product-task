@@ -7,44 +7,71 @@ import {
   getSubjectPrefRequest,
 } from '../../redux/reducers/duck/dashboardDuck';
 import { allSubjectNames } from '../../utils/helper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function QuizModal(props) {
   const { show, handleClose, modalShowStatus } = props;
   const dispatch = useDispatch();
   const initialValues = {
     qualification: '',
-    subject: '',
-    board: '',
+    name: '',
+    boardLevel: '',
   };
-
-  const [data, setData] = useState(initialValues);
-  // const [isSubmitData, setIsSubmitData] = useState(false);
 
   const { getSubjectsPrefData } = useSelector(({ dashboard }) => ({
     getSubjectsPrefData: dashboard?.getSubjectsPrefData,
   }));
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
+  const [entries, setEntries] = useState([initialValues]);
+
+  const handleAddMore = () => {
+    setEntries([...entries, initialValues]);
+    dispatch(getSubjectPrefRequest());
+  };
+
+  const handleEntryChange = (index, name, value) => {
+    const newEntries = [...entries];
+    newEntries[index] = {
+      ...newEntries[index],
       [name]: value,
-    });
+    };
+    setEntries(newEntries);
   };
 
-  const handleSubmit = () => {
-    if (data) {
-      const prefrenceData = {
-        name: data?.subject,
-        qualification: data?.qualification,
-        boardLevel: data?.board,
-      };
-      dispatch(postSubjectPrefRequest(prefrenceData));
-    }
-    setData('');
+  const handleDeleteEntry = (index) => {
+    const newEntries = [...entries];
+    newEntries.splice(index, 1);
+    setEntries(newEntries);
+  };
+
+  // handle submit single
+  const handleEntrySubmit = (index) => {
+    const entryData = entries[index];
+    const prefrenceData = {
+      name: entryData.subject,
+      qualification: entryData.qualification,
+      boardLevel: entryData.board,
+    };
+    dispatch(postSubjectPrefRequest(prefrenceData));
+    const newEntries = [...entries];
+    newEntries[index] = initialValues;
+    setEntries(newEntries);
+  };
+
+  // handle submit all
+  const handleSubmitAll = (index) => {
+    // console.log('enteries for all =>', index);
+    // const entryData = entries[index];
+    const prefrenceData = index;
+    dispatch(postSubjectPrefRequest(prefrenceData));
     handleClose();
+    const newEntries = [...entries];
+    newEntries[index] = initialValues;
+    setEntries(newEntries);
   };
 
+  // remove repetition subjects
   const excludedSubjects =
     getSubjectsPrefData &&
     getSubjectsPrefData?.preference?.map((item) => {
@@ -53,6 +80,11 @@ function QuizModal(props) {
   const filteredSubjects = allSubjectNames?.filter(
     (subject) => !excludedSubjects?.includes(subject)
   );
+
+  const showOpacity = entries?.map((item) => {
+    return !item?.name || !item?.qualification || !item?.boardLevel;
+  });
+  // console.log('pref data =>', entries);
 
   return (
     <>
@@ -64,7 +96,7 @@ function QuizModal(props) {
         aria-labelledby='contained-modal-title-vcenter'
       >
         <Modal.Header>
-          <Modal.Title>QUIZZES</Modal.Title>
+          <Modal.Title>Add Your Preferences</Modal.Title>
           {modalShowStatus && (
             <button className='closeButton' onClick={handleClose}>
               x
@@ -72,80 +104,112 @@ function QuizModal(props) {
           )}
         </Modal.Header>
         <Modal.Body>
-          <Form.Label>Qualification</Form.Label>
-          <Form.Select
-            name='qualification'
-            value={data.qualification}
-            onChange={handleChange}
-          >
-            <option>please select qualification</option>
-            <option value='GCSE'>GCSE</option>
-            <option value='Alevel'>Alevel</option>
-          </Form.Select>
-          <Form.Label>Subjects</Form.Label>
-          <Form.Select
-            name='subject'
-            value={data.subject}
-            onChange={handleChange}
-          >
-            <option>please select subject</option>
-            {filteredSubjects &&
-              filteredSubjects?.map((item) => {
-                return (
-                  <>
-                    <option value={item}>{item}</option>
-                  </>
-                );
-              })}
-          </Form.Select>
-          <Form.Label>Exam Board</Form.Label>
-          <Form.Select name='board' value={data.board} onChange={handleChange}>
-            <option>please select board</option>
-            <option value='AQA'>AQA</option>
-            <option value='Edexcel'>Edexcel</option>
-            <option value='OCR'>OCR</option>
-          </Form.Select>
-          {/* <button
-            onClick={addEducations}
-            className={`absolute bg-white border-solid border border-gray-300 gap-2 inline-flex justify-center items-center text-gray-700 leading-4 text-left font-medium pt-[9px] pb-[9px] pl-[11px] pr-[13px] left-[calc(50%_-_58px_+_1px)] top-[calc(50%_-_17px_+_0px)] drop-shadow-lg overflow-clip rounded-[17px] font-['Poppins']`}
-          >
-            <div className={`w-4 h-4`}>
-              <svg
-                width={'10%'}
-                height={'10%'}
-                preserveAspectRatio={'none'}
-                viewBox={'0 0 16 16'}
-                fill={'none'}
-                xmlns={'http://www.w3.org/2000/svg'}
+          {entries.map((entry, index) => (
+            <div key={index}>
+              <Form.Label>Qualification</Form.Label>
+              <Form.Select
+                name='qualification'
+                value={entry.qualification}
+                onChange={(e) =>
+                  handleEntryChange(index, 'qualification', e.target.value)
+                }
               >
-                <path
-                  d={'M8 4V8M8 8V12M8 8H12M8 8L4 8'}
-                  stroke={'#9CA3AF'}
-                  strokeWidth={'2'}
-                  strokeLinecap={'round'}
-                  strokeLinejoin={'round'}
-                />
-              </svg>
+                <option>please select qualification</option>
+                <option value='GCSE'>GCSE</option>
+                <option value='Alevel'>Alevel</option>
+              </Form.Select>
+              <Form.Label>Subjects</Form.Label>
+              <Form.Select
+                name='name'
+                value={entry.subject}
+                onChange={(e) =>
+                  handleEntryChange(index, 'name', e.target.value)
+                }
+              >
+                <option>please select subject</option>
+                {filteredSubjects &&
+                  filteredSubjects?.map((item) => {
+                    return (
+                      <>
+                        <option value={item}>{item}</option>
+                      </>
+                    );
+                  })}
+              </Form.Select>
+              <Form.Label>Exam Board</Form.Label>
+              <Form.Select
+                name='boardLevel'
+                value={entry.board}
+                onChange={(e) =>
+                  handleEntryChange(index, 'boardLevel', e.target.value)
+                }
+              >
+                <option>please select board</option>
+                <option value='AQA'>AQA</option>
+                <option value='Edexcel'>Edexcel</option>
+                <option value='OCR'>OCR</option>
+              </Form.Select>
+              {/* <button
+                className='submitPrefrenceDone'
+                onClick={() => handleEntrySubmit(index)}
+              >
+                Submit
+              </button> */}
+
+              <hr className='line' />
+              {index === entries.length - 1 && entries.length > 1 && (
+                <div className='deleteEntryButton-parent'>
+                  <button
+                    className='deleteEntryButton'
+                    onClick={() => handleDeleteEntry(index)}
+                  >
+                    <FontAwesomeIcon icon={faTrashCan} className='me-2' />
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
-            <p className={`text-sm m-0`}>{'Add More'}</p>
-          </button> */}
-          {!data?.qualification || !data?.board || !data?.subject ? (
-            <button className='submitPrefrence' disabled onClick={handleSubmit}>
-              Submit
-            </button>
-          ) : (
-            <button className='submitPrefrenceDone' onClick={handleSubmit}>
-              Submit
-            </button>
-          )}
+          ))}
+
           {/* <button
-            className='submitPrefrence'
-            // style={buttonStyle}
-            // disabled={!data}
-            onClick={handleSubmit}
+            className='submitPrefrenceDone'
+            onClick={() => handleSubmitAll(entries)}
           >
             Submit
           </button> */}
+
+          {showOpacity && showOpacity[0] ? (
+            <button
+              className='submitPrefrence'
+              onClick={() => handleSubmitAll(entries)}
+              disabled
+            >
+              Submit
+            </button>
+          ) : (
+            <button
+              className='submitPrefrenceDone'
+              onClick={() => handleSubmitAll(entries)}
+            >
+              Submit
+            </button>
+          )}
+
+          {showOpacity && showOpacity[0] ? (
+            <button
+              className='submitPrefrence'
+              disabled
+              onClick={handleAddMore}
+            >
+              <FontAwesomeIcon icon={faPlus} className='me-2' />
+              Add More
+            </button>
+          ) : (
+            <button className='submitPrefrenceDone' onClick={handleAddMore}>
+              <FontAwesomeIcon icon={faPlus} className='me-2' />
+              Add More
+            </button>
+          )}
         </Modal.Body>
       </Modal>
     </>
