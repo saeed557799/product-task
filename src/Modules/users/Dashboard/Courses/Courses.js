@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import data from './CourseData.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { dashboardPendingQuizRequest } from '../../../../redux/reducers/duck/dashboardDuck';
+import { continueQuizes } from '../../../../utils/helper';
 
 export default function Courses() {
   const courseDat = data.courseDat;
+  const dispatch = useDispatch();
+
+  const { dashboardPendingQuizData, subjectsData } = useSelector(
+    ({ dashboard, content }) => ({
+      dashboardPendingQuizData: dashboard?.dashboardPendingQuizData,
+      subjectsData: content?.subjectsData,
+    })
+  );
+
+  console.log('subjectsData => ', subjectsData);
+
+  useEffect(() => {
+    dispatch(dashboardPendingQuizRequest());
+  }, [dispatch]);
 
   return (
     <React.Fragment>
@@ -17,7 +34,7 @@ export default function Courses() {
                 <div className='card'>
                   <div className='subject'>
                     <p>{item.subject}</p>
-                    <span>{item.courses}</span>
+                    <span>Continue</span>
                   </div>
                   <h4>{item.courseName}</h4>
                   <img

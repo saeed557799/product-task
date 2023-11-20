@@ -39,11 +39,10 @@ export const postSubjectsPrefrenceApi = async (data) => {
 };
 
 // dashboard-pending-quiz api
-export const dashboardPendingQuizApi = async (data) => {
-  const pendingQuizData = data?.payload;
+export const dashboardPendingQuizApi = async () => {
   const token = localStorage.getItem('token');
   try {
-    return await Axios.post('url', pendingQuizData, {
+    return await Axios.get(urls?.dashboard?.continueQuiz, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -57,10 +56,10 @@ export const dashboardPendingQuizApi = async (data) => {
 
 // dashboard-graph api
 export const dashboardGraphApi = async (data) => {
-  const dashboardGraphData = data?.payload;
+  const id = data?.payload;
   const token = localStorage.getItem('token');
   try {
-    return await Axios.post('url', dashboardGraphData, {
+    return await Axios.get(`${urls?.dashboard?.quizGraph}/${id}`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',

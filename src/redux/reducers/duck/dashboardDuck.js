@@ -7,6 +7,7 @@ export const INITIAL_STATE = {
   dashboardGraphData: null,
   dashboardSubjectTopicsData: null,
   isLoading: false,
+  topicID: null,
 };
 
 export const dashboardSlice = createSlice({
@@ -49,6 +50,12 @@ export const dashboardSlice = createSlice({
       };
     },
 
+    getTopicId(state, { payload }) {
+      return {
+        ...state,
+        topicID: payload,
+      };
+    },
     // request reducers
     getSubjectPrefRequest: (state) => state,
     postSubjectPrefRequest: (state) => state,
@@ -69,6 +76,7 @@ export const {
   dashboardPendingQuizRequest,
   dashboardGraphRequest,
   dashboardSubjectTopicsRequest,
+  getTopicId,
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

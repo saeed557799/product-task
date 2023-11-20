@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Charts from 'react-apexcharts';
 import { dataSeries } from './DateSeries';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { dashboardGraphRequest } from '../../../../redux/reducers/duck/dashboardDuck';
+
 export default function Chart({ percentage }) {
+  const graphData = [0, 1100, 5500, 7700, 2200, 1000, 4400, 5500, 6600, 5500];
+
+  const dispatch = useDispatch();
+  const { topicID, dashboardGraphData } = useSelector(({ dashboard }) => ({
+    topicID: dashboard?.topicID,
+    dashboardGraphData: dashboard,
+  }));
+  console.log('dashboardGraphData', dashboardGraphData);
+
+  useEffect(() => {
+    dispatch(dashboardGraphRequest(topicID));
+  }, [dispatch, topicID]);
   var ts2 = 1484418600000;
   var dates = [];
-  for (var i = 0; i < 120; i++) {
+  for (var i = 0; i < graphData?.length - 1; i++) {
     ts2 = ts2 + 86400000;
-    var innerArr = [ts2, dataSeries[1][i].value];
+    var innerArr = [ts2, graphData[i]];
     dates.push(innerArr);
   }
   const state = {
     series: [
       {
-        name: 'USD',
+        name: 'POINT',
         data: dates,
       },
     ],
@@ -60,22 +75,23 @@ export default function Chart({ percentage }) {
       yaxis: {
         labels: {
           formatter: function (val) {
+            console.log('val =>', val);
             const formattedValue = (val / 1000000).toFixed(0);
-            return `USD ${formattedValue}K`;
+            return `POINT ${formattedValue}`;
           },
         },
       },
       xaxis: {
         type: 'datetime',
       },
-      tooltip: {
-        shared: false,
-        y: {
-          formatter: function (val) {
-            return (val / 1000000).toFixed(0);
-          },
-        },
-      },
+      // tooltip: {
+      //   shared: false,
+      //   y: {
+      //     formatter: function (val) {
+      //       return (val / 1000000).toFixed(0);
+      //     },
+      //   },
+      // },
     },
   };
   return (
@@ -85,30 +101,6 @@ export default function Chart({ percentage }) {
           <h3 className='mt-2'>Subjects</h3>
         </div>
         <div className='card'>
-          <div className='dropdowns'>
-            <Dropdown>
-              <Dropdown.Toggle id='dropdown-basic'>
-                <div className='date'>
-                  <p>Analysis</p>
-                </div>
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href=''>Analysis</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Dropdown>
-              <Dropdown.Toggle id='dropdown-basic'>
-                <div className='date'>
-                  <p>Chemistry</p>
-                </div>
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href=''>Chemistry</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
           <Charts
             options={state.options}
             series={state.series}

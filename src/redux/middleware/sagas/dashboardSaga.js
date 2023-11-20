@@ -54,9 +54,9 @@ export function* dashboardPendingQuizSaga() {
 }
 
 // dashboard-graph saga
-export function* dashboardGraphSaga() {
+export function* dashboardGraphSaga(payload) {
   try {
-    const response = yield call(dashboardGraphApi);
+    const response = yield call(dashboardGraphApi, payload);
     if (response?.data) {
       yield put(
         actions.dashboardGraphResponse({ response: response?.data?.data })
