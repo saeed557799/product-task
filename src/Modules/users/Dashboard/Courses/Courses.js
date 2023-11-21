@@ -2,11 +2,14 @@ import React, { useEffect } from 'react';
 import data from './CourseData.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { dashboardPendingQuizRequest } from '../../../../redux/reducers/duck/dashboardDuck';
-import { continueQuizes } from '../../../../utils/helper';
+// import { continueQuizes } from '../../../../utils/helper';
+import { useNavigate } from 'react-router-dom';
+import { nextQuestionRequest } from '../../../../redux/reducers/duck/quizDuck';
 
 export default function Courses() {
-  const courseDat = data.courseDat;
+  // const courseDat = data.courseDat;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { dashboardPendingQuizData, subjectsData } = useSelector(
     ({ dashboard, content }) => ({
@@ -22,10 +25,18 @@ export default function Courses() {
   // });
 
   const subjectID = subjectsData && subjectsData[0]?.subjectId;
-  console.log('subjectsData => ', subjectsData);
+
   useEffect(() => {
     dispatch(dashboardPendingQuizRequest(subjectID));
   }, [dispatch, subjectID]);
+
+  const handleContinueQuizz = (item) => {
+    const quizzId = item?.quizId;
+    dispatch(nextQuestionRequest(quizzId));
+    navigate('/quiz/question');
+  };
+
+  // console.log('dashboraad pending =>', dashboardPendingQuizData);
 
   return (
     <React.Fragment>
@@ -41,19 +52,24 @@ export default function Courses() {
                   <div className='card'>
                     <div className='subject'>
                       <p>{subjectsData && subjectsData[0]?.subject?.name}</p>
-                      <span>Continue</span>
+                      <button
+                        className=''
+                        onClick={() => handleContinueQuizz(item)}
+                      >
+                        <span>Continue</span>
+                      </button>
                     </div>
                     <h4>{item?.quiz?.topic?.name}</h4>
-                    <img
+                    {/* <img
                       className='courseImg'
                       src={item.coursesImg}
                       alt='courseImg'
-                    />
+                    /> */}
                     <div className='footer'>
-                      <div className='circlularBar'>
+                      {/* <div className='circlularBar'>
                         <img src={item.circularBar} alt='circularBar' />
-                        {/* <p>{item.percentage}</p> */}
-                      </div>
+                        <p>{item.percentage}</p>
+                      </div> */}
                       <div className='subjectImg'>
                         {/* <img src={item.subjectImg} alt='subjectImg' /> */}
                       </div>

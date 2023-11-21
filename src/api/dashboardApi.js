@@ -59,7 +59,7 @@ export const dashboardGraphApi = async (data) => {
   const id = data?.payload;
   const token = localStorage.getItem('token');
   try {
-    return await Axios.get(`${urls?.dashboard?.quizGraph}/${id}`, {
+    return await Axios.get(`topic/${id}/get-graph-quiz-data`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
