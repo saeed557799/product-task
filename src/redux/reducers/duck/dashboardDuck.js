@@ -62,6 +62,14 @@ export const dashboardSlice = createSlice({
     dashboardPendingQuizRequest: (state) => state,
     dashboardGraphRequest: (state) => state,
     dashboardSubjectTopicsRequest: (state) => state,
+
+    // other
+    dashboardLoader(state, { payload }) {
+      return {
+        ...state,
+        isLoading: payload,
+      };
+    },
   },
 });
 
@@ -77,6 +85,7 @@ export const {
   dashboardGraphRequest,
   dashboardSubjectTopicsRequest,
   getTopicId,
+  dashboardLoader,
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
