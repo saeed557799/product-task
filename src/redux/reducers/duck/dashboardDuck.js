@@ -3,7 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 export const INITIAL_STATE = {
   getSubjectsPrefData: null,
   postSubjectsPrefData: null,
+  dashboardPendingQuizData: null,
+  dashboardGraphData: null,
+  dashboardSubjectTopicsData: null,
   isLoading: false,
+  topicID: null,
 };
 
 export const dashboardSlice = createSlice({
@@ -25,9 +29,39 @@ export const dashboardSlice = createSlice({
       };
     },
 
+    dashboardPendingQuizResponse(state, { payload }) {
+      return {
+        ...state,
+        dashboardPendingQuizData: payload.response,
+      };
+    },
+
+    dashboardGraphResponse(state, { payload }) {
+      return {
+        ...state,
+        dashboardGraphData: payload.response,
+      };
+    },
+
+    dashboardSubjectTopicsResponse(state, { payload }) {
+      return {
+        ...state,
+        dashboardSubjectTopicsData: payload.response,
+      };
+    },
+
+    getTopicId(state, { payload }) {
+      return {
+        ...state,
+        topicID: payload,
+      };
+    },
     // request reducers
     getSubjectPrefRequest: (state) => state,
     postSubjectPrefRequest: (state) => state,
+    dashboardPendingQuizRequest: (state) => state,
+    dashboardGraphRequest: (state) => state,
+    dashboardSubjectTopicsRequest: (state) => state,
 
     // other
     dashboardLoader(state, { payload }) {
@@ -44,6 +78,13 @@ export const {
   postSubjectPrefResponse,
   getSubjectPrefRequest,
   postSubjectPrefRequest,
+  dashboardPendingQuizResponse,
+  dashboardGraphResponse,
+  dashboardSubjectTopicsResponse,
+  dashboardPendingQuizRequest,
+  dashboardGraphRequest,
+  dashboardSubjectTopicsRequest,
+  getTopicId,
   dashboardLoader,
 } = dashboardSlice.actions;
 

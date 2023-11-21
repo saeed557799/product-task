@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import { Sidebars } from '../sidebar/Sidebars';
-import Search from '../../assets/images/search.svg';
 import Avatar from '../../assets/images/avatar.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Bar from '../../assets/images/bar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRequest } from '../../redux/reducers/duck/userDuck';
-import { getSubjectPrefRequest } from '../../redux/reducers/duck/dashboardDuck';
+import {
+  dashboardSubjectTopicsRequest,
+  getSubjectPrefRequest,
+  getTopicId,
+} from '../../redux/reducers/duck/dashboardDuck';
 import QuizModal from '../Modal/QuizModal';
+import { dashboardSubject } from '../../utils/helper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { subjectRequest } from '../../redux/reducers/duck/contentDuck';
+import { sujectTopics } from '../../utils/helper/index';
 
 export const PanelLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -18,17 +23,54 @@ export const PanelLayout = ({ children }) => {
   const [openSidebar, setOpenSidebar] = useState(true);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [selectedTopic, setSelectedTopic] = useState('');
+  const [subject, setSubject] = useState('');
+  const [selectedSubject, setSelectedSubject] = useState('');
 
-  const { userData, getSubjectsPrefData } = useSelector(
-    ({ user, dashboard }) => ({
-      userData: user?.userData,
-      getSubjectsPrefData: dashboard?.getSubjectsPrefData,
-    })
-  );
-  // const { getSubjectsPrefData } = useSelector(({ dashboard }) => ({
-  //   getSubjectsPrefData: dashboard?.getSubjectsPrefData,
-  // }));
+  const {
+    userData,
+    subjectsData,
+    getSubjectsPrefData,
+    dashboardSubjectTopicsData,
+  } = useSelector(({ user, dashboard, content }) => ({
+    userData: user?.userData,
+    getSubjectsPrefData: dashboard?.getSubjectsPrefData,
+    subjectsData: content?.subjectsData,
+    dashboardSubjectTopicsData: dashboard?.dashboardSubjectTopicsData,
+  }));
 
+  let subjects = subjectsData?.map((item) => {
+    return item?.subject;
+  });
+
+  // get subjects api
+  useEffect(() => {
+    dispatch(subjectRequest());
+  }, [dispatch]);
+
+  let topicData = '';
+  const topic =
+    selectedSubject &&
+    selectedSubject?.map((item) => {
+      return item?.papers?.map((item) => {
+        topicData = item?.topics;
+      });
+    });
+  const handleTopicSelect = (topic) => {
+    console.log('topic', topic?.id);
+    console.log('topic', topic);
+
+    dispatch(getTopicId(topic?.id));
+    setSelectedTopic(topic?.name);
+  };
+
+  // handle subejct Dropdown
+  const handleSubjectSelect = (subject) => {
+    setSubject(subject);
+    dispatch(dashboardSubjectTopicsRequest(subject));
+  };
+
+  // user api
   useEffect(() => {
     dispatch(userRequest());
   }, [dispatch]);
@@ -85,8 +127,54 @@ export const PanelLayout = ({ children }) => {
           <header className='panel-header items-center flex content-justify-between'>
             <div className='left-side'>
               <div className='search_bar'>
-                <img src={Search} alt='Search' />
-                <input type='text' placeholder='Type in to search ..' />
+                {/* search bar  */}
+                {/* <img src={Search} alt='Search' />
+                <input type='text' placeholder='Type in to search ..' /> */}
+                <div className='dropdowns'>
+                  <Dropdown>
+                    <Dropdown.Toggle id='dropdown-basic'>
+                      <div className='date'>
+                        <p>{selectedTopic || 'Topics'}</p>
+                      </div>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      {dashboardSubjectTopicsData &&
+                        dashboardSubjectTopicsData?.topics?.map((item) => {
+                          return (
+                            <Dropdown.Item
+                              onClick={() => handleTopicSelect(item)}
+                            >
+                              {item?.name}
+                            </Dropdown.Item>
+                          );
+                        })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+
+                  <Dropdown>
+                    <Dropdown.Toggle id='dropdown-basic'>
+                      <div className='date'>
+                        <p>{subject || 'Subjects'}</p>
+                      </div>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      {subjects &&
+                        Object?.keys(subjects)?.map((item, index) => {
+                          return (
+                            <Dropdown.Item
+                              onClick={() =>
+                                handleSubjectSelect(subjects[item]?.name)
+                              }
+                            >
+                              {subjects[item]?.name}
+                            </Dropdown.Item>
+                          );
+                        })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
               </div>
             </div>
             <div className='right-side'>

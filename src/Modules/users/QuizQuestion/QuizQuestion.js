@@ -109,7 +109,8 @@ function QuizQuestion() {
               <div
                 // className={`answers ${hintClicked ? 'hint-active' : ''}`}
                 className={`${
-                  quizSubmitData?.statusCode === 200
+                  quizSubmitData?.statusCode === 200 ||
+                  quizSubmitData?.statusCode === 201
                     ? quizSubmitData?.data?.isCorrect === true
                       ? 'success-active answers'
                       : 'danger-active answers'
@@ -158,7 +159,8 @@ function QuizQuestion() {
               <div className='answers'>
                 <Form>
                   {/* Answer explaination */}
-                  {quizSubmitData?.statusCode === 200 && (
+                  {(quizSubmitData?.statusCode === 200 ||
+                    quizSubmitData?.statusCode === 201) && (
                     <div className='hint-message'>
                       <p className='title'>Method:</p>
                       <p>{quizData?.explaination}</p>

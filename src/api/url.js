@@ -17,6 +17,8 @@ const urls = {
   dashboard: {
     getSubjectPrefrence: 'subject-pref/dashboard',
     postSubjectPrefrence: 'subject-pref',
+    continueQuiz: 'user-quiz/get-continue-quiz',
+    quizGraph: '/user-quiz/graph/quiz',
   },
   user: {
     user: 'auth/user',

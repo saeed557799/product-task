@@ -37,3 +37,52 @@ export const postSubjectsPrefrenceApi = async (data) => {
     return err;
   }
 };
+
+// dashboard-pending-quiz api
+export const dashboardPendingQuizApi = async (id) => {
+  const token = localStorage.getItem('token');
+  try {
+    return await Axios.get(`subjects/${id}/get-dashboard-data`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    return err;
+  }
+};
+
+// dashboard-graph api
+export const dashboardGraphApi = async (data) => {
+  const id = data?.payload;
+  const token = localStorage.getItem('token');
+  try {
+    return await Axios.get(`topic/${id}/get-graph-quiz-data`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    return err;
+  }
+};
+
+// dashboard-subject-topic api
+export const dashboardSubjectTopicsApi = async (name) => {
+  const token = localStorage.getItem('token');
+  try {
+    return await Axios.get(`topic/${name}/get-by-subject`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    return err;
+  }
+};

@@ -71,6 +71,63 @@
             }
           }
         }
+        .dropdowns {
+          display: flex;
+          align-items: center;
+          .dropdown {
+            text-align: end;
+            margin-right: 5px;
+            .dropdown-toggle {
+              background: transparent;
+              color: #f7f8fa;
+              display: flex;
+              align-items: center;
+              border-radius: 7px;
+              border: 1.476px solid rgba(152, 162, 184, 0.2);
+              padding: 3px 10px;
+              .date {
+                display: flex;
+                align-items: center;
+                p {
+                  color: #7b8289;
+                  font-size: 14px;
+                  margin-bottom: 0;
+                }
+
+                img {
+                  margin-right: 10px;
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 100px;
+                  object-fit: cover;
+                  border: 1.5px solid #5e196c;
+                  padding: 3px;
+                }
+              }
+
+              &::after {
+                border: 0;
+                background: url(../../assets/images/down-angle-arrow.svg)
+                  no-repeat center;
+                background-size: contain;
+                width: 10px;
+                height: 9px;
+                margin-left: 12px;
+              }
+            }
+            .dropdown-menu {
+              background-color: #171c26;
+              border: 1px solid #232b3a;
+              a {
+                font-size: 14px;
+                color: #7b8289;
+                &:hover {
+                  background-color: #121318;
+                }
+              }
+            }
+          }
+        }
       }
 
       .right-side {
