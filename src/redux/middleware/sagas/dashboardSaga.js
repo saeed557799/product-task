@@ -68,9 +68,9 @@ export function* dashboardGraphSaga(payload) {
 }
 
 // dashboard-subject-topic saga
-export function* dashboardSubjectTopicsSaga() {
+export function* dashboardSubjectTopicsSaga({ payload }) {
   try {
-    const response = yield call(dashboardSubjectTopicsApi);
+    const response = yield call(dashboardSubjectTopicsApi, payload);
     if (response?.data) {
       yield put(
         actions.dashboardSubjectTopicsResponse({

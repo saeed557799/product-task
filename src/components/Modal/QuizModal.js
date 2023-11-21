@@ -9,6 +9,7 @@ import {
 import { allSubjectNames } from '../../utils/helper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { subjectRequest } from '../../redux/reducers/duck/contentDuck';
 
 function QuizModal(props) {
   const { show, handleClose, modalShowStatus } = props;
@@ -52,6 +53,7 @@ function QuizModal(props) {
   const handleSubmitAll = (index) => {
     const prefrenceData = index;
     dispatch(postSubjectPrefRequest(prefrenceData));
+    dispatch(subjectRequest());
     handleClose();
   };
 

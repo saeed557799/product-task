@@ -13,7 +13,7 @@ const Feedback = () => {
           <h3>Feedback</h3>
         </div>
         {dashboardPendingQuizData ? (
-          dashboardPendingQuizData?.weekTopics?.map((item) => {
+          dashboardPendingQuizData?.weekTopics?.slice(0, 3).map((item) => {
             return (
               <div className='card'>
                 <div className='d-flex align-items-center'>

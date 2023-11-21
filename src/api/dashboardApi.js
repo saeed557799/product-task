@@ -72,11 +72,10 @@ export const dashboardGraphApi = async (data) => {
 };
 
 // dashboard-subject-topic api
-export const dashboardSubjectTopicsApi = async (data) => {
-  const dashboardSubjectTopicsData = data?.payload;
+export const dashboardSubjectTopicsApi = async (name) => {
   const token = localStorage.getItem('token');
   try {
-    return await Axios.post('url', dashboardSubjectTopicsData, {
+    return await Axios.get(`topic/${name}/get-by-subject`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',

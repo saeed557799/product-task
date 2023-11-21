@@ -6,6 +6,7 @@ import Bar from '../../assets/images/bar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRequest } from '../../redux/reducers/duck/userDuck';
 import {
+  dashboardSubjectTopicsRequest,
   getSubjectPrefRequest,
   getTopicId,
 } from '../../redux/reducers/duck/dashboardDuck';
@@ -26,13 +27,17 @@ export const PanelLayout = ({ children }) => {
   const [subject, setSubject] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
 
-  const { userData, subjectsData, getSubjectsPrefData } = useSelector(
-    ({ user, dashboard, content }) => ({
-      userData: user?.userData,
-      getSubjectsPrefData: dashboard?.getSubjectsPrefData,
-      subjectsData: content?.subjectsData,
-    })
-  );
+  const {
+    userData,
+    subjectsData,
+    getSubjectsPrefData,
+    dashboardSubjectTopicsData,
+  } = useSelector(({ user, dashboard, content }) => ({
+    userData: user?.userData,
+    getSubjectsPrefData: dashboard?.getSubjectsPrefData,
+    subjectsData: content?.subjectsData,
+    dashboardSubjectTopicsData: dashboard?.dashboardSubjectTopicsData,
+  }));
 
   let subjects = subjectsData?.map((item) => {
     return item?.subject;
@@ -52,6 +57,9 @@ export const PanelLayout = ({ children }) => {
       });
     });
   const handleTopicSelect = (topic) => {
+    console.log('topic', topic?.id);
+    console.log('topic', topic);
+
     dispatch(getTopicId(topic?.id));
     setSelectedTopic(topic?.name);
   };
@@ -59,6 +67,7 @@ export const PanelLayout = ({ children }) => {
   // handle subejct Dropdown
   const handleSubjectSelect = (subject) => {
     setSubject(subject);
+    dispatch(dashboardSubjectTopicsRequest(subject));
   };
 
   // user api
@@ -96,8 +105,6 @@ export const PanelLayout = ({ children }) => {
     }
   }, [modalShowStatus]);
 
-  // console.log('sujectTopics => ', sujectTopics);
-
   return (
     <>
       <div className='panel-wrapper flex flex-wrap column-direction'>
@@ -132,8 +139,8 @@ export const PanelLayout = ({ children }) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      {sujectTopics &&
-                        sujectTopics?.data?.topics?.map((item) => {
+                      {dashboardSubjectTopicsData &&
+                        dashboardSubjectTopicsData?.topics?.map((item) => {
                           return (
                             <Dropdown.Item
                               onClick={() => handleTopicSelect(item)}

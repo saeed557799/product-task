@@ -18,12 +18,6 @@ export default function Courses() {
     })
   );
 
-  // let continueTopic = '';
-  // let pendingTopics = dashboardPendingQuizData?.continueQuizzes?.map((item) => {
-  //   // console.log('item => ', item?.quiz?.topic?.name);
-  //   continueTopic = item?.quiz?.topic?.name;
-  // });
-
   const subjectID = subjectsData && subjectsData[0]?.subjectId;
 
   useEffect(() => {
@@ -39,25 +33,25 @@ export default function Courses() {
   // console.log('dashboraad pending =>', dashboardPendingQuizData);
 
   return (
-    <React.Fragment>
+    <>
       <div className='courseCards'>
         <div className='heading'>
           <h3>Continue Studying</h3>
         </div>
         <div className='row'>
-          {dashboardPendingQuizData &&
+          {dashboardPendingQuizData ? (
             dashboardPendingQuizData?.continueQuizzes?.map((item, index) => {
               return (
                 <div className='col-md-4' key={index}>
                   <div className='card'>
                     <div className='subject'>
                       <p>{subjectsData && subjectsData[0]?.subject?.name}</p>
-                      <button
+                      <div
                         className=''
                         onClick={() => handleContinueQuizz(item)}
                       >
                         <span>Continue</span>
-                      </button>
+                      </div>
                     </div>
                     <h4>{item?.quiz?.topic?.name}</h4>
                     {/* <img
@@ -77,9 +71,14 @@ export default function Courses() {
                   </div>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <div className='col-md-4'>
+              <div className='card'>Currently not exist</div>
+            </div>
+          )}
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
