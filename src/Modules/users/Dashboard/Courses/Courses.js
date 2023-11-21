@@ -15,9 +15,14 @@ export default function Courses() {
     })
   );
 
-  const subjectID = subjectsData && subjectsData[0]?.subjectId;
-  console.log('subjectID', subjectID);
+  // let continueTopic = '';
+  // let pendingTopics = dashboardPendingQuizData?.continueQuizzes?.map((item) => {
+  //   // console.log('item => ', item?.quiz?.topic?.name);
+  //   continueTopic = item?.quiz?.topic?.name;
+  // });
 
+  const subjectID = subjectsData && subjectsData[0]?.subjectId;
+  console.log('subjectsData => ', subjectsData);
   useEffect(() => {
     dispatch(dashboardPendingQuizRequest(subjectID));
   }, [dispatch, subjectID]);
@@ -29,33 +34,34 @@ export default function Courses() {
           <h3>Continue Studying</h3>
         </div>
         <div className='row'>
-          {courseDat.map((item, index) => {
-            return (
-              <div className='col-md-4' key={index}>
-                <div className='card'>
-                  <div className='subject'>
-                    <p>{item.subject}</p>
-                    <span>Continue</span>
-                  </div>
-                  <h4>{item.courseName}</h4>
-                  <img
-                    className='courseImg'
-                    src={item.coursesImg}
-                    alt='courseImg'
-                  />
-                  <div className='footer'>
-                    <div className='circlularBar'>
-                      <img src={item.circularBar} alt='circularBar' />
-                      <p>{item.percentage}</p>
+          {dashboardPendingQuizData &&
+            dashboardPendingQuizData?.continueQuizzes?.map((item, index) => {
+              return (
+                <div className='col-md-4' key={index}>
+                  <div className='card'>
+                    <div className='subject'>
+                      <p>{subjectsData && subjectsData[0]?.subject?.name}</p>
+                      <span>Continue</span>
                     </div>
-                    <div className='subjectImg'>
-                      <img src={item.subjectImg} alt='subjectImg' />
+                    <h4>{item?.quiz?.topic?.name}</h4>
+                    <img
+                      className='courseImg'
+                      src={item.coursesImg}
+                      alt='courseImg'
+                    />
+                    <div className='footer'>
+                      <div className='circlularBar'>
+                        <img src={item.circularBar} alt='circularBar' />
+                        {/* <p>{item.percentage}</p> */}
+                      </div>
+                      <div className='subjectImg'>
+                        {/* <img src={item.subjectImg} alt='subjectImg' /> */}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </React.Fragment>

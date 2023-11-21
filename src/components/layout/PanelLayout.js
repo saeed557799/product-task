@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import { Sidebars } from '../sidebar/Sidebars';
-import Search from '../../assets/images/search.svg';
 import Avatar from '../../assets/images/avatar.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Bar from '../../assets/images/bar.png';
@@ -15,6 +13,8 @@ import QuizModal from '../Modal/QuizModal';
 import { dashboardSubject } from '../../utils/helper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { subjectRequest } from '../../redux/reducers/duck/contentDuck';
+import { sujectTopics } from '../../utils/helper/index';
 
 export const PanelLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -26,15 +26,22 @@ export const PanelLayout = ({ children }) => {
   const [subject, setSubject] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
 
-  const { userData, getSubjectsPrefData } = useSelector(
-    ({ user, dashboard }) => ({
+  const { userData, subjectsData, getSubjectsPrefData } = useSelector(
+    ({ user, dashboard, content }) => ({
       userData: user?.userData,
       getSubjectsPrefData: dashboard?.getSubjectsPrefData,
+      subjectsData: content?.subjectsData,
     })
   );
-  // const { getSubjectsPrefData } = useSelector(({ dashboard }) => ({
-  //   getSubjectsPrefData: dashboard?.getSubjectsPrefData,
-  // }));
+
+  let subjects = subjectsData?.map((item) => {
+    return item?.subject;
+  });
+
+  // get subjects api
+  useEffect(() => {
+    dispatch(subjectRequest());
+  }, [dispatch]);
 
   let topicData = '';
   const topic =
@@ -48,13 +55,13 @@ export const PanelLayout = ({ children }) => {
     dispatch(getTopicId(topic?.id));
     setSelectedTopic(topic?.name);
   };
+
+  // handle subejct Dropdown
   const handleSubjectSelect = (subject) => {
-    const selectedValue = dashboardSubject?.filter(
-      (item) => item?.name === subject
-    );
-    setSelectedSubject(selectedValue);
     setSubject(subject);
   };
+
+  // user api
   useEffect(() => {
     dispatch(userRequest());
   }, [dispatch]);
@@ -88,6 +95,8 @@ export const PanelLayout = ({ children }) => {
       setShow(false);
     }
   }, [modalShowStatus]);
+
+  // console.log('sujectTopics => ', sujectTopics);
 
   return (
     <>
@@ -123,8 +132,8 @@ export const PanelLayout = ({ children }) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      {topicData &&
-                        topicData?.map((item) => {
+                      {sujectTopics &&
+                        sujectTopics?.data?.topics?.map((item) => {
                           return (
                             <Dropdown.Item
                               onClick={() => handleTopicSelect(item)}
@@ -144,15 +153,18 @@ export const PanelLayout = ({ children }) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      {dashboardSubject?.map((item) => {
-                        return (
-                          <Dropdown.Item
-                            onClick={() => handleSubjectSelect(item?.name)}
-                          >
-                            {item?.name}
-                          </Dropdown.Item>
-                        );
-                      })}
+                      {subjects &&
+                        Object?.keys(subjects)?.map((item, index) => {
+                          return (
+                            <Dropdown.Item
+                              onClick={() =>
+                                handleSubjectSelect(subjects[item]?.name)
+                              }
+                            >
+                              {subjects[item]?.name}
+                            </Dropdown.Item>
+                          );
+                        })}
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>

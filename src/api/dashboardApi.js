@@ -42,7 +42,7 @@ export const postSubjectsPrefrenceApi = async (data) => {
 export const dashboardPendingQuizApi = async (id) => {
   const token = localStorage.getItem('token');
   try {
-    return await Axios.get(`${urls?.dashboard?.continueQuiz}/${id}`, {
+    return await Axios.get(`subjects/${id}/get-dashboard-data`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',

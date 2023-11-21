@@ -159,13 +159,13 @@ function QuizQuestion() {
               <div className='answers'>
                 <Form>
                   {/* Answer explaination */}
-                  {quizSubmitData?.statusCode === 200 ||
-                    (quizSubmitData?.statusCode === 201 && (
-                      <div className='hint-message'>
-                        <p className='title'>Method:</p>
-                        <p>{quizData?.explaination}</p>
-                      </div>
-                    ))}
+                  {(quizSubmitData?.statusCode === 200 ||
+                    quizSubmitData?.statusCode === 201) && (
+                    <div className='hint-message'>
+                      <p className='title'>Method:</p>
+                      <p>{quizData?.explaination}</p>
+                    </div>
+                  )}
                 </Form>
               </div>
             </div>

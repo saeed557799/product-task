@@ -13,7 +13,7 @@ export default function Chart({ percentage }) {
     topicID: dashboard?.topicID,
     dashboardGraphData: dashboard?.dashboardGraphData,
   }));
-  console.log('dashboardGraphData', dashboardGraphData);
+  // console.log('dashboardGraphData', dashboardGraphData);
 
   useEffect(() => {
     dispatch(dashboardGraphRequest(topicID));
