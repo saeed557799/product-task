@@ -1,9 +1,31 @@
 @import '../mixin.scss';
 
-.go-back-btn {
-  background-color: transparent;
-  border-radius: 5px;
-  color: #fff;
-  padding: 5px 10px 5px 10px;
-  border: 2px solid white;
+.error-page {
+  // min-height: 100%;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // flex-direction: column;
+  position: absolute;
+  margin: auto;
+  top: 30%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  // width: 100px;
+  // height: 100%;
+  .error-num {
+    font-size: 80px;
+    font-weight: 700;
+    // display: flex;
+    margin-bottom: 25px;
+  }
+  .go-back-btn {
+    background-color: #5e196c;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 30px 10px 30px;
+    border: none;
+    font-size: 20px;
+  }
 }
