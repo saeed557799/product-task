@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +26,10 @@ function QuizModal(props) {
   const [entries, setEntries] = useState([initialValues]);
 
   const handleAddMore = () => {
-    setEntries([...entries, initialValues]);
+    const availableSubjects = filteredSubjectsForStep(entries.length);
+    if (entries.length < 3 && availableSubjects.length > 0) {
+      setEntries([...entries, initialValues]);
+    }
     dispatch(getSubjectPrefRequest());
   };
 
@@ -45,30 +48,11 @@ function QuizModal(props) {
     setEntries(newEntries);
   };
 
-  // handle submit single
-  const handleEntrySubmit = (index) => {
-    const entryData = entries[index];
-    const prefrenceData = {
-      name: entryData.subject,
-      qualification: entryData.qualification,
-      boardLevel: entryData.board,
-    };
-    dispatch(postSubjectPrefRequest(prefrenceData));
-    const newEntries = [...entries];
-    newEntries[index] = initialValues;
-    setEntries(newEntries);
-  };
-
   // handle submit all
   const handleSubmitAll = (index) => {
-    // console.log('enteries for all =>', index);
-    // const entryData = entries[index];
     const prefrenceData = index;
     dispatch(postSubjectPrefRequest(prefrenceData));
     handleClose();
-    const newEntries = [...entries];
-    newEntries[index] = initialValues;
-    setEntries(newEntries);
   };
 
   // remove repetition subjects
@@ -77,14 +61,18 @@ function QuizModal(props) {
     getSubjectsPrefData?.preference?.map((item) => {
       return item?.subject?.name;
     });
-  const filteredSubjects = allSubjectNames?.filter(
-    (subject) => !excludedSubjects?.includes(subject)
-  );
 
   const showOpacity = entries?.map((item) => {
     return !item?.name || !item?.qualification || !item?.boardLevel;
   });
-  // console.log('pref data =>', entries);
+
+  const filteredSubjectsForStep = (step) => {
+    return allSubjectNames?.filter(
+      (subject) =>
+        !excludedSubjects?.includes(subject) &&
+        !entries.slice(0, step).some((entry) => entry.name === subject)
+    );
+  };
 
   return (
     <>
@@ -127,14 +115,11 @@ function QuizModal(props) {
                 }
               >
                 <option>please select subject</option>
-                {filteredSubjects &&
-                  filteredSubjects?.map((item) => {
-                    return (
-                      <>
-                        <option value={item}>{item}</option>
-                      </>
-                    );
-                  })}
+                {filteredSubjectsForStep(index).map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
               </Form.Select>
               <Form.Label>Exam Board</Form.Label>
               <Form.Select
@@ -149,12 +134,6 @@ function QuizModal(props) {
                 <option value='Edexcel'>Edexcel</option>
                 <option value='OCR'>OCR</option>
               </Form.Select>
-              {/* <button
-                className='submitPrefrenceDone'
-                onClick={() => handleEntrySubmit(index)}
-              >
-                Submit
-              </button> */}
 
               <hr className='line' />
               {index === entries.length - 1 && entries.length > 1 && (
@@ -170,13 +149,6 @@ function QuizModal(props) {
               )}
             </div>
           ))}
-
-          {/* <button
-            className='submitPrefrenceDone'
-            onClick={() => handleSubmitAll(entries)}
-          >
-            Submit
-          </button> */}
 
           {showOpacity && showOpacity[0] ? (
             <button
