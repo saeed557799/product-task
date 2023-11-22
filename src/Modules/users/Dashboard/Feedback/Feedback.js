@@ -12,7 +12,7 @@ const Feedback = () => {
         <div className='heading'>
           <h3>Feedback</h3>
         </div>
-        {dashboardPendingQuizData ? (
+        {dashboardPendingQuizData?.weekTopics?.length > 1 ? (
           dashboardPendingQuizData?.weekTopics?.slice(0, 3).map((item) => {
             return (
               <div className='card'>
@@ -41,14 +41,9 @@ const Feedback = () => {
               <div className='flex-shrink-0'>
                 <img src='/images/analysis.svg' alt='analysis' />
               </div>
-              <div className='flex-grow-1 ms-3'>
-                {/* <h4 className='m-0'>Analysis</h4>
-            <p className='m-0'>-9621</p> */}
+              <div className='flex-grow-1 ms-3 feedback-text'>
+                Feedback does not exist
               </div>
-            </div>
-            <div className='workOn'>
-              <p>Work on :</p>
-              <span className='badge'>Nothing found yet</span>
             </div>
           </div>
         )}

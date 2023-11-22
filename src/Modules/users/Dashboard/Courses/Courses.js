@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
-import data from './CourseData.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { dashboardPendingQuizRequest } from '../../../../redux/reducers/duck/dashboardDuck';
-// import { continueQuizes } from '../../../../utils/helper';
 import { useNavigate } from 'react-router-dom';
 import { nextQuestionRequest } from '../../../../redux/reducers/duck/quizDuck';
 
 export default function Courses() {
-  // const courseDat = data.courseDat;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,8 +26,6 @@ export default function Courses() {
     dispatch(nextQuestionRequest(quizzId));
     navigate('/quiz/question');
   };
-
-  // console.log('dashboraad pending =>', dashboardPendingQuizData);
 
   return (
     <>
