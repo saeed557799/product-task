@@ -40,7 +40,6 @@ function QuizQuestion() {
 
   const handleCheckClick = () => {
     if (!answer) {
-      //toaster
       error('Please select an answer');
       return;
     }
@@ -146,13 +145,11 @@ function QuizQuestion() {
                   // Next button
                   <div className='done' onClick={handleNextClick}>
                     {isLaoding ? <Link>loading...</Link> : <Link>Next</Link>}
-                    {/* {<Link>Next</Link>} */}
                   </div>
                 ) : (
                   // Check button
                   <div className='done' onClick={handleCheckClick}>
                     {isLaoding ? <Link>loading...</Link> : <Link>Check</Link>}
-                    {/* {<Link>Check</Link>} */}
                   </div>
                 )}
               </div>
