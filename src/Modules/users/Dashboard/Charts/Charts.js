@@ -59,9 +59,11 @@ const Chart = () => {
 
   const chartData =
     dashboardGraphData &&
-    dashboardGraphData?.map((item) => {
+    dashboardGraphData?.graphData?.map((item) => {
       return item?.points;
     });
+
+  // console.log('graph data =>', dashboardGraphData);
 
   const chartOptions = {
     chart: {
