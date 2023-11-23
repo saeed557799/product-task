@@ -134,27 +134,6 @@ export const PanelLayout = ({ children }) => {
                   <Dropdown>
                     <Dropdown.Toggle id='dropdown-basic'>
                       <div className='date'>
-                        <p>{selectedTopic || 'Topics'}</p>
-                      </div>
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      {dashboardSubjectTopicsData &&
-                        dashboardSubjectTopicsData?.topics?.map((item) => {
-                          return (
-                            <Dropdown.Item
-                              onClick={() => handleTopicSelect(item)}
-                            >
-                              {item?.name}
-                            </Dropdown.Item>
-                          );
-                        })}
-                    </Dropdown.Menu>
-                  </Dropdown>
-
-                  <Dropdown>
-                    <Dropdown.Toggle id='dropdown-basic'>
-                      <div className='date'>
                         <p>{subject || 'Subjects'}</p>
                       </div>
                     </Dropdown.Toggle>
@@ -169,6 +148,27 @@ export const PanelLayout = ({ children }) => {
                               }
                             >
                               {subjects[item]?.name}
+                            </Dropdown.Item>
+                          );
+                        })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+
+                  <Dropdown>
+                    <Dropdown.Toggle id='dropdown-basic'>
+                      <div className='date'>
+                        <p>{selectedTopic || 'Topics'}</p>
+                      </div>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      {dashboardSubjectTopicsData &&
+                        dashboardSubjectTopicsData?.topics?.map((item) => {
+                          return (
+                            <Dropdown.Item
+                              onClick={() => handleTopicSelect(item)}
+                            >
+                              {item?.name}
                             </Dropdown.Item>
                           );
                         })}
