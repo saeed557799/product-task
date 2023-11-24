@@ -9,6 +9,9 @@ import {
 } from '../../../redux/reducers/duck/quizDuck';
 import { error } from '../../../utils/notifications';
 import { quizResultRequest } from '../../../redux/reducers/duck/resultDuck';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 function QuizQuestion() {
   const dispatch = useDispatch();
@@ -25,6 +28,8 @@ function QuizQuestion() {
       nextQuestionData: quiz?.nextQuestionData,
       isLaoding: quiz?.isLoading,
     }));
+
+  const renderTooltip = (props) => <Tooltip>{props}</Tooltip>;
 
   useEffect(() => {
     dispatch(quizSubmitResponse({ response: null }));
@@ -81,14 +86,16 @@ function QuizQuestion() {
         {quizData && quizData ? (
           <>
             <div className='heading'>
-              <h3>Organic Chemistry: The study of carbon compounds</h3>
+              <h3>
+                {startQuizData?.subject}: {startQuizData?.topicName}
+              </h3>
             </div>
             <div className='card'>
               {/* show question counting  */}
-              {/* <p>
+              <p>
                 {attemptCount?.attemptsCount + 1} of{' '}
                 {attemptCount?.questionCount}
-              </p> */}
+              </p>
               <div className='question'>
                 <p>
                   {/* Question  */}
@@ -96,14 +103,14 @@ function QuizQuestion() {
                 </p>
               </div>
               <div className='hint'>
-                <button
-                  type='button'
-                  data-toggle='tooltip'
-                  data-placement='left'
-                  title={quizData?.hint}
+                <OverlayTrigger
+                  placement='left'
+                  overlay={renderTooltip(quizData?.hint)}
                 >
-                  <img src='/images/hint.svg' alt='hint' /> Hint
-                </button>
+                  <Button>
+                    <img src='/images/hint.svg' alt='hint' /> Hint
+                  </Button>
+                </OverlayTrigger>
               </div>
               <div
                 // className={`answers ${hintClicked ? 'hint-active' : ''}`}
