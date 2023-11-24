@@ -104,7 +104,9 @@ function QuizModal(props) {
                   handleEntryChange(index, 'qualification', e.target.value)
                 }
               >
-                <option>please select qualification</option>
+                <option value='' disabled selected>
+                  please select qualification
+                </option>
                 <option value='GCSE'>GCSE</option>
                 <option value='Alevel'>Alevel</option>
               </Form.Select>
@@ -116,7 +118,9 @@ function QuizModal(props) {
                   handleEntryChange(index, 'name', e.target.value)
                 }
               >
-                <option>please select subject</option>
+                <option value='' disabled selected>
+                  please select subject
+                </option>
                 {filteredSubjectsForStep(index).map((item) => (
                   <option key={item} value={item}>
                     {item}
@@ -131,7 +135,9 @@ function QuizModal(props) {
                   handleEntryChange(index, 'boardLevel', e.target.value)
                 }
               >
-                <option>please select board</option>
+                <option value='' disabled selected>
+                  please select board
+                </option>
                 <option value='AQA'>AQA</option>
                 <option value='Edexcel'>Edexcel</option>
                 <option value='OCR'>OCR</option>

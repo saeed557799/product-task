@@ -161,7 +161,7 @@ export const PanelLayout = ({ children }) => {
                       </div>
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
+                    <Dropdown.Menu className='dropdown-list'>
                       {dashboardSubjectTopicsData &&
                         dashboardSubjectTopicsData?.topics?.map((item) => {
                           return (

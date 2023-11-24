@@ -127,58 +127,40 @@
 
 // export default Chart;
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Charts from 'react-apexcharts';
 import { dataSeries } from './DateSeries';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { dashboardGraphRequest } from '../../../../redux/reducers/duck/dashboardDuck';
+
 export default function Chart({ percentage }) {
   const graphData = [0, 1100, 5500, 7700, 2200, 1000, 4400, 5500, 6600, 5500];
   var ts2 = 1484418600000;
   var dates = [];
-  for (var i = 0; i < graphData?.length - 1; i++) {
+  for (var i = 0; i < dataSeries?.length - 1; i++) {
     ts2 = ts2 + 86400000;
-    var innerArr = [ts2, graphData[i]];
+    var innerArr = [ts2, dataSeries[i]];
     dates.push(innerArr);
   }
 
+  const dispatch = useDispatch();
+  const { topicID, dashboardGraphData } = useSelector(({ dashboard }) => ({
+    topicID: dashboard?.topicID,
+    dashboardGraphData: dashboard?.dashboardGraphData,
+  }));
+
+  useEffect(() => {
+    dispatch(dashboardGraphRequest(topicID));
+  }, [dispatch, topicID]);
+
+  const chartData =
+    dashboardGraphData &&
+    dashboardGraphData?.graphData?.map((item) => {
+      return item?.points;
+    });
+
   console.log('dates =>', dates);
-
-  // const graphData = [
-  //   {
-  //     name: '2014-01-01',
-  //     data: 0,
-  //   },
-  //   {
-  //     name: '2014-01-02',
-
-  //     data: 1100,
-  //   },
-  //   {
-  //     name: '2014-01-05',
-
-  //     data: 2200,
-  //   },
-  //   {
-  //     name: '2014-01-06',
-
-  //     data: 3300,
-  //   },
-  //   {
-  //     name: '2014-01-07',
-
-  //     data: 4400,
-  //   },
-  //   {
-  //     name: '2014-01-08',
-
-  //     data: 5500,
-  //   },
-  // { value: 6600 },
-  // { value: 5500 },
-  // { value: 6600 },
-  // { value: 7700 },
-  // { value: 6600 },
-  // ];
 
   const state = {
     series: [
