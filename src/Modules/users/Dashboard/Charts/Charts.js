@@ -67,11 +67,17 @@ export default function Chart({ percentage }) {
     dispatch(dashboardGraphRequest(topicID));
   }, [dispatch, topicID]);
 
+  // const chartData =
+  //   dashboardGraphData &&
+  //   dashboardGraphData?.graphData?.map((item) => {
+  //     return item?.points;
+  //   });
+
   const chartData =
     dashboardGraphData &&
-    dashboardGraphData?.graphData?.map((item) => {
-      return item?.points;
-    });
+    dashboardGraphData?.graphData
+      .filter((item) => item?.points > 0)
+      .map((item) => item?.points);
 
   console.log('chartData =>', chartData);
 
