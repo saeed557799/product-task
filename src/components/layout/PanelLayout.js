@@ -105,6 +105,8 @@ export const PanelLayout = ({ children }) => {
     }
   }, [modalShowStatus]);
 
+  console.log('subjects =>', subjects);
+
   return (
     <>
       <div className='panel-wrapper flex flex-wrap column-direction'>
