@@ -44,6 +44,8 @@ export default function ContentPaper() {
     dispatch(subjectRequest());
   }, [dispatch]);
 
+  console.log('starat quizz id =>', topicsData);
+
   return (
     <React.Fragment>
       <div className='contentPaper'>
