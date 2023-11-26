@@ -15,19 +15,20 @@ export default function Courses() {
     })
   );
 
-  const subjectID = subjectsData && subjectsData[0]?.subjectId;
+  // const subjectID = subjectsData && subjectsData[0]?.subjectId;
 
-  useEffect(() => {
-    dispatch(dashboardPendingQuizRequest(subjectID));
-  }, [dispatch, subjectID]);
+  // useEffect(() => {
+  //   dispatch(dashboardPendingQuizRequest(subjectID));
+  // }, [dispatch, subjectID]);
 
+  // handle continue quizz
   const handleContinueQuizz = (item) => {
     const topicId = item?.quiz?.topic?.id;
     dispatch(startQuizRequest(topicId));
     navigate('/quiz/question');
   };
 
-  // console.log('dashboardPendingQuizData =>', dashboardPendingQuizData);
+  console.log('pending quizz =>', dashboardPendingQuizData);
 
   return (
     <>
@@ -36,13 +37,13 @@ export default function Courses() {
           <h3>Continue Studying</h3>
         </div>
         <div className='row'>
-          {dashboardPendingQuizData ? (
+          {dashboardPendingQuizData?.continueQuizzes ? (
             dashboardPendingQuizData?.continueQuizzes?.map((item, index) => {
               return (
                 <div className='col-md-4' key={index}>
                   <div className='card'>
                     <div className='subject'>
-                      <p>{subjectsData && subjectsData[0]?.subject?.name}</p>
+                      <p>Subjects</p>
                       <div
                         className=''
                         onClick={() => handleContinueQuizz(item)}
@@ -71,7 +72,7 @@ export default function Courses() {
             })
           ) : (
             <div className='col-md-4'>
-              <div className='card'>Currently not exist</div>
+              <div className='card'>No pending quizz exist</div>
             </div>
           )}
         </div>

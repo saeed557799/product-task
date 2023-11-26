@@ -75,7 +75,6 @@ export function* reportQuestionaga({ payload }) {
     } else {
       error(response?.data?.message);
     }
-    console.log('saga response =>', response);
   } catch (error) {
   } finally {
   }
