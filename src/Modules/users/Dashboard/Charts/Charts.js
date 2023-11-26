@@ -79,7 +79,7 @@ export default function Chart({ percentage }) {
       .filter((item) => item?.points > 0)
       .map((item) => item?.points);
 
-  console.log('chartData =>', chartData);
+  // console.log('chartData =>', chartData);
 
   const state = {
     series: [

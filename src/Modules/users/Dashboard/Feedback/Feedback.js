@@ -38,9 +38,9 @@ const Feedback = () => {
         ) : (
           <div className='card'>
             <div className='d-flex align-items-center'>
-              <div className='flex-shrink-0'>
+              {/* <div className='flex-shrink-0'>
                 <img src='/images/analysis.svg' alt='analysis' />
-              </div>
+              </div> */}
               <div className='flex-grow-1 ms-3 feedback-text'>
                 Feedback does not exist
               </div>

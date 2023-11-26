@@ -6,6 +6,7 @@ import Bar from '../../assets/images/bar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRequest } from '../../redux/reducers/duck/userDuck';
 import {
+  dashboardPendingQuizRequest,
   dashboardSubjectTopicsRequest,
   getSubjectPrefRequest,
   getTopicId,
@@ -39,13 +40,21 @@ export const PanelLayout = ({ children }) => {
     dashboardSubjectTopicsData: dashboard?.dashboardSubjectTopicsData,
   }));
 
+  // const subjectID = subjectsData && subjectsData[0]?.subjectId;
+
+  // useEffect(() => {
+  //   dispatch(dashboardPendingQuizRequest(subjectID));
+  // }, [dispatch, subjectID]);
+
   let subjects = subjectsData?.map((item) => {
     return item?.subject;
   });
 
   // get subjects api
   useEffect(() => {
+    dispatch(userRequest());
     dispatch(subjectRequest());
+    dispatch(getSubjectPrefRequest());
   }, [dispatch]);
 
   // let topicData = '';
@@ -63,15 +72,13 @@ export const PanelLayout = ({ children }) => {
   };
 
   // handle subejct Dropdown
-  const handleSubjectSelect = (subject) => {
-    setSubject(subject);
-    dispatch(dashboardSubjectTopicsRequest(subject));
+  const handleSubjectSelect = (item) => {
+    setSubject(item?.name);
+    const subjectID = item?.id;
+    console.log('handle subject =>', item);
+    dispatch(dashboardSubjectTopicsRequest(subjectID));
+    dispatch(dashboardPendingQuizRequest(subjectID));
   };
-
-  useEffect(() => {
-    dispatch(userRequest());
-    dispatch(getSubjectPrefRequest());
-  }, [dispatch]);
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -136,14 +143,12 @@ export const PanelLayout = ({ children }) => {
 
                     <Dropdown.Menu>
                       {subjects &&
-                        Object?.keys(subjects)?.map((item, index) => {
+                        subjects?.map((item) => {
                           return (
                             <Dropdown.Item
-                              onClick={() =>
-                                handleSubjectSelect(subjects[item]?.name)
-                              }
+                              onClick={() => handleSubjectSelect(item)}
                             >
-                              {subjects[item]?.name}
+                              {item?.name}
                             </Dropdown.Item>
                           );
                         })}
