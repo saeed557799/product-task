@@ -5,6 +5,7 @@ export const INITIAL_STATE = {
   quizSubmitData: null,
   nextQuestionData: null,
   finishQuizData: null,
+  reportQuestionData: null,
   isLoading: false,
 };
 
@@ -17,6 +18,7 @@ export const contentSlice = createSlice({
     quizSubmitRequest: (state) => state,
     nextQuestionRequest: (state) => state,
     finishQuizRequest: (state) => state,
+    reportQuestionRequest: (state) => state,
 
     // response reducers
     startQuizResponse(state, { payload }) {
@@ -46,6 +48,13 @@ export const contentSlice = createSlice({
       };
     },
 
+    reportQuestionResponse(state, { payload }) {
+      return {
+        ...state,
+        reportQuestionData: payload.response,
+      };
+    },
+
     // other reducers
     quizLoading(state, { payload }) {
       return {
@@ -66,6 +75,8 @@ export const {
   finishQuizRequest,
   finishQuizResponse,
   quizLoading,
+  reportQuestionResponse,
+  reportQuestionRequest,
 } = contentSlice.actions;
 
 export default contentSlice.reducer;

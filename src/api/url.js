@@ -13,6 +13,7 @@ const urls = {
     submitQuiz: 'question/submit',
     nextQuestion: 'question/nextQuestion',
     finishQuiz: 'url',
+    reportQuestion: 'report-question',
   },
   dashboard: {
     getSubjectPrefrence: 'subject-pref/dashboard',

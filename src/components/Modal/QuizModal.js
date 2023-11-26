@@ -64,10 +64,6 @@ function QuizModal(props) {
       return item?.subject?.name;
     });
 
-  const showOpacity = entries?.map((item) => {
-    return !item?.name || !item?.qualification || !item?.boardLevel;
-  });
-
   const filteredSubjectsForStep = (step) => {
     return allSubjectNames?.filter(
       (subject) =>
@@ -75,6 +71,10 @@ function QuizModal(props) {
         !entries.slice(0, step).some((entry) => entry.name === subject)
     );
   };
+
+  const showOpacity = entries?.map((item) => {
+    return !item?.name || !item?.qualification || !item?.boardLevel;
+  });
 
   return (
     <>
