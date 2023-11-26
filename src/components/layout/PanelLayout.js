@@ -11,21 +11,21 @@ import {
   getTopicId,
 } from '../../redux/reducers/duck/dashboardDuck';
 import QuizModal from '../Modal/QuizModal';
-import { dashboardSubject } from '../../utils/helper';
+// import { dashboardSubject } from '../../utils/helper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { subjectRequest } from '../../redux/reducers/duck/contentDuck';
-import { sujectTopics } from '../../utils/helper/index';
+// import { sujectTopics } from '../../utils/helper/index';
 
 export const PanelLayout = ({ children }) => {
   const dispatch = useDispatch();
 
   const [openSidebar, setOpenSidebar] = useState(true);
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [selectedTopic, setSelectedTopic] = useState('');
   const [subject, setSubject] = useState('');
-  const [selectedSubject, setSelectedSubject] = useState('');
+  // const [selectedSubject, setSelectedSubject] = useState('');
 
   const {
     userData,
@@ -48,18 +48,16 @@ export const PanelLayout = ({ children }) => {
     dispatch(subjectRequest());
   }, [dispatch]);
 
-  let topicData = '';
-  const topic =
-    selectedSubject &&
-    selectedSubject?.map((item) => {
-      return item?.papers?.map((item) => {
-        topicData = item?.topics;
-      });
-    });
-  const handleTopicSelect = (topic) => {
-    console.log('topic', topic?.id);
-    console.log('topic', topic);
+  // let topicData = '';
+  // const topic =
+  //   selectedSubject &&
+  //   selectedSubject?.map((item) => {
+  //     return item?.papers?.map((item) => {
+  //       topicData = item?.topics;
+  //     });
+  //   });
 
+  const handleTopicSelect = (topic) => {
     dispatch(getTopicId(topic?.id));
     setSelectedTopic(topic?.name);
   };
@@ -70,27 +68,24 @@ export const PanelLayout = ({ children }) => {
     dispatch(dashboardSubjectTopicsRequest(subject));
   };
 
-  // user api
   useEffect(() => {
     dispatch(userRequest());
+    dispatch(getSubjectPrefRequest());
   }, [dispatch]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 500);
+  // }, []);
 
   const sideBarMenu = () => {
     setOpenSidebar(!openSidebar);
   };
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
-  useEffect(() => {
-    dispatch(getSubjectPrefRequest());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -105,7 +100,7 @@ export const PanelLayout = ({ children }) => {
     }
   }, [modalShowStatus]);
 
-  console.log('subjects =>', subjects);
+  // console.log('subjects =>', subjects);
 
   return (
     <>
@@ -129,7 +124,6 @@ export const PanelLayout = ({ children }) => {
           <header className='panel-header items-center flex content-justify-between'>
             <div className='left-side'>
               <div className='search_bar'>
-                {/* search bar  */}
                 {/* <img src={Search} alt='Search' />
                 <input type='text' placeholder='Type in to search ..' /> */}
                 <div className='dropdowns'>

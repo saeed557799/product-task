@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dashboardPendingQuizRequest } from '../../../../redux/reducers/duck/dashboardDuck';
 import { useNavigate } from 'react-router-dom';
-import { nextQuestionRequest } from '../../../../redux/reducers/duck/quizDuck';
+import { startQuizRequest } from '../../../../redux/reducers/duck/quizDuck';
 
 export default function Courses() {
   const dispatch = useDispatch();
@@ -22,10 +22,12 @@ export default function Courses() {
   }, [dispatch, subjectID]);
 
   const handleContinueQuizz = (item) => {
-    const quizzId = item?.quizId;
-    dispatch(nextQuestionRequest(quizzId));
+    const topicId = item?.quiz?.topic?.id;
+    dispatch(startQuizRequest(topicId));
     navigate('/quiz/question');
   };
+
+  // console.log('dashboardPendingQuizData =>', dashboardPendingQuizData);
 
   return (
     <>

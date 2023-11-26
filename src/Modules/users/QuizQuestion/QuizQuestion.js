@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   nextQuestionRequest,
   quizSubmitRequest,
   quizSubmitResponse,
+  reportQuestionRequest,
 } from '../../../redux/reducers/duck/quizDuck';
 import { error } from '../../../utils/notifications';
 import { quizResultRequest } from '../../../redux/reducers/duck/resultDuck';
@@ -15,6 +16,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 function QuizQuestion() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [check, setCheck] = useState(false);
   const [answer, setAnswer] = useState(null);
   const [disableOptions, setDisableOptions] = useState(false);
@@ -43,12 +45,12 @@ function QuizQuestion() {
     setAttemptCount(nextQuestionData?.data);
   }, [nextQuestionData, dispatch]);
 
+  // handle check question
   const handleCheckClick = () => {
     if (!answer) {
       error('Please select an answer');
       return;
     }
-
     const requestData = {
       questionId: quizData?.id,
       answerId: answer?.id,
@@ -59,6 +61,7 @@ function QuizQuestion() {
     setDisableOptions(true);
   };
 
+  // handle next question
   const handleNextClick = () => {
     const quiz_id = startQuizData?.question?.quizId;
     dispatch(nextQuestionRequest(quiz_id));
@@ -73,12 +76,31 @@ function QuizQuestion() {
     }
   };
 
+  // handle finish quizz
   const handleResult = () => {
     if (startQuizData) {
       const quiz_id = startQuizData?.question?.quizId;
       dispatch(quizResultRequest(quiz_id));
     }
+    navigate('/quiz/results');
   };
+
+  // handle report question
+  const handleReportQuestion = (data) => {
+    if (data) {
+      const payloadData = data?.id;
+      dispatch(reportQuestionRequest({ questionId: payloadData }));
+    }
+  };
+
+  // handle complete quizz
+  const handleCompletQuiz = (data) => {
+    console.log('complet quizz', data);
+    navigate('/dashboard');
+  };
+
+  console.log('questions =>', attemptCount?.attemptsCount + 1);
+  console.log('attemptCount?.questionCoun =>', attemptCount?.questionCount);
 
   return (
     <React.Fragment>
@@ -113,7 +135,6 @@ function QuizQuestion() {
                 </OverlayTrigger>
               </div>
               <div
-                // className={`answers ${hintClicked ? 'hint-active' : ''}`}
                 className={`${
                   quizSubmitData?.statusCode === 200 ||
                   quizSubmitData?.statusCode === 201
@@ -128,7 +149,7 @@ function QuizQuestion() {
                     {quizData?.answers?.map((item, index) => {
                       return (
                         <Form.Check
-                          label={item?.answer} // answer
+                          label={item?.answer}
                           name='group'
                           type='radio'
                           id={index + 1}
@@ -141,24 +162,54 @@ function QuizQuestion() {
                     })}
                   </div>
                 </Form>
-
-                {/* finish button  */}
+              </div>
+              <div className='quizz-buttons'>
                 {attemptCount?.attemptsCount >= 10 && (
-                  <div className='done' onClick={handleResult}>
+                  <div className='question-handle-btns' onClick={handleResult}>
                     <Link to='/quiz/results'>Finish</Link>
                   </div>
                 )}
-                {check ? (
-                  // Next button
-                  <div className='done' onClick={handleNextClick}>
-                    {isLaoding ? <Link>loading...</Link> : <Link>Next</Link>}
-                  </div>
-                ) : (
-                  // Check button
-                  <div className='done' onClick={handleCheckClick}>
-                    {isLaoding ? <Link>loading...</Link> : <Link>Check</Link>}
-                  </div>
-                )}
+                <div
+                  className='question-handle-btns'
+                  onClick={() => {
+                    handleReportQuestion(quizData);
+                  }}
+                >
+                  <Link>Report</Link>
+                </div>
+                <div>
+                  {check ? (
+                    <div>
+                      {attemptCount?.attemptsCount + 1 ===
+                      attemptCount?.questionCount ? (
+                        <div
+                          className='question-handle-btns'
+                          onClick={() => handleCompletQuiz(quizData)}
+                        >
+                          Complete
+                        </div>
+                      ) : (
+                        <div
+                          className='question-handle-btns'
+                          onClick={handleNextClick}
+                        >
+                          {isLaoding ? (
+                            <Link>loading...</Link>
+                          ) : (
+                            <Link>Next</Link>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div
+                      className='question-handle-btns'
+                      onClick={handleCheckClick}
+                    >
+                      {isLaoding ? <Link>loading...</Link> : <Link>Check</Link>}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className='answers'>
                 <Form>

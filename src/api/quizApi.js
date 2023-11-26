@@ -1,4 +1,3 @@
-import { Questions } from '../utils/helper/question';
 import Axios from './axios';
 import urls from './url';
 
@@ -55,6 +54,22 @@ export const finishQuizApi = async (quiz_id) => {
   const token = localStorage.getItem('token');
   try {
     return await Axios.get(`${urls?.quiz?.finishQuiz}/${quiz_id}`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    return err;
+  }
+};
+
+// report-question api
+export const reportQuestionApi = async (data) => {
+  let token = localStorage.getItem('token');
+  try {
+    return await Axios.post(urls?.quiz?.reportQuestion, data, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',

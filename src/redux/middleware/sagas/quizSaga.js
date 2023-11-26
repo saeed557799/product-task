@@ -5,7 +5,9 @@ import {
   nextQurestionApi,
   quizSubmitApi,
   startQuizApi,
+  reportQuestionApi,
 } from '../../../api/quizApi';
+import { error, success } from '../../../utils/notifications';
 
 // quiz-start saga
 export function* quizStartSaga({ payload }) {
@@ -61,9 +63,28 @@ export function* finishQuizSaga({ payload }) {
   }
 }
 
+// report-question saga
+export function* reportQuestionaga({ payload }) {
+  try {
+    const response = yield call(reportQuestionApi, payload);
+    if (response?.data) {
+      yield put(actions.reportQuestionResponse({ response: response?.data }));
+    }
+    if (response?.status === 201) {
+      success(response?.data?.message);
+    } else {
+      error(response?.data?.message);
+    }
+    console.log('saga response =>', response);
+  } catch (error) {
+  } finally {
+  }
+}
+
 export function* watchQuizSagas() {
   yield takeLatest(actions.startQuizRequest.type, quizStartSaga);
   yield takeLatest(actions.quizSubmitRequest.type, quizSubmitSaga);
   yield takeLatest(actions.nextQuestionRequest.type, nextQuestionSaga);
   yield takeLatest(actions.finishQuizRequest.type, finishQuizSaga);
+  yield takeLatest(actions.reportQuestionRequest.type, reportQuestionaga);
 }
