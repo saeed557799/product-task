@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dashboardPendingQuizRequest } from '../../../../redux/reducers/duck/dashboardDuck';
 import { useNavigate } from 'react-router-dom';
 import { startQuizRequest } from '../../../../redux/reducers/duck/quizDuck';
+// import { courseDat } from './CourseData.json';
 
 export default function Courses() {
   const dispatch = useDispatch();
@@ -28,8 +29,6 @@ export default function Courses() {
     navigate('/quiz/question');
   };
 
-  console.log('pending quizz =>', dashboardPendingQuizData);
-
   return (
     <>
       <div className='courseCards'>
@@ -54,16 +53,13 @@ export default function Courses() {
                     <h4>{item?.quiz?.topic?.name}</h4>
                     {/* <img
                       className='courseImg'
-                      src={item.coursesImg}
+                      src='/images/courseImg1.svg'
                       alt='courseImg'
                     /> */}
                     <div className='footer'>
-                      {/* <div className='circlularBar'>
-                        <img src={item.circularBar} alt='circularBar' />
-                        <p>{item.percentage}</p>
-                      </div> */}
+                      <p className='pending-quizz-percentage'>percentage</p>
                       <div className='subjectImg'>
-                        {/* <img src={item.subjectImg} alt='subjectImg' /> */}
+                        <img src='/images/subjectImg1.png' alt='subjectImg' />
                       </div>
                     </div>
                   </div>
