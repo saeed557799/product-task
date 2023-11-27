@@ -75,9 +75,7 @@ export default function Chart({ percentage }) {
 
   const chartData =
     dashboardGraphData &&
-    dashboardGraphData?.graphData
-      .filter((item) => item?.points > 0)
-      .map((item) => item?.points);
+    dashboardGraphData?.graphData.map((item) => item?.points);
 
   // console.log('chartData =>', chartData);
 
