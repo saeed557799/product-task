@@ -96,13 +96,14 @@ function QuizQuestion() {
   // handle complete quizz
   const handleCompletQuiz = (data) => {
     // console.log('complet quizz', data);
-    const quiz_id = startQuizData?.question?.quizId;
-    dispatch(quizResultRequest(quiz_id));
+    if (startQuizData) {
+      const quiz_id = startQuizData?.question?.quizId;
+      dispatch(quizResultRequest(quiz_id));
+    }
     navigate('/dashboard');
   };
 
-  // console.log('questions =>', attemptCount?.attemptsCount + 1);
-  // console.log('attemptCount?.questionCoun =>', attemptCount?.questionCount);
+  console.log('startQuizData =>', startQuizData);
 
   return (
     <React.Fragment>
